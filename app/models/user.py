@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-# from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -16,8 +16,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    # businesses = relationship('Business', back_populates='users')
-    # reviews = relationship('Review', back_populates='users')
+    products = relationship('Product', back_populates='users')
+    reviews = relationship('Review', back_populates='users')
+    carts = relationship('Cart', back_populates='user')
 
     @property
     def password(self):
