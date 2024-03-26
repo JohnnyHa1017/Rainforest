@@ -85,3 +85,24 @@
 - **Search (Bonus)**:
   - Users can search for specific products and category of product(s).
     - This feature should work regardless if they're logged in or logged out.
+
+### Wireframing
+> Below will be a general styling of the Landing Page (Left)
+> Listed below we have a general overview and styling of the Shopping Cart Page (Right)
+
+###Note:
+- Additional features such as:
+    - `Prime Video`
+    - `Offers`
+    - `Deal of the Day`
+    - `Browsing History`
+    - `Saved for Later`
+- These are __potential__ features that could be added in the future
+    - Placeholder Images and Redirect links will be hosted there momentarily __IF__ implemented from wireframe
+
+[![Screenshot-2024-03-25-at-11-11-05-PM.png](https://i.postimg.cc/t4tnjMcT/Screenshot-2024-03-25-at-11-11-05-PM.png)](https://postimg.cc/hXvt8pcW)
+
+### Example Review Modal
+> Below is an example of the Review Window to be populated
+
+[![Screenshot-2024-03-25-at-11-12-38-PM.png](https://i.postimg.cc/JzWHSLPv/Screenshot-2024-03-25-at-11-12-38-PM.png)](https://postimg.cc/RNX0njrL)
