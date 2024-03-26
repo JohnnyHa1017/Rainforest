@@ -69,7 +69,7 @@
 - While I'm the logged-in user, I want to be able to delete products from my cart with a delete button.
     - Clicking 'Delete' should update the subtotal and remove the item(s) from the cart.
 
-### Feature Overview
+### MVP Feature List
 > Quick and General Rundown of features available to Rainforest
 
 #### Reviews
@@ -78,6 +78,9 @@
 
 #### Cart
   - Logged-in users can create, view, edit, and delete items within their cart.
+
+#### Image Hosting
+  - Image hosting to be fulfilled by Amazon Web Services
 
 ##### Order History (Bonus)
   - Logged-in users can view their order history once a cart has been checked out.
@@ -88,9 +91,9 @@
     - This feature should work regardless if they're logged in or logged out.
 
 ### Wireframing
-> Below will be a general styling of the Landing Page (Left)
+> General overview and styling of the Landing Page (Left)
 
-> Listed below we have a general overview and styling of the Shopping Cart Page (Right)
+> General overview and styling of the Shopping Cart Page (Right)
 
 #### Note:
 - Additional features such as:
