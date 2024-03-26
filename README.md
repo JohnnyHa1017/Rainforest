@@ -88,6 +88,7 @@
 
 ### Wireframing
 > Below will be a general styling of the Landing Page (Left)
+
 > Listed below we have a general overview and styling of the Shopping Cart Page (Right)
 
 ###Note:
