@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 5553edc74c48
+Revision ID: 89a433fd9b7e
 Revises:
-Create Date: 2024-03-26 21:45:19.622471
+Create Date: 2024-03-27 09:24:17.395891
 
 """
 from alembic import op
@@ -11,11 +11,11 @@ import sqlalchemy as sa
 
 import os
 environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA") 
+SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '5553edc74c48'
+revision = '89a433fd9b7e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -69,7 +69,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('orders',
-    sa.Column('order_id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('cart_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('status', sa.Enum('PENDING', 'SHIPPED', 'DELIVERED', name='status'), nullable=False),
@@ -77,7 +77,7 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['cart_id'], ['carts.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('order_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('reviews',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -96,11 +96,11 @@ def upgrade():
     # ### end Alembic commands ###
 if environment == 'production' and SCHEMA:
     op.execute(f"ALTER Table users SET SCHEMA {SCHEMA};")
-    op.execute(f"ALTER Table products SET SCHEMA {SCHEMA};")
-    op.execute(f"ALTER Table reviews SET SCHEMA {SCHEMA};")
     op.execute(f"ALTER Table carts SET SCHEMA {SCHEMA};")
+    op.execute(f"ALTER Table products SET SCHEMA {SCHEMA};")
     op.execute(f"ALTER Table add_to_cart SET SCHEMA {SCHEMA};")
     op.execute(f"ALTER Table orders SET SCHEMA {SCHEMA};")
+    op.execute(f"ALTER Table reviews SET SCHEMA {SCHEMA};")
 
 
 def downgrade():

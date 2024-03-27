@@ -9,7 +9,7 @@ class Order(db.Model):
   if environment == "production":
     __table_args__ = {'schema': SCHEMA}
 
-  order_id = Column(Integer, primary_key=True)
+  id = Column(Integer, primary_key=True)
   cart_id = Column(Integer, ForeignKey(add_prefix_for_prod('carts.id')), nullable=False)
   user_id = Column(Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
   status = Column(db.Enum('PENDING', 'SHIPPED', 'DELIVERED', name='status'), nullable=False)

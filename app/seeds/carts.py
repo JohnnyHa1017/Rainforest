@@ -1,7 +1,7 @@
 from app.models import db, Cart, environment, SCHEMA
 from sqlalchemy.sql import text
 
-def seed_cart():
+def seed_carts():
     cart1 = Cart(user_id=1)
     cart2 = Cart(user_id=2)
     cart3 = Cart(user_id=3)
@@ -15,7 +15,7 @@ def seed_cart():
 
     db.session.add_all([cart1, cart2, cart3, cart4, cart5, cart6, cart7, cart8, cart9, cart10])
     db.session.commit()
-    
+
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
 # have a built in function to do this. With postgres in production TRUNCATE
 # removes all the data from the table, and RESET IDENTITY resets the auto
