@@ -1,0 +1,120 @@
+from flask import Blueprint, request, redirect, jsonify
+from flask_login import login_required, current_user
+from .aws_helpers import upload_file_to_s3, get_unique_filename
+from app.models import db, Cart, Product, Review
+from app.forms import CartForm, ProductForm, ReviewForm
+import json
+
+product_routes = Blueprint('product', __name__)
+
+# Get all Products
+@product_routes.route('/')
+def get_all_products():
+  products = Product.query.all()
+  return jsonify({'products': [product.to_dict() for product in products]}), 200
+
+# Get Specific Product
+@product_routes.route('/<int:id>')
+def get_one_product(id):
+  product = Product.query.get(id)
+  if not product:
+    return jsonify({'error': 'Product was not found'}), 404
+  return product.to_dict(), 200
+
+# Create Product Listing - Not Part of CRUD
+  # TODO: Image Coming Up as Null
+@product_routes.route('/', methods=['POST'])
+@login_required
+def create_listing():
+    form = ProductForm(request.form)
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        image = form.data['image']
+        url = None
+        if image:
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+
+            if "url" not in upload:
+                return jsonify({'error': 'Not a valid image, upload failed'}), 400
+
+            url = upload['url']
+
+        product_listing = Product(
+            user_id=current_user.id,
+            name=form.name.data,
+            price=form.price.data,
+            category=form.category.data,
+            quantity_available=form.quantity_available.data,
+            image=url,
+            body=form.body.data
+        )
+
+        db.session.add(product_listing)
+        db.session.commit()
+
+        return jsonify({'product': product_listing.to_dict()}), 201
+    else:
+        errors = form.errors
+        return jsonify({'errors': errors}), 400
+
+# Updating a Product - Not Part of CRUD
+# Deleting a Product - Not Part of CRUD
+
+## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
+## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
+## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
+
+# Get all Reviews on a Product
+@product_routes.route('/<int:id>/reviews')
+def all_reviews_on_id(id):
+    product = Product.query.get(id)
+
+    if not product:
+        return jsonify({'error': 'Product not found'}), 404
+
+    reviews = Review.query.filter_by(product_id=id).all()
+    reviews_data = [review.to_dict() for review in reviews]
+
+    return jsonify({'reviews': reviews_data}), 200
+
+# Creating a Review for a Product
+# TODO: Image Coming Up as Null
+@product_routes.route('/<int:id>/reviews', methods=['POST'])
+@login_required
+def create_review(id):
+    form = ReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        image = form.data['image_url']
+        url = None
+
+        if image:
+            # print('IMAGE IN REVIEW PRE AWS', image)
+            image.filename = get_unique_filename(image.filename)
+            # print('FILENAME IN REVIEW DURING AWS', image.filename)
+            upload = upload_file_to_s3(image)
+            print('UPLOAD IN REVIEW POST AWS', upload)
+
+            if 'url' not in upload:
+                return jsonify({'error': 'Image upload failed.'}), 500
+            url = upload['url']
+
+        new_review = Review(
+            user_id=current_user.id,
+            product_id=id,
+            rating=form.rating.data,
+            verified_purchase=form.verified_purchase.data,
+            image=url,
+            body=form.body.data
+        )
+
+        db.session.add(new_review)
+        db.session.commit()
+
+        return jsonify({'review': new_review.to_dict()}), 201
+    else:
+        errors = form.errors
+        return jsonify({'errors': errors}), 400

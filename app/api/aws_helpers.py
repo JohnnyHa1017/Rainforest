@@ -21,6 +21,10 @@ def get_unique_filename(filename):
 
 def upload_file_to_s3(file, acl="public-read"):
     try:
+        print('BUCKET NAME IN AWSHELPERS', BUCKET_NAME)
+        print('S3 LOCATION IN AWSHELPERS', S3_LOCATION)
+        print('OS.ENVION', os.environ.get("S3_KEY"))
+
         s3.upload_fileobj(
             file,
             BUCKET_NAME,
@@ -30,21 +34,23 @@ def upload_file_to_s3(file, acl="public-read"):
                 "ContentType": file.content_type
             }
         )
-
     except Exception as e:
+        # in case the your s3 upload fails
         return {"errors": str(e)}
 
     return {"url": f"{S3_LOCATION}{file.filename}"}
 
 
 def remove_file_from_s3(image_url):
+    # AWS needs the image file name, not the URL,
+    # so you split that out of the URL
     key = image_url.rsplit("/", 1)[1]
+    print(key)
     try:
         s3.delete_object(
-            Bucket=BUCKET_NAME,
-            Key=key
+        Bucket=BUCKET_NAME,
+        Key=key
         )
-
     except Exception as e:
         return { "errors": str(e) }
     return True

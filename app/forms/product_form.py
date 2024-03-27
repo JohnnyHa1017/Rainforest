@@ -5,10 +5,9 @@ from ..api.aws_helpers import ALLOWED_EXTENSIONS
 from wtforms.validators import DataRequired, NumberRange, Length, Optional
 
 class ProductForm(FlaskForm):
-    user_id = IntegerField('User ID', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired(), Length(max=100)])
     price = FloatField('Price', validators=[DataRequired(), NumberRange(min=0)])
     category = StringField('Category', validators=[Optional(), Length(max=50)])
     quantity_available = IntegerField('Quantity Available', validators=[DataRequired(), NumberRange(min=0)])
-    image = FileField("Image File", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
+    image_url = FileField("Image File", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
     body = TextAreaField('Description', validators=[Optional(), Length(max=500)])
