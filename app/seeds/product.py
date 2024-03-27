@@ -156,7 +156,7 @@ def seed_products():
         body='Laugh out loud with Captain Underpants, the #1 New York Times bestselling series from Dav Pilkey, the author and illustrator of Dog Man!'
     )
     DRAGONTEE = Product(
-        user_id=8,
+        user_id=9,
         name='Dandelion Dragon Tee (Unisex)',
         price=19.99,
         category='Clothing',
@@ -164,8 +164,26 @@ def seed_products():
         image='https://aaproj-yelp-clone.s3.us-west-1.amazonaws.com/rainforest_dragon.jpeg',
         body='Unleash the mythical charm of dragons with our best collection dragon shirt kids, dragon shirts for adults and dragon t shirts for women.'
     )
+    QUIP = Product(
+        user_id=9,
+        name='Quip Electric Toothbrush and Waterpik',
+        price=199.99,
+        category='Health',
+        quantity_available=555,
+        image='https://aaproj-yelp-clone.s3.us-west-1.amazonaws.com/rainforest_quip.png',
+        body='With auto-refill packages and lifetime warranty backing our products, youre guaranteed a pearly white smile!.'
+    )
+    FLORALDRESS = Product(
+        user_id=10,
+        name='Floral Print Chiffon A-Line Mini Dress for Women',
+        price=44.99,
+        category='Clothing',
+        quantity_available=888,
+        image='https://aaproj-yelp-clone.s3.us-west-1.amazonaws.com/rainforest_womens_dress.jpg',
+        body='[Unique Design]: Embrace casual chic in our black floral long sleeve dress, featuring for chiffon fabric, elastic waist to fit, floral print design bring the sense of mystery and surprise.'
+    )
 
-    db.session.add_all([DDR, GRAPHICSCARD, AQUAPHOR, ARIASNOW, ARTOFWAR, BLUEYETI, DIGESTADV, DIORSADDLE, HYDROFLASK, MACBOOK, RAZERV2, RING, SMARTYPANTS, SPECTREMON, WEIGHTS, WOOTING, CAPTAINUP, DRAGONTEE])
+    db.session.add_all([DDR, GRAPHICSCARD, AQUAPHOR, ARIASNOW, ARTOFWAR, BLUEYETI, DIGESTADV, DIORSADDLE, HYDROFLASK, MACBOOK, RAZERV2, RING, SMARTYPANTS, SPECTREMON, WEIGHTS, WOOTING, CAPTAINUP, DRAGONTEE, QUIP, FLORALDRESS])
     db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
