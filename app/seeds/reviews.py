@@ -9,7 +9,7 @@ def seed_reviews():
         verified_purchase=True,
         image=None,
         body="Wow the DDR5 by Corsair has been phenomenal! I have been using these in my build for the last 5 months and I'm loving the render speed!"
-    ),
+    )
     GC_Review = Review(
         user_id=3,
         product_id=2,
@@ -17,7 +17,7 @@ def seed_reviews():
         verified_purchase=False,
         image=None,
         body="The NVIDIA GeForce RTX 4090 is a beast of a graphic card! I've been playing all the latest games at ultra settings without any lag. Highly recommend it!"
-    ),
+    )
     AQ_Review = Review(
         user_id=4,
         product_id=3,
@@ -25,7 +25,7 @@ def seed_reviews():
         verified_purchase=True,
         image=None,
         body="I've been using the Aquaphor Healing Ointment for a while now, and it's been great for my dry skin. Would have given it a higherrating= it wasn't for the greasy feeling."
-    ),
+    )
     AS_Review = Review(
         user_id=1,
         product_id=4,
@@ -33,7 +33,7 @@ def seed_reviews():
         verified_purchase=False,
         image=None,
         body="The Moondrop Aria Snow Edition Earbuds are simply amazing! The sound quality is crystal clear, and they fit perfectly in my ears. Definitely worth the investment!"
-    ),
+    )
     AOW_Review = Review(
         user_id=6,
         product_id=5,
@@ -41,7 +41,7 @@ def seed_reviews():
         verified_purchase=True,
         image=None,
         body="The Art of War is a timeless classic! Sun Tzu's teachings are still relevant today. This deluxe hardbound edition is beautifully presented."
-    ),
+    )
     BY_Review = Review(
         user_id=2,
         product_id=6,
@@ -49,7 +49,7 @@ def seed_reviews():
         verified_purchase=False,
         image=None,
         body="The Logitech for Creators Blue Yeti X USB Microphone has been a game-changer for my recordings! The audio quality is superb, and the advanced features are a plus."
-    ),
+    )
     DA_Review = Review(
         user_id=9,
         product_id=7,
@@ -57,7 +57,7 @@ def seed_reviews():
         verified_purchase=True,
         image=None,
         body="The Digestive Advantage Prebiotic Fiber Gummies taste good, but I haven't noticed any significant improvement in my digestion after using them for a month."
-    ),
+    )
     CD_Review = Review(
         user_id=3,
         product_id=8,
@@ -65,7 +65,7 @@ def seed_reviews():
         verified_purchase=False,
         image=None,
         body="The Christian Dior Saddlebag is absolutely stunning! The craftsmanship is top-notch, and it's so versatile to wear. Definitely a statement piece!"
-    ),
+    )
     HF_Review = Review(
         user_id=9,
         product_id=9,
@@ -73,7 +73,7 @@ def seed_reviews():
         verified_purchase=True,
         image=None,
         body="The Hydroflask Waterbottle is leaking after just a few uses. I'm disappointed with the quality, especially considering the price."
-    ),
+    )
     MB_Review = Review(
         user_id=10,
         product_id=10,
@@ -81,7 +81,7 @@ def seed_reviews():
         verified_purchase=True,
         image=None,
         body="The Macbook 2023 Pro 14-inch with M3 Max Chip is a beast! It handles all my tasks with ease, and the display is stunning. Couldn't be happier with my purchase!"
-    ),
+    )
     RV_Review = Review(
         user_id=1,
         product_id=11,
@@ -89,7 +89,7 @@ def seed_reviews():
         verified_purchase=False,
         image=None,
         body="The Razer Viper V2 Ultimate Gaming Mouse is comfortable to use for long gaming sessions, and the responsiveness is great. The RGB lighting is a nice touch!"
-    ),
+    )
     RDB_Review = Review(
         user_id=2,
         product_id=12,
@@ -97,7 +97,7 @@ def seed_reviews():
         verified_purchase=True,
         image=None,
         body="The Ring V3 Doorbell Camera provides peace of mind knowing I can monitor my doorstep from anywhere. The video quality is excellent, and the setup was easy."
-    ),
+    )
     SP_Review = Review(
         user_id=3,
         product_id=13,
@@ -105,7 +105,7 @@ def seed_reviews():
         verified_purchase=True,
         image=None,
         body="The SmartyPants Multivitamins for Men taste good, but I'm not sure if they're making a difference in my overall health. I'll continue to take them and see."
-    ),
+    )
     SM_Review = Review(
         user_id=4,
         product_id=14,
@@ -113,7 +113,7 @@ def seed_reviews():
         verified_purchase=False,
         image=None,
         body="The Spectre 24-inch Gaming Monitor has excellent color reproduction, but I noticed some backlight bleeding in dark scenes. Overall, a decent monitor for the price."
-    ),
+    )
     WS_Review = Review(
         user_id=5,
         product_id=15,
@@ -121,7 +121,7 @@ def seed_reviews():
         verified_purchase=True,
         image=None,
         body="The Dumbbell Weight Set arrived damaged, and the weights are not properly balanced. Disappointed with the quality control."
-    ),
+    )
     WT_Review = Review(
         user_id=6,
         product_id=16,
@@ -129,7 +129,7 @@ def seed_reviews():
         verified_purchase=False,
         image=None,
         body="The Wooting 80HE - Founders Edition keyboard is a dream to type on! The tactile switches provide a satisfying typing experience, and the build quality is superb."
-    ),
+    )
     CUP_Review = Review(
         user_id=7,
         product_id=17,
@@ -137,7 +137,7 @@ def seed_reviews():
         verified_purchase=True,
         image=None,
         body="The Captain Underpants Complete Box Set brings back nostalgic memories! It's a fun read for kids and adults alike. Highly recommend for a good laugh!"
-    ),
+    )
     DT_Review = Review(
         user_id=8,
         product_id=18,
@@ -145,7 +145,7 @@ def seed_reviews():
         verified_purchase=False,
         image=None,
         body="The Dandelion Dragon Tee is cute, but the fabric feels a bit rough against the skin. Would have preferred a softer material."
-    ),
+    )
     QT_Review = Review(
         user_id=9,
         product_id=19,
@@ -153,7 +153,7 @@ def seed_reviews():
         verified_purchase=True,
         image=None,
         body="The Quip Electric Toothbrush and Waterpik combo is a game-changer for my dental hygiene routine! My teeth feel cleaner, and the waterpik is gentle yet effective."
-    ),
+    )
     WD_Review = Review(
         user_id=10,
         product_id=20,
