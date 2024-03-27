@@ -15,7 +15,8 @@ class Cart(db.Model):
   createdAt = Column(db.DateTime, default=datetime.utcnow)
   updatedAt = Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-  user = relationship('User', back_populates='carts')
+  users = relationship('User', back_populates='carts')
+  orders = relationship('Order', back_populates='carts', cascade='all, delete-orphan')
   add_to_cart = relationship('AddToCart', back_populates='carts', cascade='all, delete-orphan')
 
   def to_dict(self):

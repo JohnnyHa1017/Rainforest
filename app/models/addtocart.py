@@ -16,8 +16,8 @@ class AddToCart(db.Model):
   createdAt = Column(db.DateTime, default=datetime.utcnow)
   updatedAt = Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-  cart = relationship('Cart', back_populates='add_to_cart')
-  product = relationship('Product', back_populates='add_to_cart')
+  carts = relationship('Cart', back_populates='add_to_cart')
+  products = relationship('Product', back_populates='add_to_cart')
 
   def to_dict(self):
       return {

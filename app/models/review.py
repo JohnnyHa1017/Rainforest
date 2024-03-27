@@ -19,8 +19,8 @@ class Review(db.Model):
   created_at = Column(db.DateTime, default=datetime.utcnow)
   updated_at = Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-  user = relationship('User', back_populates='reviews')
-  product = relationship('Product', back_populates='reviews', cascade='all, delete-orphan')
+  users = relationship('User', back_populates='reviews')
+  products = relationship('Product', back_populates='reviews')
 
   def to_dict(self):
       return {

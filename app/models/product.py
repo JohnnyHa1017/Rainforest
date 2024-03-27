@@ -20,8 +20,9 @@ class Product(db.Model):
   created_at = Column(db.DateTime, default=datetime.utcnow)
   updated_at = Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-  user = relationship('User', back_populates='products')
-  reviews = relationship('Review', back_populates='product', cascade='all, delete-orphan')
+  users = relationship('User', back_populates='products')
+  add_to_cart = relationship('AddToCart', back_populates='products')
+  reviews = relationship('Review', back_populates='products', cascade='all, delete-orphan')
 
   def to_dict(self):
       return {

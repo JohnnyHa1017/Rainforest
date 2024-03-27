@@ -1,8 +1,8 @@
 from .db import db
 from .user import User
-from .addtocart import AddToCart
-from .cart import Cart
-from .order import Order, OrderStatus
 from .product import Product
 from .review import Review
+from .cart import Cart
+from .addtocart import AddToCart
+from .order import Order
 from .db import environment, SCHEMA
