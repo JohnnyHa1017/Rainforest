@@ -16,6 +16,7 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
   const [imageLoading, setImageLoading] = useState(false);
   const [validations, setValidations] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [hover, setHover] = useState(null);
 
   useEffect(() => {
     if(!user) nav('/')
@@ -27,6 +28,7 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
     formData.append("image", image);
     setImageLoading(true);
     setSubmitted(true)
+    setVerified(true)
 
     if (body.length <= 10 || rating < 1) {
       setValidations({ ...validations })
@@ -40,17 +42,82 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
     if (!reviewId) {
       try {
           await dispatch(createNewReviewThunk(productId, reviewObject))
-          nav(`/products/${productId}`)
+        nav(`/products/${productId}`)
+
         } catch (e) {
           setValidations({ ...validations, message: 'Review posting has failed.' })
-        }
+      }
+
       } else {
-          const updatedReview = await dispatch(updateReviewThunk(reviewObject, reviewId))
+          await dispatch(updateReviewThunk(reviewObject, reviewId))
           nav(`/products/${productId}`)
     }
   }
 
-
+return (
+  <>
+    <form
+      onSubmit={handleSubmit}
+      encType='multipart/form-data'
+      className='create-update-review-form'
+    >
+      {submitted && validations && validations.message &&
+        <p>
+          {validations.message}
+        </p>
+      }
+      <div className='star-rating-field'>
+        {[1, 2, 3, 4, 5].map((star, i) => {
+          const starRating = i + 1;
+          return (
+            <label key={i}>
+              <span
+                className='star-rating'
+                onClick={() => setRating(starRating)}
+                onMouseEnter={() => setHover(starRating)}
+                onMouseLeave={() => setHover(starRating)}
+              >
+                {starRating <= (hover || star) ? '★' : '☆'}
+              </span>
+            </label>
+          );
+        })}
+      </div>
+      <textarea
+        className='body-textarea'
+        type='text'
+        name='body'
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+        placeholder='Leave a review message here...'
+        rows={7}
+        cols={70}
+      />
+      {(submitted && body.length <= 10) && (
+        <p style={{ color: 'red' }}>Your review must be greater than 10 characters.</p>
+      )}
+      {(submitted && rating < 1) && (
+        <p style={{ color: 'red' }}>Please select a star rating along with your review.</p>
+      )}
+      <div className='image-file-field'>
+        <label htmlFor='image'>
+          <input
+            type='file'
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+            placeholder='Post an image with your review!'
+          />
+        </label>
+        {submitted && validations.image &&
+          <p style={{ color: 'red' }}>{validations.image}</p>}
+      </div>
+      <div className='Review-Btn-container'>
+        <button type='submit' className='Review-Submit-btn'>{buttonName}</button>
+        {imageLoading && <p>Loading...</p>}
+      </div>
+    </form>
+  </>
+  )
 }
 
 export default CreateNewReview;

@@ -5,7 +5,7 @@ import { loadAllReviewsThunk } from '../../redux/reviews'
 const AllReviews = () => {
   const dispatch = useDispatch()
   const reviews = useSelector((state) => state.Review)
-  console.log('reviews ==>', reviews)
+  console.log('What is : in AllReviews.jsx CLG FOR reviews @@@==>', reviews)
 
   useEffect(() => {
       dispatch(loadAllReviewsThunk())
