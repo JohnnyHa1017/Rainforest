@@ -21,10 +21,6 @@ def get_unique_filename(filename):
 
 def upload_file_to_s3(file, acl="public-read"):
     try:
-        print('BUCKET NAME IN AWSHELPERS', BUCKET_NAME)
-        print('S3 LOCATION IN AWSHELPERS', S3_LOCATION)
-        print('OS.ENVION', os.environ.get("S3_KEY"))
-
         s3.upload_fileobj(
             file,
             BUCKET_NAME,

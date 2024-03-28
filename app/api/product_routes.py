@@ -1,28 +1,32 @@
-from flask import Blueprint, request, redirect, jsonify
+from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from .aws_helpers import upload_file_to_s3, get_unique_filename
 from app.models import db, Cart, Product, Review
 from app.forms import CartForm, ProductForm, ReviewForm
-import json
 
 product_routes = Blueprint('product', __name__)
+
 
 # Get all Products
 @product_routes.route('/')
 def get_all_products():
-  products = Product.query.all()
-  return jsonify({'products': [product.to_dict() for product in products]}), 200
+    products = Product.query.all()
+
+    return jsonify({'products': [product.to_dict() for product in products]}), 200
+
 
 # Get Specific Product
 @product_routes.route('/<int:id>')
 def get_one_product(id):
-  product = Product.query.get(id)
-  if not product:
-    return jsonify({'error': 'Product was not found'}), 404
-  return product.to_dict(), 200
+    product = Product.query.get(id)
 
-# Create Product Listing - Not Part of CRUD
-  # TODO: Image Coming Up as Null
+    if not product:
+        return jsonify({'error': 'Product was not found'}), 404
+
+    return product.to_dict(), 200
+
+
+# Create Product Listing
 @product_routes.route('/', methods=['POST'])
 @login_required
 def create_listing():
@@ -79,8 +83,8 @@ def all_reviews_on_id(id):
 
     return jsonify({'reviews': reviews_data}), 200
 
+
 # Creating a Review for a Product
-# TODO: Image Coming Up as Null
 @product_routes.route('/<int:id>/reviews', methods=['POST'])
 @login_required
 def create_review(id):
@@ -92,11 +96,8 @@ def create_review(id):
         url = None
 
         if image:
-            # print('IMAGE IN REVIEW PRE AWS', image)
             image.filename = get_unique_filename(image.filename)
-            # print('FILENAME IN REVIEW DURING AWS', image.filename)
             upload = upload_file_to_s3(image)
-            print('UPLOAD IN REVIEW POST AWS', upload)
 
             if 'url' not in upload:
                 return jsonify({'error': 'Image upload failed.'}), 500
@@ -118,3 +119,36 @@ def create_review(id):
     else:
         errors = form.errors
         return jsonify({'errors': errors}), 400
+
+## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
+## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
+## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
+
+
+# Get Cart for Current User or Create a New Cart
+    # !: Needs to Test Still
+@product_routes.route('/', methods=['GET', 'POST'])
+@login_required
+def get_cart_for_user():
+    form = CartForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    cart = Cart.query.filter_by(user_id=current_user.id).first()
+
+    if request.method == 'GET':
+        if not cart:
+            return jsonify({'message': 'Cart not found for the current user.'}), 404
+        else:
+            return jsonify({'cart': cart.to_dict()}), 200
+
+    elif request.method == 'POST':
+        if not cart:
+            new_cart = Cart(user_id=current_user.id)
+            db.session.add(new_cart)
+            db.session.commit()
+            return jsonify({'message': 'New cart created for the current user.'}), 201
+        else:
+            # TODO: Add logic for updating the cart
+            # TODO: Update the existing cart or add items to it
+            return jsonify({'message': 'Cart updated for the current user.'}), 200
+
+
