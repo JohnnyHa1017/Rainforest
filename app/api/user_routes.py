@@ -4,9 +4,8 @@ from app.models import User
 
 user_routes = Blueprint('users', __name__)
 
-
 @user_routes.route('/')
-@login_required
+# @login_required
 def users():
     """
     Query for all users and returns them in a list of user dictionaries
@@ -23,3 +22,4 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+

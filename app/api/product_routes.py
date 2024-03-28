@@ -27,7 +27,7 @@ def get_one_product(id):
 
 
 # Create Product Listing
-@product_routes.route('/', methods=['POST'])
+@product_routes.route('/new', methods=['POST'])
 @login_required
 def create_listing():
     form = ProductForm(request.form)
@@ -72,7 +72,7 @@ def create_listing():
 
 
 # Get all Reviews on a Product
-@product_routes.route('/<int:id>/reviews')
+@product_routes.route('/<int:id>/reviews/all')
 def all_reviews_on_id(id):
     product = Product.query.get(id)
 
@@ -86,7 +86,7 @@ def all_reviews_on_id(id):
 
 
 # Creating a Review for a Product
-@product_routes.route('/<int:id>/reviews', methods=['POST'])
+@product_routes.route('/<int:id>/reviews/new', methods=['POST'])
 @login_required
 def create_review(id):
     form = ReviewForm()

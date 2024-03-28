@@ -1,14 +1,13 @@
 import CreateNewReview from "../ReviewForm/ReviewForm";
-import './CreateReview.css'
 
 const CreateReview = () => {
     const buttonName = 'Create Review'
 
     const review = {
-      body: '',
-      rating:'',
-      image: '',
-      verified_purchase: ''
+        body: '',
+        rating:'',
+        image: '',
+        verified_purchase: ''
     }
 
     return (

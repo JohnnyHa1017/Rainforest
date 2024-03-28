@@ -22,7 +22,7 @@ export const listNewProduct = (data) => ({
 // Load All Products Thunk
 export const loadAllThunk = () => async (dispatch) => {
   try {
-    const response = await fetch('/api/products/');
+    const response = await fetch('/api/products');
 
     if (!response.ok) {
       throw new Error('Failed to load products list.');
@@ -30,8 +30,8 @@ export const loadAllThunk = () => async (dispatch) => {
 
     const data = await response.json();
 
-    dispatch(loadAllProducts(data));
-    return data;
+    dispatch(loadAllProducts(data.products));
+    return data.products;
 
   } catch (error) {
     return { error: error.message };
@@ -68,6 +68,7 @@ export const listNewThunk = (newProduct) => async (dispatch) => {
 
     if (response.ok) {
       const data = await response.json();
+      console.log('WHAT IS DATA: LISTNEWTHUNK IN PRODUCT.JS @@@===>', data)
 
       dispatch(listNewProduct(data));
       return data;
@@ -82,7 +83,7 @@ export const listNewThunk = (newProduct) => async (dispatch) => {
 }
 
 // Action Reducer
-const productReducer = (state, action) => {
+const productReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_ALL_PRODUCTS: {
       return { ...state, ...action.data }

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { loadReviewsOnOneProductThunk } from "../../redux/reviews";
+import { updateReviewThunk } from "../../redux/reviews";
 import CreateNewReview from "../ReviewForm/ReviewForm";
 
 const UpdateReview = () => {
@@ -17,7 +17,7 @@ const UpdateReview = () => {
   }
 
   useEffect(() => {
-    dispatch(loadReviewsOnOneProductThunk(productId))
+    dispatch(updateReviewThunk(productId))
   }, [productId, dispatch])
 
   if (!review || review.Review) {
