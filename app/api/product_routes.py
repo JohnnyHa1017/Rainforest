@@ -70,6 +70,7 @@ def create_listing():
 ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
 ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
 
+
 # Get all Reviews on a Product
 @product_routes.route('/<int:id>/reviews')
 def all_reviews_on_id(id):
@@ -120,6 +121,7 @@ def create_review(id):
         errors = form.errors
         return jsonify({'errors': errors}), 400
 
+
 ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
 ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
 ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
@@ -148,7 +150,6 @@ def get_cart_for_user():
             return jsonify({'message': 'New cart created for the current user.'}), 201
         else:
             # TODO: Add logic for updating the cart
+            # ?: Is this logic even to be implemented here? Maybe in Update Route rather?
             # TODO: Update the existing cart or add items to it
             return jsonify({'message': 'Cart updated for the current user.'}), 200
-
-
