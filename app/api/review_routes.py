@@ -20,7 +20,7 @@ def get_one_review(id):
 
 
 # Update Review Owned by Current User
-@review_routes.route('/<int:id>', methods=['PUT'])
+@review_routes.route('/<int:id>/', methods=['PUT'])
 @login_required
 def update_one_review(id):
     form = ReviewForm(request.form)
@@ -55,7 +55,7 @@ def update_one_review(id):
 
 
 # Delete a Review owned by Current User
-      # !: Needs to Test Still
+    # !: Needs to Test Still
 @review_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_review(id):

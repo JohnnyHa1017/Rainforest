@@ -1,66 +1,67 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createNewReviewThunk } from '../../redux/reviews';
-import { updateReviewThunk } from '../../redux/reviews';
+import { createNewReviewThunk, updateReviewThunk } from '../../redux/reviews';
 
 const CreateNewReview = ({ buttonName, updatingReview }) => {
+  console.log(updatingReview, 'IM HERE IN REVIEWFORM')
+
   const nav = useNavigate();
   const dispatch = useDispatch();
   const { productId, reviewId } = useParams();
   const user = useSelector((state) => state.session.user);
-  const [body, setBody] = useState(updatingReview?.body);
-  const [rating, setRating] = useState(updatingReview?.rating ?? null);
-  const [image, setImage] = useState(updatingReview?.image ?? null);
-  const [verified_purchase, setVerified] = useState(updatingReview?.verified_purchase ?? false);
+  const [body, setBody] = useState('');
+  const [rating, setRating] = useState(null);
+  const [image, setImage] = useState(null);
+  const [verified_purchase, setVerified] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const [validations, setValidations] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [hover, setHover] = useState(null);
 
   useEffect(() => {
+    if (updatingReview) {
+      setBody(updatingReview.body);
+      setRating(updatingReview.rating);
+      setImage(updatingReview.image);
+      setVerified(updatingReview.verified_purchase);
+    }
+  }, [updatingReview]);
+
+  useEffect(() => {
     if(!user) nav('/')
   }, [user, submitted])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleSubmit = async(e) => {
+    e.preventDefault();
     const formData = new FormData();
-    formData.append("image", image);
+    formData.append('image', image)
+    formData.append('rating', rating)
+    formData.append('body', body)
+    formData.append('verified_purchase', verified_purchase)
+
     setImageLoading(true);
-    setSubmitted(true)
-    setVerified(true)
+    setSubmitted(true);
 
     if (body.length <= 10 || rating < 1) {
-      setValidations({ ...validations })
-      return
+      setValidations({ ...validations });
+      return;
     }
 
-    await Promise.resolve(formData);
-
-    const reviewObject = { body, image, rating, verified_purchase }
-
-    if (!reviewId) {
-      try {
-          await dispatch(createNewReviewThunk(productId, reviewObject))
-        nav(`/products/${productId}`)
-
-        } catch (e) {
-          setValidations({ ...validations, message: 'Review posting has failed.' })
-      }
-
-      } else {
-          await dispatch(updateReviewThunk(reviewObject, reviewId))
-          nav(`/products/${productId}`)
+    if(!reviewId){
+        console.log('create new review')
+        await dispatch(createNewReviewThunk(productId, formData))
     }
-  }
+    else{
+        console.log('update review')
+        await dispatch(updateReviewThunk(reviewId, formData))
+    }
+    nav(`/products/${productId}`)
+}
 
 return (
   <>
-    <form
-      onSubmit={handleSubmit}
-      encType='multipart/form-data'
-      className='create-update-review-form'
-    >
+  <form onSubmit={handleSubmit} encType='multipart/form-data' className='create-update-review-form'>
       {submitted && validations && validations.message &&
         <p>
           {validations.message}

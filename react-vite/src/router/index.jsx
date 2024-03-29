@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
         element: <ProductReviews />
       },
       {
-        path: "products/:productId/reviews/",
+        path: "products/:productId/reviews/new",
         element: <CreateReview />
       },
       {
@@ -51,11 +51,11 @@ export const router = createBrowserRouter([
         element: <AllReviews />
       },
       {
-        path: "reviews/:reviewId",
+        path: "reviews/:reviewId/edit",
         element: <UpdateReview />
       },
       {
-        path: "reviews/:reviewId",
+        path: "reviews/:reviewId/delete",
         element: <DeleteReview />
       },
       {

@@ -4,6 +4,7 @@ export const CREATE_NEW_REVIEW = 'reviews/CREATE_NEW'
 export const UPDATE_REVIEW = 'reviews/UPDATE_REVIEW'
 export const DELETE_REVIEW = 'reviews/DELETE_REVIEW'
 export const ALL_REVIEWS_FOR_ONE = 'reviews/ALL_REVIEWS_FOR_ONE'
+export const LOAD_ONE_FOR_UPDATE = 'reviews/LOAD_ONE_FOR_UPDATE'
 
 // Action Creators
 export const loadAllReviews = (data) => ({
@@ -31,6 +32,31 @@ export const allReviewsForOne = (data) => ({
   data
 });
 
+export const loadReviewByIdSuccess = (data) => ({
+  type: LOAD_ONE_FOR_UPDATE,
+  data
+});
+
+// Load a Single Review by ID
+export const loadReviewByIdThunk = (reviewId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/reviews/${reviewId}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to load the review.');
+    }
+
+    const review = await response.json();
+    console.log('WHAT IS REVIEW IN REVIEW.JS @@@===>', review)
+    dispatch(loadReviewByIdSuccess(review));
+    return review;
+
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
+
 // Load All Reviews Thunk
 export const loadAllReviewsThunk = () => async (dispatch) => {
   try {
@@ -41,7 +67,6 @@ export const loadAllReviewsThunk = () => async (dispatch) => {
     }
 
     const data = await response.json();
-
     dispatch(loadAllReviews(data));
     return data;
 
@@ -55,8 +80,7 @@ export const createNewReviewThunk = (productId, newReview) => async (dispatch) =
   try {
     const response = await fetch(`/api/products/${productId}/reviews`, {
       method: "POST",
-      // !: Edit to Form Data
-      body: JSON.stringify(newReview)
+      body: newReview
     });
 
     if (response.ok) {
@@ -75,25 +99,20 @@ export const createNewReviewThunk = (productId, newReview) => async (dispatch) =
 }
 
 // Update a Review Thunk
-export const updateReviewThunk = (review, reviewId) => async (dispatch) => {
+export const updateReviewThunk = (reviewId, updatingReview) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/reviews/${reviewId}`, {
-      method: "PUT",
-      // !: Edit to Form Data
-      body: JSON.stringify(review)
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-
-      dispatch(updateReview(...review, ...data));
-      return data;
-
-    } else {
-      throw new Error('Failed to update review.');
-    }
-
-  } catch (error) {
+    const response = await fetch (`/api/reviews/${reviewId}/edit`, {
+      method: 'PUT',
+      body: updatingReview
+  })
+  if(!response.ok){
+      throw new Error('Failed to update review')
+  }
+  const data = await response.json()
+    dispatch(updateReview(data))
+    return data
+    
+    } catch (error) {
     return { error: error.message };
   }
 }
@@ -128,7 +147,6 @@ export const loadReviewsOnOneProductThunk = (productId) => async (dispatch) => {
     }
 
     const data = await response.json();
-
     dispatch(allReviewsForOne(data.reviews));
     return data.reviews;
 
@@ -141,6 +159,9 @@ export const loadReviewsOnOneProductThunk = (productId) => async (dispatch) => {
 const reviewReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_ALL_REVIEWS: {
+      return { ...state, ...action.data }
+    }
+    case LOAD_ONE_FOR_UPDATE: {
       return { ...state, ...action.data }
     }
     case CREATE_NEW_REVIEW: {
