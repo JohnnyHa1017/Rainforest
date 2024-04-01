@@ -5,6 +5,9 @@
 > Final Capstone Clone Project by Johnny Ha
 [My GitHub Profile](https://github.com/JohnnyHa1017)
 
+### Follow Rainforest Live
+[Live Link to Rainforest](https://rainforest-r7d3.onrender.com)
+
 #### Sign Up
 **Users**:
 - As an unregistered user, I want to sign up for the website via a sign-up form.

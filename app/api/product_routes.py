@@ -128,12 +128,9 @@ def create_review(id):
 
 
 # Get Cart for Current User or Create a New Cart
-    # !: Needs to Test Still
-@product_routes.route('/', methods=['GET', 'POST'])
+@product_routes.route('/carts', methods=['GET', 'POST'])
 @login_required
 def get_cart_for_user():
-    form = CartForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
     cart = Cart.query.filter_by(user_id=current_user.id).first()
 
     if request.method == 'GET':

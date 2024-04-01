@@ -13,8 +13,8 @@ class AddToCart(db.Model):
   cart_id = Column(Integer, ForeignKey(add_prefix_for_prod('carts.id')), nullable=False)
   product_id = Column(Integer, ForeignKey(add_prefix_for_prod('products.id')), nullable=False)
   quantity_added = Column(Integer, nullable=False)
-  createdAt = Column(db.DateTime, default=datetime.utcnow)
-  updatedAt = Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+  created_at = Column(db.DateTime, default=datetime.utcnow)
+  updated_at = Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
   carts = relationship('Cart', back_populates='add_to_cart')
   products = relationship('Product', back_populates='add_to_cart')
@@ -25,7 +25,7 @@ class AddToCart(db.Model):
           'cart_id': self.cart_id,
           'product_id': self.product_id,
           'quantity_added': self.quantity_added,
-          'createdAt': self.createdAt,
-          'updatedAt': self.updatedAt
+          'created_at': self.created_at,
+          'updated_at': self.updated_at
       }
 

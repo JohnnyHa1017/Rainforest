@@ -11,12 +11,12 @@ review_routes = Blueprint('review', __name__)
 @review_routes.route('/<int:id>')
 @login_required
 def get_one_review(id):
-  review = Review.query.get(id)
+    review = Review.query.get(id)
 
-  if not review:
-    return jsonify({'error': 'Review was not found.'}), 404
+    if not review:
+        return jsonify({'error': 'Review was not found.'}), 404
 
-  return review.to_dict(), 200
+    return review.to_dict(), 200
 
 
 # Update Review Owned by Current User
@@ -55,7 +55,6 @@ def update_one_review(id):
 
 
 # Delete a Review owned by Current User
-    # !: Needs to Test Still
 @review_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_review(id):
