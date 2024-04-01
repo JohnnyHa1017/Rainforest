@@ -7,6 +7,12 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.cart_routes import cart_routes
+from .api.product_routes import product_routes
+from .api.add_to_cart_routes import add_to_cart_routes
+from .api.order_routes import order_routes
+from .api.review_routes import review_routes
+from .api.aws_helpers import upload_file_to_s3, remove_file_from_s3, get_unique_filename
 from .seeds import seed_commands
 from .config import Config
 
@@ -15,7 +21,6 @@ app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
-
 
 @login.user_loader
 def load_user(id):
@@ -28,6 +33,12 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(cart_routes, url_prefix='/api/carts')
+app.register_blueprint(product_routes, url_prefix='/api/products')
+app.register_blueprint(add_to_cart_routes, url_prefix='/api/add_to_cart')
+app.register_blueprint(order_routes, url_prefix='/api/orders')
+app.register_blueprint(review_routes, url_prefix='/api/reviews')
+
 db.init_app(app)
 Migrate(app, db)
 

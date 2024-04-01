@@ -11,8 +11,8 @@ class Cart(db.Model):
 
   id = Column(Integer, primary_key=True)
   user_id = Column(Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-  createdAt = Column(db.DateTime, default=datetime.utcnow)
-  updatedAt = Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+  created_at = Column(db.DateTime, default=datetime.utcnow)
+  updated_at = Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
   users = relationship('User', back_populates='carts')
   orders = relationship('Order', back_populates='carts', cascade='all, delete-orphan')

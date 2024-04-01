@@ -14,7 +14,7 @@ def seed_reviews():
         user_id=3,
         product_id=2,
         rating=4,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The NVIDIA GeForce RTX 4090 is a beast of a graphic card! I've been playing all the latest games at ultra settings without any lag. Highly recommend it!"
     )
@@ -30,7 +30,7 @@ def seed_reviews():
         user_id=1,
         product_id=4,
         rating=5,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Moondrop Aria Snow Edition Earbuds are simply amazing! The sound quality is crystal clear, and they fit perfectly in my ears. Definitely worth the investment!"
     )
@@ -46,7 +46,7 @@ def seed_reviews():
         user_id=2,
         product_id=6,
         rating=5,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Logitech for Creators Blue Yeti X USB Microphone has been a game-changer for my recordings! The audio quality is superb, and the advanced features are a plus."
     )
@@ -62,7 +62,7 @@ def seed_reviews():
         user_id=3,
         product_id=8,
         rating=4,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Christian Dior Saddlebag is absolutely stunning! The craftsmanship is top-notch, and it's so versatile to wear. Definitely a statement piece!"
     )
@@ -86,7 +86,7 @@ def seed_reviews():
         user_id=1,
         product_id=11,
         rating=4,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Razer Viper V2 Ultimate Gaming Mouse is comfortable to use for long gaming sessions, and the responsiveness is great. The RGB lighting is a nice touch!"
     )
@@ -110,7 +110,7 @@ def seed_reviews():
         user_id=4,
         product_id=14,
         rating=3,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Spectre 24-inch Gaming Monitor has excellent color reproduction, but I noticed some backlight bleeding in dark scenes. Overall, a decent monitor for the price."
     )
@@ -126,7 +126,7 @@ def seed_reviews():
         user_id=6,
         product_id=16,
         rating=5,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Wooting 80HE - Founders Edition keyboard is a dream to type on! The tactile switches provide a satisfying typing experience, and the build quality is superb."
     )
@@ -142,7 +142,7 @@ def seed_reviews():
         user_id=8,
         product_id=18,
         rating=3,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Dandelion Dragon Tee is cute, but the fabric feels a bit rough against the skin. Would have preferred a softer material."
     )
@@ -182,7 +182,7 @@ def seed_reviews():
         user_id=3,
         product_id=18,
         rating=3,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Dandelion Dragon Tee is cute, but the fabric feels a bit rough against the skin. Would have preferred a softer material."
     )
@@ -198,7 +198,7 @@ def seed_reviews():
         user_id=5,
         product_id=16,
         rating=5,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Wooting 80HE - Founders Edition keyboard is a dream to type on! The tactile switches provide a satisfying typing experience, and the build quality is superb."
     )
@@ -214,7 +214,7 @@ def seed_reviews():
         user_id=7,
         product_id=14,
         rating=3,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Spectre 24-inch Gaming Monitor has excellent color reproduction, but I noticed some backlight bleeding in dark scenes. Overall, a decent monitor for the price."
     )
@@ -238,7 +238,7 @@ def seed_reviews():
         user_id=10,
         product_id=11,
         rating=4,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Razer Viper V2 Ultimate Gaming Mouse is comfortable to use for long gaming sessions, and the responsiveness is great. The RGB lighting is a nice touch!"
     )
@@ -262,7 +262,7 @@ def seed_reviews():
         user_id=3,
         product_id=8,
         rating=4,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Christian Dior Saddlebag is absolutely stunning! The craftsmanship is top-notch, and it's so versatile to wear. Definitely a statement piece!"
     )
@@ -278,7 +278,7 @@ def seed_reviews():
         user_id=2,
         product_id=6,
         rating=5,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Logitech for Creators Blue Yeti X USB Microphone has been a game-changer for my recordings! The audio quality is superb, and the advanced features are a plus."
     )
@@ -294,7 +294,7 @@ def seed_reviews():
         user_id=7,
         product_id=4,
         rating=5,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The Moondrop Aria Snow Edition Earbuds are simply amazing! The sound quality is crystal clear, and they fit perfectly in my ears. Definitely worth the investment!"
     )
@@ -310,7 +310,7 @@ def seed_reviews():
         user_id=9,
         product_id=2,
         rating=4,
-        verified_purchase=False,
+        verified_purchase=True,
         image=None,
         body="The NVIDIA GeForce RTX 4090 is a beast of a graphic card! I've been playing all the latest games at ultra settings without any lag. Highly recommend it!"
     )

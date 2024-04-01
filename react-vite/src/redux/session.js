@@ -1,5 +1,6 @@
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
+const GET_ALL_USERS = 'session/getAllUsers'
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -8,6 +9,11 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
   type: REMOVE_USER
+});
+
+const getAllUsers = (users) => ({
+  type: GET_ALL_USERS,
+  users
 });
 
 export const thunkAuthenticate = () => async (dispatch) => {
@@ -63,6 +69,16 @@ export const thunkLogout = () => async (dispatch) => {
   dispatch(removeUser());
 };
 
+export const getAllUsersThunk = () => async (dispatch) => {
+  const response = await fetch(`/api/users`)
+  if(!response.ok){
+      throw new Error ('Failed to get all users.')
+  }
+  const data = await response.json()
+  dispatch(getAllUsers(data))
+  return data
+}
+
 const initialState = { user: null };
 
 function sessionReducer(state = initialState, action) {
@@ -71,6 +87,8 @@ function sessionReducer(state = initialState, action) {
       return { ...state, user: action.payload };
     case REMOVE_USER:
       return { ...state, user: null };
+    case GET_ALL_USERS:
+      return { ...state, ...action.users };
     default:
       return state;
   }

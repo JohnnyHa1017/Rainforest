@@ -78,10 +78,10 @@ def seed_products():
         user_id=4,
         name='Hydroflak 32oz Waterbottle',
         price=15.99,
-        category='Lotions',
-        quantity_available=999,
+        category='Utility',
+        quantity_available=89,
         image='https://aaproj-yelp-clone.s3.us-west-1.amazonaws.com/rainforest_hydroflask.jpg',
-        body='FOR DRY, COMPROMISED SKIN: This Aquaphor Healing Ointment is designed specifically for dry, compromised skin and clinically proven to restore smooth, healthy skin.'
+        body='DRINKS STAY COOL FOR 24HRS AND KEEPS DRINKS WARM FOR UP TO 12 HOURS: Carry up to 32oz of liquid with our large Hydro! (Comes with sip lid)'
         )
     MACBOOK = Product(
         user_id=5,
