@@ -1,5 +1,5 @@
 # Rainforest Database Schema
-[![Rainforest-Schema.png](https://i.postimg.cc/8zCVFm4D/Rainforest-Schema.png)](https://postimg.cc/gn17QR1B)
+[![Rainforest-Schema.png](https://i.postimg.cc/Wz6X68Hg/Rainforest-Schema.png)](https://postimg.cc/Zvn8J8Z5)
 
 ### User Stories
 > Final Capstone Clone Project by Johnny Ha

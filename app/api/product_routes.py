@@ -147,12 +147,14 @@ def get_or_create_cart():
         return jsonify({'message': 'Cart already exists for the current user.'}), 200
 
 
-# Get All Carts for Current User (Past, Present) - Links to Order History
+# Get All Carts for Current User (Past, Present)
+    # TODO: Bonus feature to be added - Link to Order History
 @product_routes.route('/carts/history')
 @login_required
 def cart_history():
     current_cart_history = Cart.query.filter(Cart.user_id == current_user.id).all()
     return jsonify({'carts': [cart.to_dict() for cart in current_cart_history]}), 200
+
 
 # Adding Products to Cart
 @product_routes.route('/cart/add_product', methods=['POST'])
@@ -224,3 +226,25 @@ def update_cart():
 
     return jsonify({'message': 'Cart updated successfully.'}), 200
 
+
+# Deleting Item(s) from the User's Cart
+@product_routes.route('/cart/delete_item', methods=['DELETE'])
+@login_required
+def delete_cart_item():
+    data = request.get_json()
+    cart_item_id = data.get('cart_item_id')
+
+    if not cart_item_id:
+        return jsonify({'error': 'Cart item ID is required.'}), 400
+
+    cart_item = AddToCart.query.get(cart_item_id)
+    if not cart_item:
+        return jsonify({'error': 'Cart item not found.'}), 404
+
+    if cart_item.cart.user_id != current_user.id:
+        return jsonify({'error': 'Unauthorized access to cart item.'}), 403
+
+    db.session.delete(cart_item)
+    db.session.commit()
+
+    return jsonify({'message': 'Cart item deleted successfully.'}), 200
