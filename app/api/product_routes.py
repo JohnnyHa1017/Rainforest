@@ -171,14 +171,12 @@ def add_product_to_cart():
     if not product:
         return jsonify({'error': 'Product not found.'}), 404
 
-    # Check if the user has an existing cart
     cart = Cart.query.filter_by(user_id=current_user.id).first()
     if not cart:
         cart = Cart(user_id=current_user.id)
         db.session.add(cart)
         db.session.commit()
 
-    # Check if the product is already in the cart
     existing_item = AddToCart.query.filter_by(cart_id=cart.id, product_id=product_id).first()
     if existing_item:
         existing_item.quantity_added += quantity
