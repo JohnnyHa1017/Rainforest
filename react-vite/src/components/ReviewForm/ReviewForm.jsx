@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { createNewReviewThunk, updateReviewThunk } from '../../redux/reviews';
 
 const CreateNewReview = ({ buttonName, updatingReview }) => {
-  console.log(updatingReview, 'IM HERE IN REVIEWFORM')
 
   const nav = useNavigate();
   const dispatch = useDispatch();
@@ -49,11 +48,9 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
     }
 
     if(!reviewId){
-        console.log('create new review')
         await dispatch(createNewReviewThunk(productId, formData))
     }
     else{
-        console.log('update review')
         await dispatch(updateReviewThunk(reviewId, formData))
     }
     nav(`/products/${productId}`)

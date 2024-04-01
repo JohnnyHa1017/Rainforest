@@ -47,7 +47,6 @@ export const loadReviewByIdThunk = (reviewId) => async (dispatch) => {
     }
 
     const review = await response.json();
-    console.log('WHAT IS REVIEW IN REVIEW.JS @@@===>', review)
     dispatch(loadReviewByIdSuccess(review));
     return review;
 
@@ -111,7 +110,7 @@ export const updateReviewThunk = (reviewId, updatingReview) => async (dispatch) 
   const data = await response.json()
     dispatch(updateReview(data))
     return data
-    
+
     } catch (error) {
     return { error: error.message };
   }

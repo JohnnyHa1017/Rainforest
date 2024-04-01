@@ -1,4 +1,4 @@
-from app.models import db, AddToCart, environment, SCHEMA
+from app.models import db, Product, AddToCart, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_add_to_cart():
@@ -26,12 +26,16 @@ def seed_add_to_cart():
     ]
 
     for data in add_to_cart_data:
-        add_to_cart = AddToCart(
-            cart_id=data["cart_id"],
-            product_id=data["product_id"],
-            quantity_added=data["quantity_added"]
-        )
-        db.session.add(add_to_cart)
+        product = Product.query.get(data["product_id"])
+        if product:
+            subtotal = product.price * data["quantity_added"]
+            add_to_cart = AddToCart(
+                cart_id=data["cart_id"],
+                product_id=data["product_id"],
+                quantity_added=data["quantity_added"],
+                subtotal=subtotal
+            )
+            db.session.add(add_to_cart)
 
     db.session.commit()
 

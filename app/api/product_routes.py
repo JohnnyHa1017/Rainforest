@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from .aws_helpers import upload_file_to_s3, get_unique_filename
-from app.models import db, Cart, Product, Review
-from app.forms import CartForm, ProductForm, ReviewForm
+from app.models import db, Cart, Product, Review, AddToCart
+from app.forms import ProductForm, ReviewForm
 
 product_routes = Blueprint('product', __name__)
 
@@ -130,23 +130,97 @@ def create_review(id):
 # Get Cart for Current User or Create a New Cart
 @product_routes.route('/carts', methods=['GET', 'POST'])
 @login_required
-def get_cart_for_user():
-    cart = Cart.query.filter_by(user_id=current_user.id).first()
-
+def get_or_create_cart():
     if request.method == 'GET':
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
         if not cart:
             return jsonify({'message': 'Cart not found for the current user.'}), 404
-        else:
-            return jsonify({'cart': cart.to_dict()}), 200
+        return jsonify({'cart': cart.to_dict()}), 200
 
     elif request.method == 'POST':
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
         if not cart:
             new_cart = Cart(user_id=current_user.id)
             db.session.add(new_cart)
             db.session.commit()
             return jsonify({'message': 'New cart created for the current user.'}), 201
+        return jsonify({'message': 'Cart already exists for the current user.'}), 200
+
+
+# Get All Carts for Current User (Past, Present) - Links to Order History
+@product_routes.route('/carts/history')
+@login_required
+def cart_history():
+    current_cart_history = Cart.query.filter(Cart.user_id == current_user.id).all()
+    return jsonify({'carts': [cart.to_dict() for cart in current_cart_history]}), 200
+
+# Adding Products to Cart
+@product_routes.route('/cart/add_product', methods=['POST'])
+@login_required
+def add_product_to_cart():
+    data = request.get_json()
+    product_id = data.get('product_id')
+    quantity = data.get('quantity', 1)
+
+    if not product_id:
+        return jsonify({'error': 'Product ID is required.'}), 400
+
+    product = Product.query.get(product_id)
+    if not product:
+        return jsonify({'error': 'Product not found.'}), 404
+
+    # Check if the user has an existing cart
+    cart = Cart.query.filter_by(user_id=current_user.id).first()
+    if not cart:
+        cart = Cart(user_id=current_user.id)
+        db.session.add(cart)
+        db.session.commit()
+
+    # Check if the product is already in the cart
+    existing_item = AddToCart.query.filter_by(cart_id=cart.id, product_id=product_id).first()
+    if existing_item:
+        existing_item.quantity_added += quantity
+    else:
+        new_item = AddToCart(cart_id=cart.id, product_id=product_id, quantity_added=quantity)
+        db.session.add(new_item)
+
+    db.session.commit()
+
+    return jsonify({'message': f'Product added to cart successfully.'}), 200
+
+
+# Route for Updating Subtotal and Quantities
+@product_routes.route('/cart/update', methods=['POST'])
+@login_required
+def update_cart():
+    data = request.get_json()
+    cart_id = data.get('cart_id')
+    product_id = data.get('product_id')
+    quantity = data.get('quantity')
+    subtotal = data.get('subtotal')
+
+    if not cart_id or not product_id:
+        return jsonify({'error': 'Both cart ID and product ID are required.'}), 400
+
+    cart_item = AddToCart.query.filter_by(cart_id=cart_id, product_id=product_id).first()
+    if not cart_item:
+        return jsonify({'error': 'Cart item not found.'}), 404
+
+    if quantity is not None:
+        if not isinstance(quantity, int) or quantity < 0:
+            return jsonify({'error': 'Invalid quantity.'}), 400
+        cart_item.quantity_added = quantity
+
+    if subtotal is not None:
+        if not isinstance(subtotal, (int, float)) or subtotal < 0:
+            return jsonify({'error': 'Invalid subtotal.'}), 400
+        product = Product.query.get(product_id)
+        if product:
+            cart_item.subtotal = quantity * product.price
         else:
-            # TODO: Add logic for updating the cart
-            # ?: Is this logic even to be implemented here? Maybe in Update Route rather?
-            # TODO: Update the existing cart or add items to it
-            return jsonify({'message': 'Cart updated for the current user.'}), 200
+            return jsonify({'error': 'Product not found.'}), 404
+
+    db.session.commit()
+
+    return jsonify({'message': 'Cart updated successfully.'}), 200
+
