@@ -163,6 +163,7 @@ def add_product_to_cart():
     data = request.get_json()
     product_id = data.get('product_id')
     quantity = data.get('quantity', 1)
+    price = data.get('price')
 
     if not product_id:
         return jsonify({'error': 'Product ID is required.'}), 400
@@ -181,7 +182,7 @@ def add_product_to_cart():
     if existing_item:
         existing_item.quantity_added += quantity
     else:
-        new_item = AddToCart(cart_id=cart.id, product_id=product_id, quantity_added=quantity)
+        new_item = AddToCart(cart_id=cart.id, product_id=product_id, quantity_added=quantity, price=price)
         db.session.add(new_item)
 
     db.session.commit()
