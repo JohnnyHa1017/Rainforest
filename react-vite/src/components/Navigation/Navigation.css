@@ -1,3 +1,119 @@
-.profile-dropdown {
+/* Importing Font Style */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Spectral+SC:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.details {
+  margin-left: 10px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-controls button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.checkout-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #1bc2b1;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.checkout-button:hover {
+  background-color: #009688;
+}
+
+/* Navigation.css */
+.navigation-container {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #abcdff;
+  color: #fff;
+}
+
+.navigation-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Display the list items horizontally */
+}
+
+.navigation-container ul li {
+  margin-right: 20px;
+}
+
+.navigation-container ul li:last-child {
+  margin-right: 0;
+}
+
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background-color: #fff;
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  border-radius: 20px;
+}
+
+.cart-sidebar.open {
+  transform: translateX(0);
+}
+
+.close-cart {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
   position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  border-radius: 20px;
+  background-color: #1bc2b1;
+}
+
+.toggle-cart {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #009688;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.toggle-cart:hover {
+  background-color: #00796b;
+}
+
+.close-cart:hover {
+  background-color: #00796b;
+}
+
+.cart-content {
+  padding: 20px;
 }
