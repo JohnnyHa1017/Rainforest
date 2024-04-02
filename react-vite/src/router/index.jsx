@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
         element: <DeleteReview />
       },
       {
-        path: "cart",
+        path: "products/cart",
         element: <CartManagement />
       },
       {

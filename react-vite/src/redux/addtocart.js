@@ -2,6 +2,7 @@
 export const ADDING_TO_CART = 'carts/ADDING_TO_CART'
 export const UPDATING_CART = 'carts/UPDATING_CART'
 
+
 // Action Creators
 export const addingToCart = () => ({
   type: ADDING_TO_CART,
@@ -11,12 +12,13 @@ export const updatingCart = () => ({
   type: UPDATING_CART,
 });
 
+
 // Adding Products to Users Cart Thunk
 export const addToCartThunk = (cart_id, product_id, quantity) => async (dispatch) => {
   dispatch(addingToCart());
 
   try {
-    const response = await fetch('/api/cart/add_product', {
+    const response = await fetch('/api/products/cart/add_product', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -34,12 +36,13 @@ export const addToCartThunk = (cart_id, product_id, quantity) => async (dispatch
   }
 };
 
+
 // Updating Quantity and Subtotal Thunk
 export const updateCartThunk = (cart_id, product_id, quantity_added, subtotal) => async (dispatch) => {
   dispatch(updatingCart());
 
   try {
-    const response = await fetch('/api/cart/update', {
+    const response = await fetch('/api/products/cart/update', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

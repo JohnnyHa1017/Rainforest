@@ -33,7 +33,7 @@ export const clearCart = () => ({
 
 // Get All Carts of Current User
 export const getAllUsersCartsThunk = () => async (dispatch) => {
-  const response = await fetch(`/api/carts/current`)
+  const response = await fetch(`/api/products/cart/current`)
 
   if (!response.ok) {
     throw new Error('Failed to fetch the cart history on current user.')
@@ -46,7 +46,7 @@ export const getAllUsersCartsThunk = () => async (dispatch) => {
 
 // Creating a New Cart Instance
 export const createNewCartThunk = () => async (dispatch) => {
-  const response = await fetch(`/api/carts/new`, {
+  const response = await fetch(`/api/products/cart/new`, {
     method: 'POST'
   })
 
@@ -61,9 +61,9 @@ export const createNewCartThunk = () => async (dispatch) => {
 
 
 // Add to Cart Thunk
-export const addToCartThunk = (product_id, quantity_added, image_url) => async (dispatch) => {
+export const addToCartThunk = (product_id, quantity_added, image) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/cart/add`, {
+    const response = await fetch(`/api/products/cart/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ export const addToCartThunk = (product_id, quantity_added, image_url) => async (
       body: JSON.stringify({
         product_id,
         quantity_added,
-        image_url
+        image
       })
     });
 
@@ -90,7 +90,7 @@ export const addToCartThunk = (product_id, quantity_added, image_url) => async (
 // Remove from Cart Thunk
 export const removeFromCartThunk = (cartItemId) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/cart/remove/${cartItemId}`, {
+    const response = await fetch(`/api/products/cart/remove/${cartItemId}`, {
       method: 'DELETE'
     });
 

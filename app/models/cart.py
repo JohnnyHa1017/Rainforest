@@ -2,6 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
+from .addtocart import AddToCart
 
 class Cart(db.Model):
     __tablename__ = 'carts'
@@ -20,7 +21,14 @@ class Cart(db.Model):
 
     @property
     def cart_items(self):
-        return [item.to_dict() for item in self.add_to_cart]
+        if self.add_to_cart:
+            cart_items = []
+            for item in self.add_to_cart:
+                if isinstance(item, AddToCart):
+                    cart_items.append(item.to_dict())
+            return cart_items
+        else:
+            return []
 
     def to_dict(self):
         return {

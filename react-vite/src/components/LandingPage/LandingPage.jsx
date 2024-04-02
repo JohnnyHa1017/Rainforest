@@ -8,7 +8,6 @@ import './LandingPage.css'
 const AllProducts = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.products);
-
   const allProducts = Object.values(state);
 
   useEffect(() => {
@@ -53,7 +52,7 @@ const AllProducts = () => {
           <div className="quantity-container">
             <div className="quantity-inline">
             <button className="quantity-button" onClick={() => handleDecrement(product.id)}>-</button>
-            <span className="quantity" contentEditable="true">
+            <span className="quantity">
               {quantities[product.id] || 1}
             </span>
             <button className="quantity-button" onClick={() => handleIncrement(product.id)}>+</button>

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 10747b16f6f0
+Revision ID: 4f8647caad59
 Revises:
-Create Date: 2024-04-01 15:49:34.837179
+Create Date: 2024-04-01 18:32:42.196397
 
 """
 from alembic import op
@@ -12,9 +12,8 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
-
 # revision identifiers, used by Alembic.
-revision = '10747b16f6f0'
+revision = '4f8647caad59'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -61,7 +60,7 @@ def upgrade():
     sa.Column('cart_id', sa.Integer(), nullable=False),
     sa.Column('product_id', sa.Integer(), nullable=False),
     sa.Column('quantity_added', sa.Integer(), nullable=False),
-    sa.Column('subtotal', sa.Float(), nullable=False),
+    sa.Column('subtotal', sa.Float(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['cart_id'], ['carts.id'], ),
