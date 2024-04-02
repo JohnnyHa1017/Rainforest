@@ -8,9 +8,12 @@ import './LandingPage.css'
 const AllProducts = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.products.products);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(loadAllThunk());
+    dispatch(loadAllThunk())
+      .then(() => setIsLoading(false))
+      .catch(() => setIsLoading(false));
   }, [dispatch]);
 
   const [quantities, setQuantities] = useState({});
@@ -41,28 +44,37 @@ const AllProducts = () => {
 
   return (
     <div className='products-container'>
-      {allProducts && allProducts.length > 0 ? (
-        allProducts.map(product => (
-          <div className='product-container' key={product.id}>
-            <div className="available">Available: {product.quantity_available}</div>
-            <h3>{product.name}</h3>
-            <NavLink to={`/products/${product.id}`}>
-              <img className='product-image' src={product.image} alt={product.name} />
-            </NavLink>
-            <div className="quantity-container">
-              <div className="quantity-inline">
-                <button className="quantity-button" onClick={() => handleDecrement(product.id)}>-</button>
-                <span className="quantity">
-                  {quantities[product.id] || 1}
-                </span>
-                <button className="quantity-button" onClick={() => handleIncrement(product.id)}>+</button>
+      {/* Display loading bar if isLoading is true */}
+      {isLoading && (
+        <div className="w-full h-4 bg-gray-200 rounded overflow-hidden mb-4">
+          <div id="loading-bar" className="h-full bg-blue-500"></div>
+        </div>
+      )}
+      {/* Render products when loading is complete */}
+      {!isLoading && (
+        allProducts && allProducts.length > 0 ? (
+          allProducts.map(product => (
+            <div className='product-container' key={product.id}>
+              <div className="available">Available: {product.quantity_available}</div>
+              <h3>{product.name}</h3>
+              <NavLink to={`/products/${product.id}`}>
+                <img className='product-image' src={product.image} alt={product.name} />
+              </NavLink>
+              <div className="quantity-container">
+                <div className="quantity-inline">
+                  <button className="quantity-button" onClick={() => handleDecrement(product.id)}>-</button>
+                  <span className="quantity">
+                    {quantities[product.id] || 1}
+                  </span>
+                  <button className="quantity-button" onClick={() => handleIncrement(product.id)}>+</button>
+                </div>
+                <button className="add-to-cart-button" onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
               </div>
-              <button className="add-to-cart-button" onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
             </div>
-          </div>
-        ))
-      ) : (
-        <div>No products available</div>
+          ))
+        ) : (
+          <div>No products found</div>
+        )
       )}
     </div>
   );
