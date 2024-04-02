@@ -41,17 +41,17 @@ const ProductDetailsPage = () => {
         <div>
           <h1>{product.name}</h1>
           <img className='product-detail-image' src={product.image} alt={product.name} />
-          <p className="product-price">Price: ${product.price}</p>
+          <p className="product-detail-price">Price: ${product.price}</p>
           <p>Available: {product.quantity_available}</p>
           <p>Category: {product.category}</p>
-          <p className="product-description">{product.body}</p>
-          <div className="quantity-container">
-            <div className="quantity-inline">
-              <button className="quantity-button" onClick={handleDecrement}>-</button>
-              <span className="quantity">{quantity}</span>
-              <button className="quantity-button" onClick={handleIncrement}>+</button>
+          <p className="product-detail-description">{product.body}</p>
+          <div className="product-detail-quantity-container">
+            <div className="product-detail-quantity-inline">
+              <button className="product-detail-quantity-button" onClick={handleDecrement}>-</button>
+              <span className="product-detail-quantity">{quantity}</span>
+              <button className="product-detail-quantity-button" onClick={handleIncrement}>+</button>
             </div>
-            <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
+            <button className="product-detail-add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
           </div>
           {Object.values(allReviews).map((review, index) => {
             const user = allUsers ? allUsers.find(user => user.id === review.user_id) : null;

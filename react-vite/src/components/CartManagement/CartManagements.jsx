@@ -1,6 +1,6 @@
+// CartManagement.js
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from 'react-router-dom';
 import * as CartActions from '../../redux/carts'
 import * as AddToCartActions from '../../redux/addtocart'
 import * as ProductActions from '../../redux/products'
@@ -8,8 +8,13 @@ import * as ProductActions from '../../redux/products'
 const CartManagement = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
-  const allProducts = useSelector((state) => state.products);
-  const userCart = useSelector((state) => state.cart);
+  // const allProducts = useSelector((state) => console.log('STATE', state));
+  // const userCart = useSelector((state) => state.cart);
+
+  // console.log('ALLPRODUCTS @@@===>', allProducts)
+  // console.log('currentUser @@@===>', currentUser)
+  // console.log('userCart @@@===>', userCart)
+
   const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
@@ -42,50 +47,51 @@ const CartManagement = () => {
     dispatch(AddToCartActions.addingToCart(productId, quantity));
   };
 
-  return (
-    <div>
-      {/* Display the current user's information */}
-      <div>Welcome, {currentUser.username}</div>
+  // return (
+  //   <div>
+  //     {/* Display the current user's information */}
+  //     <div>Welcome, {currentUser.username}</div>
 
-      {/* Render available products */}
-      <div>
-        {allProducts.map((product) => (
-          <div key={product.id}>
-            <h3>{product.name}</h3>
-            <img src={product.image} alt={product.name} />
-            <p>Price: ${product.price}</p>
-            <button onClick={() => handleAddToCart(product.id)}>
-              Add to Cart
-            </button>
-          </div>
-        ))}
-      </div>
+  //     {/* Render available products */}
+  //     <div>
+  //       {allProducts.map((product) => (
+  //         <div key={product.id}>
+  //           <h3>{product.name}</h3>
+  //           <img src={product.image} alt={product.name} />
+  //           <p>Price: ${product.price}</p>
+  //           <button onClick={() => handleAddToCart(product.id)}>
+  //             Add to Cart
+  //           </button>
+  //         </div>
+  //       ))}
+  //     </div>
 
-      {/* Display user's cart */}
-      <div>
-        <h2>Your Cart</h2>
-        <ul>
-          {userCart.map((item) => (
-            <li key={item.id}>
-              {item.productName} - Quantity: {item.quantity}
-            </li>
-          ))}
-        </ul>
-      </div>
+  //     {/* Display user's cart */}
+  //     <div>
+  //       <h2>Your Cart</h2>
+  //       <ul>
+  //         {userCart.map((item) => (
+  //           <li key={item.id}>
+  //             {item.productName} - Quantity: {item.quantity}
+  //           </li>
+  //         ))}
+  //       </ul>
+  //     </div>
 
-      {/* Cart buttons */}
-      <div>
-        {Object.keys(quantities).map((productId) => (
-          <div key={productId}>
-            <h3>{allProducts.find((product) => product.id === productId)?.name}</h3>
-            <button onClick={() => handleDecrement(productId)}>-</button>
-            <span>{quantities[productId]}</span>
-            <button onClick={() => handleIncrement(productId)}>+</button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  //     {/* Cart buttons */}
+  //     <div>
+  //       {Object.keys(quantities).map((productId) => (
+  //         <div key={productId}>
+  //           <h3>{allProducts.find((product) => product.id === productId)?.name}</h3>
+  //           <button onClick={() => handleDecrement(productId)}>-</button>
+  //           <span>{quantities[productId]}</span>
+  //           <button onClick={() => handleIncrement(productId)}>+</button>
+  //         </div>
+  //       ))}
+  //     </div>
+  //   </div>
+  // );
+  // )
 };
 
 export default CartManagement;
