@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadAllThunk } from "../../redux/products";
-import { addToCart } from "../../redux/carts";
+import { addToCartThunk, updateCartThunk } from "../../redux/addtocart";
 import { NavLink } from 'react-router-dom';
-import './LandingPage.css'
+import './LandingPage.css';
 
 const AllProducts = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.products.products);
+  const userCart = useSelector((state) => state.carts.cart_items);
   const [isLoading, setIsLoading] = useState(true);
+  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
     dispatch(loadAllThunk())
       .then(() => setIsLoading(false))
       .catch(() => setIsLoading(false));
   }, [dispatch]);
-
-  const [quantities, setQuantities] = useState({});
 
   // Function to handle incrementing quantity for a specific product
   const handleIncrement = (productId) => {
@@ -39,7 +39,21 @@ const AllProducts = () => {
   // Function to handle adding product to cart with specified quantity
   const handleAddToCart = (productId) => {
     const quantity = quantities[productId] || 1;
-    dispatch(addToCart(productId, quantity));
+    dispatch(addToCartThunk(userCart.id, productId, quantity));
+  };
+
+  // Function to handle updating product quantity in cart
+  const handleUpdateCart = (productId) => {
+    const quantity_added = quantities[productId] || 1;
+    const subtotal = calculateSubtotal(productId);
+    dispatch(updateCartThunk(userCart.id, productId, quantity_added));
+  };
+
+  // Function to calculate subtotal for a specific product
+  const calculateSubtotal = (productId) => {
+    const quantity = quantities[productId] || 1;
+    const price = allProducts?.find((product) => product.id == productId)?.price || 0;
+    return quantity * price;
   };
 
   return (
@@ -69,6 +83,7 @@ const AllProducts = () => {
                   <button className="quantity-button" onClick={() => handleIncrement(product.id)}>+</button>
                 </div>
                 <button className="add-to-cart-button" onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
+                <button className="update-cart-button" onClick={() => handleUpdateCart(product.id)}>Update Cart</button>
               </div>
             </div>
           ))

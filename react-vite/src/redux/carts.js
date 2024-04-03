@@ -6,24 +6,24 @@ export const REMOVE_FROM_CART = 'carts/REMOVE_FROM_CART'
 export const CLEAR_CART = 'carts/CLEAR_CART'
 
 // Action Creators
-export const getAllUsersCarts = (data) => ({
+export const getAllUsersCarts = (payload) => ({
   type: GET_ALL_USERS_CARTS,
-  data
-})
+  payload
+});
 
-export const createNewCart = (data) => ({
+export const createNewCart = (payload) => ({
   type: CREATE_NEW_CART,
-  data
+  payload
 });
 
-export const addToCart = (product_id, quantity_added) => ({
+export const addToCart = (payload) => ({
   type: ADD_TO_CART,
-  payload: { product_id, quantity_added }
+  payload
 });
 
-export const removeFromCart = (data) => ({
+export const removeFromCart = (payload) => ({
   type: REMOVE_FROM_CART,
-  data
+  payload
 });
 
 export const clearCart = () => ({
@@ -33,16 +33,20 @@ export const clearCart = () => ({
 
 // Get All Carts of Current User
 export const getAllUsersCartsThunk = () => async (dispatch) => {
-  const response = await fetch(`/api/products/carts`)
+  try {
+    const response = await fetch(`/api/products/carts`);
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch the cart history on current user.')
+    if (!response.ok) {
+      throw new Error('Failed to fetch the cart history for the current user.');
+    }
+
+    const data = await response.json();
+    dispatch(getAllUsersCarts(data));
+  } catch (error) {
+    console.error('Error fetching carts:', error);
   }
+};
 
-  const data = await response.json()
-  console.log('WHAT IS DATA IN GET ALL USER CARTS', data)
-  dispatch(getAllUsersCarts(data))
-}
 
 // Creating a New Cart Instance
 export const createNewCartThunk = () => async (dispatch) => {
@@ -104,32 +108,23 @@ export const removeFromCartThunk = (cartItemId) => async (dispatch) => {
   }
 };
 
-
 // Cart Reducer
-const initialState = {
-  items: [],
-  totalItems: 0
-};
-
-const cartReducer = (state = initialState, action) => {
+const cartReducer = (state = {}, action) => {
   switch (action.type) {
+    case GET_ALL_USERS_CARTS:
+      return action.payload;
     case CREATE_NEW_CART:
-      return { ...state, ...action.data }
+      return action.payload;
     case ADD_TO_CART:
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-        totalItems: state.totalItems + action.payload.quantity_added
-      };
+      return { ...state, ...action.payload }
     case REMOVE_FROM_CART:
-      return {
-        ...state,
-        items: state.items.filter(item => item.cartItemId !== action.payload.cartItemId),
-        totalItems: state.totalItems - 1
-      };
+      {
+        const newState = { ...state };
+        delete newState[action.payload];
+        return newState;
+      }
     case CLEAR_CART:
       return {
-        ...state,
         items: [],
         totalItems: 0
       };
@@ -139,3 +134,4 @@ const cartReducer = (state = initialState, action) => {
 };
 
 export default cartReducer;
+

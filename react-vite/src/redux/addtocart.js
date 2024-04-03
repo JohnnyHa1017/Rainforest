@@ -4,18 +4,19 @@ export const UPDATING_CART = 'carts/UPDATING_CART'
 
 
 // Action Creators
-export const addingToCart = () => ({
+export const addingToCart = (data) => ({
   type: ADDING_TO_CART,
+  data
 });
 
-export const updatingCart = () => ({
+export const updatingCart = (data) => ({
   type: UPDATING_CART,
+  data
 });
 
 
 // Adding Products to Users Cart Thunk
 export const addToCartThunk = (cart_id, product_id, quantity) => async (dispatch) => {
-  dispatch(addingToCart());
 
   try {
     const response = await fetch('/api/products/cart/add_product', {
@@ -29,55 +30,43 @@ export const addToCartThunk = (cart_id, product_id, quantity) => async (dispatch
     if (!response.ok) {
       throw new Error('Failed to add product to cart.');
     }
-
-    dispatch(addingToCartSuccess());
+    const data = await response.json()
+    dispatch(addingToCart(data));
   } catch (error) {
-    dispatch(addingToCartFailure(error.message));
+    throw new Error('Failed to add product to cart.');
   }
 };
 
 
 // Updating Quantity and Subtotal Thunk
-export const updateCartThunk = (cart_id, product_id, quantity_added, subtotal) => async (dispatch) => {
-  dispatch(updatingCart());
-
+export const updateCartThunk = (cart_id, product_id, quantity_added) => async (dispatch) => {
   try {
-    const response = await fetch('/api/products/cart/update', {
-      method: 'POST',
+    const response = await fetch(`/api/products/cart/${product_id}/update`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ cart_id, product_id, quantity_added, subtotal })
+      body: JSON.stringify({ cart_id, product_id, quantity_added })
     });
 
     if (!response.ok) {
       throw new Error('Failed to update cart.');
     }
-
-    dispatch(updateCartSuccess());
+    const data = await response.json()
+    dispatch(updatingCart(data));
   } catch (error) {
-    dispatch(updateCartFailure(error.message));
+    throw new Error('Failed to update cart.');
   }
 };
 
 
 // AddToCart Reducer
-const initialState = {
-  loading: false,
-  error: null,
-};
-
-const addToCartReducer = (state = initialState, action) => {
+const addToCartReducer = (state = {}, action) => {
   switch (action.type) {
     case ADDING_TO_CART:
+      return { ...state, ...action.data }
     case UPDATING_CART:
-      return { ...state, loading: true, error: null };
-    case ADDING_TO_CART_SUCCESS:
-    case UPDATING_CART_SUCCESS:
-      return { ...state, loading: false };
-    case ADDING_TO_CART_FAILURE:
-    case UPDATING_CART_FAILURE:
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, ...action.data };
     default:
       return state;
   }

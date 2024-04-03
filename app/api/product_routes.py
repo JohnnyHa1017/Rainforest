@@ -141,7 +141,7 @@ def get_or_create_cart():
 
         # Serialize cart items and calculate subtotal
         serialized_cart = []
-        subtotal = 0.0
+        subtotal = 0.00
         for item in cart_items:
             subtotal += item.subtotal
             serialized_cart.append({
@@ -154,7 +154,7 @@ def get_or_create_cart():
                 'updated_at': item.updated_at.strftime("%Y-%m-%d %H:%M:%S")
             })
 
-        return jsonify({'cart_items': serialized_cart, 'subtotal': subtotal}), 200
+        return jsonify({'cart_items': serialized_cart}), 200
 
     elif request.method == 'POST':
         cart = Cart.query.filter_by(user_id=current_user.id).first()
@@ -185,7 +185,7 @@ def cart_history():
 
         # Serialize cart items and calculate subtotal
         serialized_cart = []
-        subtotal = 0.0
+        subtotal = 0.00
         for item in cart_items:
             subtotal += item.subtotal
             serialized_cart.append({

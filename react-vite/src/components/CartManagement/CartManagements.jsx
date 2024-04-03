@@ -1,97 +1,126 @@
-// CartManagement.js
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as CartActions from '../../redux/carts'
-import * as AddToCartActions from '../../redux/addtocart'
-import * as ProductActions from '../../redux/products'
+import { NavLink } from "react-router-dom";
+import * as CartActions from '../../redux/carts';
+import * as ProductActions from '../../redux/products';
+import { updateCartThunk } from "../../redux/addtocart";
+import './CartManagements.css';
+
+// Loading Spinner component
+const LoadingSpinner = () => {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-gray-900"></div>
+    </div>
+  );
+};
 
 const CartManagement = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
-  // const allProducts = useSelector((state) => console.log('STATE', state));
-  // const userCart = useSelector((state) => state.cart);
-
-  // console.log('ALLPRODUCTS @@@===>', allProducts)
-  // console.log('currentUser @@@===>', currentUser)
-  // console.log('userCart @@@===>', userCart)
-
+  const userCart = useSelector((state) => state.carts.cart_items);
+  const allProducts = useSelector((state) => state.products.products);
   const [quantities, setQuantities] = useState({});
+  const [shouldReload, setShouldReload] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Fetch user's cart items and available products when component mounts
-    dispatch(CartActions.getAllUsersCarts());
-    dispatch(ProductActions.loadAllProducts());
-  }, [dispatch]);
+    dispatch(ProductActions.loadAllThunk());
+    dispatch(CartActions.getAllUsersCartsThunk())
+      .then(() => {
+        setIsLoading(false);
+        // Initialize quantities with quantities from userCart
+        const initialQuantities = {};
+        userCart.forEach(item => {
+          initialQuantities[item.product_id] = item.quantity_added;
+        });
+        setQuantities(initialQuantities);
+      })
+      .catch(() => setIsLoading(false));
+  }, [dispatch, shouldReload]);
 
   // Function to handle incrementing quantity for a specific product
   const handleIncrement = (productId) => {
-    setQuantities((prevQuantities) => ({
+    setQuantities(prevQuantities => ({
       ...prevQuantities,
-      [productId]: (prevQuantities[productId] || 0) + 1,
+      [productId]: (prevQuantities[productId] || 0) + 1
     }));
   };
 
   // Function to handle decrementing quantity for a specific product
   const handleDecrement = (productId) => {
     if (quantities[productId] && quantities[productId] > 1) {
-      setQuantities((prevQuantities) => ({
+      setQuantities(prevQuantities => ({
         ...prevQuantities,
-        [productId]: prevQuantities[productId] - 1,
+        [productId]: prevQuantities[productId] - 1
       }));
     }
   };
 
-  // Function to handle adding product to cart with specified quantity
-  const handleAddToCart = (productId) => {
+  // Function to calculate subtotal for a specific product
+  const calculateSubtotal = (productId) => {
     const quantity = quantities[productId] || 1;
-    dispatch(AddToCartActions.addingToCart(productId, quantity));
+    const price = allProducts?.find((product) => product.id == productId)?.price || 0;
+    return quantity * price;
   };
 
-  // return (
-  //   <div>
-  //     {/* Display the current user's information */}
-  //     <div>Welcome, {currentUser.username}</div>
+// Function to update quantity and subtotal in the cart
+const handleUpdateCart = (productId, quantity) => {
+  const cartItem = userCart.find(item => item.product_id == productId);
+  dispatch(updateCartThunk(cartItem.cart_id, productId, quantity));
+};
 
-  //     {/* Render available products */}
-  //     <div>
-  //       {allProducts.map((product) => (
-  //         <div key={product.id}>
-  //           <h3>{product.name}</h3>
-  //           <img src={product.image} alt={product.name} />
-  //           <p>Price: ${product.price}</p>
-  //           <button onClick={() => handleAddToCart(product.id)}>
-  //             Add to Cart
-  //           </button>
-  //         </div>
-  //       ))}
-  //     </div>
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
-  //     {/* Display user's cart */}
-  //     <div>
-  //       <h2>Your Cart</h2>
-  //       <ul>
-  //         {userCart.map((item) => (
-  //           <li key={item.id}>
-  //             {item.productName} - Quantity: {item.quantity}
-  //           </li>
-  //         ))}
-  //       </ul>
-  //     </div>
+  if (!currentUser || !userCart || !allProducts) {
+    return <p>Loading, one moment please...</p>;
+  }
 
-  //     {/* Cart buttons */}
-  //     <div>
-  //       {Object.keys(quantities).map((productId) => (
-  //         <div key={productId}>
-  //           <h3>{allProducts.find((product) => product.id === productId)?.name}</h3>
-  //           <button onClick={() => handleDecrement(productId)}>-</button>
-  //           <span>{quantities[productId]}</span>
-  //           <button onClick={() => handleIncrement(productId)}>+</button>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   </div>
-  // );
-  // )
+  return (
+    <div>
+      {/* Display the current user's information */}
+      <div>Welcome, {currentUser.first_name}</div>
+      {/* Display user's cart */}
+      <div>
+        {userCart?.length > 0 ? (
+          <h2>Your Rainforest Cart is Waiting...</h2>
+        ) : (
+          <div>
+            <h2>Your Rainforest Cart is Empty...</h2>
+            <h3>
+              Check your Saved for Later items below or{' '}
+              <NavLink to='/'>Continue Shopping...</NavLink>
+            </h3>
+          </div>
+        )}
+        <ul>
+          {userCart && userCart.map((item) => (
+            <li key={item.product_id}>
+              <div className="flex items-center">
+                {/* Product Image */}
+                <img src={allProducts?.find((product) => product.id == item.product_id)?.image} alt="Product Image" className="thumbnail" />
+                {/* Product Details */}
+                <div>
+                  <p>{allProducts?.find((product) => product.id == item.product_id)?.name}</p>
+                  <p>Price: {allProducts?.find((product) => product.id == item.product_id)?.price}</p>
+                  <div>
+                    <button onClick={() => handleDecrement(item.product_id)}>-</button>
+                    <span>{quantities[item.product_id] || item.quantity_added}</span>
+                    <button onClick={() => handleIncrement(item.product_id)}>+</button>
+                  </div>
+                  <p>Subtotal: {calculateSubtotal(item.product_id).toFixed(2)}</p>
+                  <button onClick={() => handleUpdateCart(item.product_id)}>Update Cart</button>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
 };
 
 export default CartManagement;
