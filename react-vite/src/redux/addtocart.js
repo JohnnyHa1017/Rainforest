@@ -39,26 +39,25 @@ export const addToCartThunk = (cart_id, product_id, quantity) => async (dispatch
 
 
 // Updating Quantity and Subtotal Thunk
-export const updateCartThunk = (cart_id, product_id, quantity_added) => async (dispatch) => {
+export const updateCartThunk = (cartItems) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/products/cart/${product_id}/update`, {
+    const response = await fetch(`/api/products/cart/update`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ cart_id, product_id, quantity_added })
+      body: JSON.stringify({ cart_items: cartItems })
     });
 
     if (!response.ok) {
       throw new Error('Failed to update cart.');
     }
-    const data = await response.json()
-    dispatch(updatingCart(data));
+    const data = await response.json();
+    dispatch(updatingCart(cartItems, data));
   } catch (error) {
     throw new Error('Failed to update cart.');
   }
 };
-
 
 // AddToCart Reducer
 const addToCartReducer = (state = {}, action) => {

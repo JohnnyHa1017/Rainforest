@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadAllThunk } from "../../redux/products";
-import { addToCartThunk, updateCartThunk } from "../../redux/addtocart";
+import { addToCartThunk } from "../../redux/addtocart";
 import { NavLink } from 'react-router-dom';
 import './LandingPage.css';
 
@@ -22,7 +22,7 @@ const AllProducts = () => {
   const handleIncrement = (productId) => {
     setQuantities(prevQuantities => ({
       ...prevQuantities,
-      [productId]: (prevQuantities[productId] || 0) + 1
+      [productId]: (prevQuantities[productId] || 1) + 1
     }));
   };
 
@@ -40,20 +40,6 @@ const AllProducts = () => {
   const handleAddToCart = (productId) => {
     const quantity = quantities[productId] || 1;
     dispatch(addToCartThunk(userCart.id, productId, quantity));
-  };
-
-  // Function to handle updating product quantity in cart
-  const handleUpdateCart = (productId) => {
-    const quantity_added = quantities[productId] || 1;
-    const subtotal = calculateSubtotal(productId);
-    dispatch(updateCartThunk(userCart.id, productId, quantity_added));
-  };
-
-  // Function to calculate subtotal for a specific product
-  const calculateSubtotal = (productId) => {
-    const quantity = quantities[productId] || 1;
-    const price = allProducts?.find((product) => product.id == productId)?.price || 0;
-    return quantity * price;
   };
 
   return (
@@ -83,7 +69,6 @@ const AllProducts = () => {
                   <button className="quantity-button" onClick={() => handleIncrement(product.id)}>+</button>
                 </div>
                 <button className="add-to-cart-button" onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
-                <button className="update-cart-button" onClick={() => handleUpdateCart(product.id)}>Update Cart</button>
               </div>
             </div>
           ))

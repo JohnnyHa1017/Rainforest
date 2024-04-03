@@ -26,25 +26,24 @@ const CartManagement = () => {
 
   useEffect(() => {
     // Fetch user's cart items and available products when component mounts
-    dispatch(ProductActions.loadAllThunk());
+    dispatch(ProductActions.loadAllThunk())
     dispatch(CartActions.getAllUsersCartsThunk())
       .then(() => {
         setIsLoading(false);
-        // Initialize quantities with quantities from userCart
         const initialQuantities = {};
         userCart.forEach(item => {
           initialQuantities[item.product_id] = item.quantity_added;
-        });
-        setQuantities(initialQuantities);
+        })
+        setQuantities(initialQuantities)
       })
-      .catch(() => setIsLoading(false));
+      .catch(() => setIsLoading(false))
   }, [dispatch, shouldReload]);
 
   // Function to handle incrementing quantity for a specific product
   const handleIncrement = (productId) => {
     setQuantities(prevQuantities => ({
       ...prevQuantities,
-      [productId]: (prevQuantities[productId] || 0) + 1
+      [productId]: (prevQuantities[productId] || userCart.find(item => item.product_id === productId)?.quantity_added || 0) + 1
     }));
   };
 
@@ -65,11 +64,20 @@ const CartManagement = () => {
     return quantity * price;
   };
 
-// Function to update quantity and subtotal in the cart
-const handleUpdateCart = (productId, quantity) => {
-  const cartItem = userCart.find(item => item.product_id == productId);
-  dispatch(updateCartThunk(cartItem.cart_id, productId, quantity));
-};
+  // Function to update quantity and subtotal in the cart
+  const handleUpdateCart = () => {
+    const updatedCart = userCart.map(item => ({
+      cart_id: item.cart_id,
+      product_id: item.product_id,
+      quantity: quantities[item.product_id] || item.quantity_added
+    }));
+    dispatch(updateCartThunk(updatedCart));
+  };
+
+  // Function to checkout current cart of items
+  const handleCheckout = () => {
+    console.log(handleCheckout)
+  };
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -81,9 +89,7 @@ const handleUpdateCart = (productId, quantity) => {
 
   return (
     <div>
-      {/* Display the current user's information */}
       <div>Welcome, {currentUser.first_name}</div>
-      {/* Display user's cart */}
       <div>
         {userCart?.length > 0 ? (
           <h2>Your Rainforest Cart is Waiting...</h2>
@@ -100,24 +106,25 @@ const handleUpdateCart = (productId, quantity) => {
           {userCart && userCart.map((item) => (
             <li key={item.product_id}>
               <div className="flex items-center">
-                {/* Product Image */}
                 <img src={allProducts?.find((product) => product.id == item.product_id)?.image} alt="Product Image" className="thumbnail" />
-                {/* Product Details */}
                 <div>
                   <p>{allProducts?.find((product) => product.id == item.product_id)?.name}</p>
-                  <p>Price: {allProducts?.find((product) => product.id == item.product_id)?.price}</p>
                   <div>
                     <button onClick={() => handleDecrement(item.product_id)}>-</button>
-                    <span>{quantities[item.product_id] || item.quantity_added}</span>
+                      <span>{quantities[item.product_id] || item.quantity_added}</span>
                     <button onClick={() => handleIncrement(item.product_id)}>+</button>
                   </div>
-                  <p>Subtotal: {calculateSubtotal(item.product_id).toFixed(2)}</p>
-                  <button onClick={() => handleUpdateCart(item.product_id)}>Update Cart</button>
                 </div>
+                  <p>Price: {calculateSubtotal(item.product_id).toFixed(2)}</p>
               </div>
             </li>
           ))}
         </ul>
+        <div>
+          <p>Total: {userCart.reduce((total, item) => total + calculateSubtotal(item.product_id), 0).toFixed(2)}</p>
+          <button onClick={handleUpdateCart}>Save for Later</button>
+          <button onClick={handleCheckout}>Checkout</button>
+        </div>
       </div>
     </div>
   );

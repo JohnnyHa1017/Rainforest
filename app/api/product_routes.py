@@ -243,40 +243,42 @@ def add_product_to_cart():
     return jsonify({'message': f'Product added to cart successfully.'}), 200
 
 
-# Updating Quantity and Subtotal on Current Users Cart
+# Updating the Current Users Cart ('Save for Later')
 @product_routes.route('/cart/update', methods=['PUT'])
 @login_required
 def update_cart():
     data = request.get_json()
-    cart_id = data.get('cart_id')
-    product_id = data.get('product_id')
-    quantity = data.get('quantity')
+    cart_items = data.get('cart_items')
 
-    if not cart_id or not product_id:
-        return jsonify({'error': 'Both cart ID and product ID are required.'}), 400
+    if not cart_items:
+        return jsonify({'error': 'Cart items are required.'}), 400
 
-    cart_item = AddToCart.query.filter_by(cart_id=cart_id, product_id=product_id).first()
-    if not cart_item:
-        return jsonify({'error': 'Cart item not found.'}), 404
+    for cart_item in cart_items:
+        cart_id = cart_item.get('cart_id')
+        product_id = cart_item.get('product_id')
+        quantity = cart_item.get('quantity')
 
-    if quantity is not None:
-        if not isinstance(quantity, int) or quantity < 0:
-            return jsonify({'error': 'Invalid quantity.'}), 400
-        cart_item.quantity_added = quantity
+        if not cart_id or not product_id:
+            return jsonify({'error': 'Both cart ID and product ID are required.'}), 400
 
-        product = Product.query.get(product_id)
+        cart_item_record = AddToCart.query.filter_by(cart_id=cart_id, product_id=product_id).first()
+        if not cart_item_record:
+            return jsonify({'error': f'Cart item with product ID {product_id} not found.'}), 404
 
-        if product:
-            if quantity is not None:
-                cart_item.quantity_added = quantity
-            updated_quantity = cart_item.quantity_added if quantity is not None else cart_item.quantity_added
-            cart_item.subtotal = updated_quantity * product.price
-        else:
-            return jsonify({'error': 'Product not found.'}), 404
+        if quantity is not None:
+            if not isinstance(quantity, int) or quantity < 0:
+                return jsonify({'error': 'Invalid quantity.'}), 400
+            cart_item_record.quantity_added = quantity
+
+            product = Product.query.get(product_id)
+            if product:
+                cart_item_record.subtotal = quantity * product.price
+            else:
+                return jsonify({'error': f'Product with ID {product_id} not found.'}), 404
 
     db.session.commit()
-
     return jsonify({'message': 'Cart updated successfully.'}), 200
+
 
 
 # Deleting Item(s) from the User's Cart
