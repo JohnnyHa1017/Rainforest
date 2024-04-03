@@ -119,7 +119,7 @@ const CartManagement = () => {
                   <p>Price: {((quantities[item.product_id] || item.quantity_added) * (allProducts?.find((product) => product.id == item.product_id)?.price || 0)).toFixed(2)}</p>
                 </div>
               </div>
-                  <button onClick={() => handleDeleteItem(item.cart_id)}>Delete</button>
+                  <button onClick={() => handleDeleteItem(item.id)}>Delete</button>
             </li>
           ))}
         </ul>

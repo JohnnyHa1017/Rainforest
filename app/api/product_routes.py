@@ -295,7 +295,7 @@ def remove_from_cart(cart_id):
     if cart.user_id != current_user.id:
         return jsonify({'error': 'Unauthorized access to cart item.'}), 403
 
-    db.session.delete(cart.product_id)
+    db.session.delete(cart_item)
     db.session.commit()
 
     return jsonify({'message': 'Cart item deleted successfully.'}), 200

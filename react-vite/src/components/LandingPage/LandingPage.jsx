@@ -20,7 +20,7 @@ const AllProducts = () => {
   // Function to handle adding product to cart
   const handleAddToCart = (productId) => {
     const quantity = 1;
-    dispatch(addToCartThunk(userCart.id, productId, quantity));
+    dispatch(addToCartThunk(userCart.cart_id, productId, quantity));
   };
 
   return (
