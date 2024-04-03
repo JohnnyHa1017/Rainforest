@@ -94,7 +94,7 @@ export const addToCartThunk = (product_id, quantity_added, image) => async (disp
 // Remove from Cart Thunk
 export const removeFromCartThunk = (cartItemId) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/products/carts/remove/${cartItemId}`, {
+    const response = await fetch(`/api/products/carts/remove`, {
       method: 'DELETE'
     });
 

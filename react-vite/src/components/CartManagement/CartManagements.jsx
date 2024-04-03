@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import * as CartActions from '../../redux/carts';
 import * as ProductActions from '../../redux/products';
 import { updateCartThunk } from "../../redux/addtocart";
+import { removeFromCartThunk } from '../../redux/carts';
 import './CartManagements.css';
 
 // Loading Spinner component
@@ -43,7 +44,7 @@ const CartManagement = () => {
   const handleIncrement = (productId) => {
     setQuantities(prevQuantities => ({
       ...prevQuantities,
-      [productId]: (prevQuantities[productId] || userCart.find(item => item.product_id === productId)?.quantity_added || 0) + 1
+      [productId]: (prevQuantities[productId] || userCart.find(item => item.product_id === productId)?.quantity_added || 1) + 1
     }));
   };
 
@@ -57,13 +58,6 @@ const CartManagement = () => {
     }
   };
 
-  // Function to calculate subtotal for a specific product
-  const calculateSubtotal = (productId) => {
-    const quantity = quantities[productId] || 1;
-    const price = allProducts?.find((product) => product.id == productId)?.price || 0;
-    return quantity * price;
-  };
-
   // Function to update quantity and subtotal in the cart
   const handleUpdateCart = () => {
     const updatedCart = userCart.map(item => ({
@@ -74,9 +68,14 @@ const CartManagement = () => {
     dispatch(updateCartThunk(updatedCart));
   };
 
+  // Function to handle deletion of one item from cart
+  const handleDeleteItem = (cartItemId) => {
+    dispatch(removeFromCartThunk(cartItemId));
+  };
+
   // Function to checkout current cart of items
   const handleCheckout = () => {
-    console.log(handleCheckout)
+    dispatch(CartActions.clearCart())
   };
 
   if (isLoading) {
@@ -114,15 +113,25 @@ const CartManagement = () => {
                       <span>{quantities[item.product_id] || item.quantity_added}</span>
                     <button onClick={() => handleIncrement(item.product_id)}>+</button>
                   </div>
-                  <p>Price: {calculateSubtotal(item.product_id).toFixed(2)}</p>
+                  <p>Price: {((quantities[item.product_id] || item.quantity_added) * (allProducts?.find((product) => product.id == item.product_id)?.price || 0)).toFixed(2)}</p>
                 </div>
               </div>
+                  <button onClick={() => handleDeleteItem(item.cart_id)}>Delete</button>
             </li>
           ))}
         </ul>
         <div>
-          <p>Total: {userCart.reduce((total, item) => total + calculateSubtotal(item.product_id), 0).toFixed(2)}</p>
-          <button onClick={handleUpdateCart}>Save for Later</button>
+          <p>
+            Total: {
+            userCart.reduce((total, item) =>
+            total + ((quantities[item.product_id] || item.quantity_added) *
+            (allProducts?.find((product) => product.id == item.product_id)?.price || 0)), 0)
+          .toFixed(2)}
+        </p>
+          <button onClick={() => {
+              handleUpdateCart()
+              window.location.href = '/'
+            }}>Save for Later</button>
           <button onClick={handleCheckout}>Checkout</button>
         </div>
       </div>

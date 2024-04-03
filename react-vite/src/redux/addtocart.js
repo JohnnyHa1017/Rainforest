@@ -2,7 +2,6 @@
 export const ADDING_TO_CART = 'carts/ADDING_TO_CART'
 export const UPDATING_CART = 'carts/UPDATING_CART'
 
-
 // Action Creators
 export const addingToCart = (data) => ({
   type: ADDING_TO_CART,
@@ -13,7 +12,6 @@ export const updatingCart = (data) => ({
   type: UPDATING_CART,
   data
 });
-
 
 // Adding Products to Users Cart Thunk
 export const addToCartThunk = (cart_id, product_id, quantity) => async (dispatch) => {
@@ -36,7 +34,6 @@ export const addToCartThunk = (cart_id, product_id, quantity) => async (dispatch
     throw new Error('Failed to add product to cart.');
   }
 };
-
 
 // Updating Quantity and Subtotal Thunk
 export const updateCartThunk = (cartItems) => async (dispatch) => {
