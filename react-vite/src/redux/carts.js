@@ -3,7 +3,6 @@ export const GET_ALL_USERS_CARTS = 'carts/GET_ALL_USERS_CARTS'
 export const CREATE_NEW_CART = 'carts/CREATE_NEW_CART'
 export const ADD_TO_CART = 'carts/ADD_TO_CART'
 export const REMOVE_FROM_CART = 'carts/REMOVE_FROM_CART'
-export const CLEAR_CART = 'carts/CLEAR_CART'
 
 // Action Creators
 export const getAllUsersCarts = (payload) => ({
@@ -24,10 +23,6 @@ export const addToCart = (payload) => ({
 export const removeFromCart = (payload) => ({
   type: REMOVE_FROM_CART,
   payload
-});
-
-export const clearCart = () => ({
-  type: CLEAR_CART
 });
 
 
@@ -90,7 +85,6 @@ export const addToCartThunk = (product_id, quantity_added, image) => async (disp
   }
 };
 
-
 // Remove from Cart Thunk
 export const removeFromCartThunk = (cartItemId) => async (dispatch) => {
   try {
@@ -108,6 +102,7 @@ export const removeFromCartThunk = (cartItemId) => async (dispatch) => {
   }
 };
 
+
 // Cart Reducer
 const cartReducer = (state = {}, action) => {
   switch (action.type) {
@@ -123,11 +118,6 @@ const cartReducer = (state = {}, action) => {
         delete newState[action.payload];
         return newState;
       }
-    case CLEAR_CART:
-      return {
-        items: [],
-        totalItems: 0
-      };
     default:
       return state;
   }

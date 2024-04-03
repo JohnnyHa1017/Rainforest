@@ -25,6 +25,8 @@ const CartManagement = () => {
   const [shouldReload, setShouldReload] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log('USERCART WHAT AARE YOUUUU', userCart)
+
   useEffect(() => {
     // Fetch user's cart items and available products when component mounts
     dispatch(ProductActions.loadAllThunk())
@@ -74,8 +76,10 @@ const CartManagement = () => {
   };
 
   // Function to checkout current cart of items
-  const handleCheckout = () => {
-    dispatch(CartActions.clearCart())
+  const handleCheckout = async () => {
+    for (let product of userCart) {
+      await dispatch(removeFromCartThunk(product));
+    }
   };
 
   if (isLoading) {
@@ -129,9 +133,9 @@ const CartManagement = () => {
           .toFixed(2)}
         </p>
           <button onClick={() => {
-              handleUpdateCart()
-              window.location.href = '/'
-            }}>Save for Later</button>
+            handleUpdateCart();
+            window.location.href = '/';
+          }}>Save for Later</button>
           <button onClick={handleCheckout}>Checkout</button>
         </div>
       </div>

@@ -22,7 +22,6 @@ function Navigation() {
           <ProfileButton />
         </li>
       </ul>
-
       {/* Cart sidebar */}
       <div className={`cart-sidebar ${showCart ? "open" : ""}`}>
         <button className="close-cart" onClick={toggleCart}>Close</button>
@@ -39,7 +38,6 @@ function Navigation() {
           </ul>
         </div>
       </div>
-
       <button className="toggle-cart" onClick={toggleCart}>
         Cart
       </button>
