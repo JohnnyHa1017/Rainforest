@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import * as CartActions from '../../redux/carts';
 import * as ProductActions from '../../redux/products';
 import { updateCartThunk } from "../../redux/addtocart";
-import { removeFromCartThunk } from '../../redux/carts';
+import { removeFromCartThunk } from '../../redux/addtocart';
 import './CartManagements.css';
 
 // Loading Spinner component
@@ -19,13 +19,11 @@ const LoadingSpinner = () => {
 const CartManagement = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
-  const userCart = useSelector((state) => state.carts.cart_items);
   const allProducts = useSelector((state) => state.products.products);
+  const userCart = useSelector((state) => state.carts.cart_items);
   const [quantities, setQuantities] = useState({});
   const [shouldReload, setShouldReload] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
-  console.log('USERCART WHAT AARE YOUUUU', userCart)
 
   useEffect(() => {
     // Fetch user's cart items and available products when component mounts
@@ -46,13 +44,13 @@ const CartManagement = () => {
   const handleIncrement = (productId) => {
     setQuantities(prevQuantities => ({
       ...prevQuantities,
-      [productId]: (prevQuantities[productId] || userCart.find(item => item.product_id === productId)?.quantity_added || 1) + 1
+      [productId]: (prevQuantities[productId] || userCart.find(item => item.product_id == productId)?.quantity_added) + 1
     }));
   };
 
   // Function to handle decrementing quantity for a specific product
   const handleDecrement = (productId) => {
-    if (quantities[productId] && quantities[productId] > 1) {
+    if (quantities[productId]) {
       setQuantities(prevQuantities => ({
         ...prevQuantities,
         [productId]: prevQuantities[productId] - 1
@@ -71,14 +69,15 @@ const CartManagement = () => {
   };
 
   // Function to handle deletion of one item from cart
-  const handleDeleteItem = (cartItemId) => {
-    dispatch(removeFromCartThunk(cartItemId));
+  const handleDeleteItem = async (cartItemId) => {
+      await dispatch(removeFromCartThunk(cartItemId));
   };
+
 
   // Function to checkout current cart of items
   const handleCheckout = async () => {
-    for (let product of userCart) {
-      await dispatch(removeFromCartThunk(product));
+    for (let item of userCart) {
+      await dispatch(removeFromCartThunk(item.id));
     }
   };
 
@@ -114,7 +113,7 @@ const CartManagement = () => {
                   <p>{allProducts?.find((product) => product.id == item.product_id)?.name}</p>
                   <div>
                     <button onClick={() => handleDecrement(item.product_id)}>-</button>
-                      <span>{quantities[item.product_id] || item.quantity_added}</span>
+                      <span>{quantities[item.product_id] ?? item.quantity_added}</span>
                     <button onClick={() => handleIncrement(item.product_id)}>+</button>
                   </div>
                   <p>Price: {((quantities[item.product_id] || item.quantity_added) * (allProducts?.find((product) => product.id == item.product_id)?.price || 0)).toFixed(2)}</p>

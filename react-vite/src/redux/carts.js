@@ -2,7 +2,7 @@
 export const GET_ALL_USERS_CARTS = 'carts/GET_ALL_USERS_CARTS'
 export const CREATE_NEW_CART = 'carts/CREATE_NEW_CART'
 export const ADD_TO_CART = 'carts/ADD_TO_CART'
-export const REMOVE_FROM_CART = 'carts/REMOVE_FROM_CART'
+// export const REMOVE_FROM_CART = 'carts/REMOVE_FROM_CART'
 
 // Action Creators
 export const getAllUsersCarts = (payload) => ({
@@ -20,10 +20,10 @@ export const addToCart = (payload) => ({
   payload
 });
 
-export const removeFromCart = (payload) => ({
-  type: REMOVE_FROM_CART,
-  payload
-});
+// export const removeFromCart = (item) => ({
+//   type: REMOVE_FROM_CART,
+//   item
+// });
 
 
 // Get All Carts of Current User
@@ -85,23 +85,23 @@ export const addToCartThunk = (product_id, quantity_added, image) => async (disp
   }
 };
 
+
 // Remove from Cart Thunk
-export const removeFromCartThunk = (cartItemId) => async (dispatch) => {
-  try {
-    const response = await fetch(`/api/products/carts/remove`, {
-      method: 'DELETE'
-    });
+// export const removeFromCartThunk = (cartItemId) => async (dispatch) => {
+//   try {
+//     const response = await fetch(`/api/products/carts/remove/${cartItemId}`, {
+//       method: 'DELETE'
+//     });
 
-    if (!response.ok) {
-      throw new Error('Failed to remove product from your cart');
-    }
-
-    dispatch(removeFromCart(cartItemId));
-  } catch (error) {
-    return { error: error.message };
-  }
-};
-
+//     if (!response.ok) {
+//       throw new Error('Failed to remove product from your cart');
+//     }
+//     const data = await response.json()
+//     dispatch(removeFromCart(data));
+//   } catch (error) {
+//     return { error: error.message };
+//   }
+// };
 
 // Cart Reducer
 const cartReducer = (state = {}, action) => {
@@ -112,12 +112,12 @@ const cartReducer = (state = {}, action) => {
       return action.payload;
     case ADD_TO_CART:
       return { ...state, ...action.payload }
-    case REMOVE_FROM_CART:
-      {
-        const newState = { ...state };
-        delete newState[action.payload];
-        return newState;
-      }
+    // case REMOVE_FROM_CART:
+    //   {
+    //     const newState = { ...state };
+    //     delete newState[action.item];
+    //     return newState;
+    //   }
     default:
       return state;
   }

@@ -282,21 +282,21 @@ def update_cart():
 
 
 # Deleting Item(s) from the User's Cart
-@product_routes.route('/cart/delete/<int:cart_id>', methods=['DELETE'])
+@product_routes.route('/cart/remove/<int:cart_id>', methods=['DELETE'])
 @login_required
-def delete_cart_item(cart_id):
+def remove_from_cart(cart_id):
     cart_item = AddToCart.query.get(cart_id)
 
     if not cart_item:
         return jsonify({'error': 'Cart item not found.'}), 404
 
-    cart_id = cart_item.cart_id
-    cart = Cart.query.get(cart_id)
+    cart = Cart.query.filter(Cart.id == cart_item.cart_id).first()
 
     if cart.user_id != current_user.id:
         return jsonify({'error': 'Unauthorized access to cart item.'}), 403
 
-    db.session.delete(cart_item)
+    db.session.delete(cart.product_id)
     db.session.commit()
 
     return jsonify({'message': 'Cart item deleted successfully.'}), 200
+

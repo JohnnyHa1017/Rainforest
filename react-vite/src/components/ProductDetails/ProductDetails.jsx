@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadOneThunk } from '../../redux/products';
 import { getAllUsersThunk } from '../../redux/session';
 import { loadReviewsOnOneProductThunk } from '../../redux/reviews';
-import { addToCart } from "../../redux/carts";
+import { addToCartThunk } from "../../redux/addtocart";
 import './ProductDetails.css';
 
 const ProductDetailsPage = () => {
@@ -13,7 +13,7 @@ const ProductDetailsPage = () => {
   const product = useSelector(state => state.products);
   const allReviews = useSelector(state => state.reviews);
   const allUsers = useSelector(state => state.session.users);
-  const [quantity, setQuantity] = useState(1);
+  const userCart = useSelector((state) => state.carts.cart_items);
 
   useEffect(() => {
     dispatch(loadOneThunk(productId));
@@ -21,18 +21,9 @@ const ProductDetailsPage = () => {
     dispatch(getAllUsersThunk());
   }, [dispatch, productId]);
 
-  const handleIncrement = () => {
-    setQuantity(prevQuantity => prevQuantity + 1);
-  };
-
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      setQuantity(prevQuantity => prevQuantity - 1);
-    }
-  };
-
-  const handleAddToCart = () => {
-    dispatch(addToCart(product.id, quantity));
+  const handleAddToCart = (productId) => {
+    const quantity = 1;
+    dispatch(addToCartThunk(userCart.id, productId, quantity));
   };
 
   return (
@@ -46,12 +37,7 @@ const ProductDetailsPage = () => {
           <p>Category: {product.category}</p>
           <p className="product-detail-description">{product.body}</p>
           <div className="product-detail-quantity-container">
-            <div className="product-detail-quantity-inline">
-              <button className="product-detail-quantity-button" onClick={handleDecrement}>-</button>
-              <span className="product-detail-quantity">{quantity}</span>
-              <button className="product-detail-quantity-button" onClick={handleIncrement}>+</button>
-            </div>
-            <button className="product-detail-add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
+          <button className="add-to-cart-button" onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
           </div>
           {Object.values(allReviews).map((review, index) => {
             const user = allUsers ? allUsers.find(user => user.id === review.user_id) : null;
