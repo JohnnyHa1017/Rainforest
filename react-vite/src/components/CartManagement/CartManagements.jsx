@@ -114,8 +114,8 @@ const CartManagement = () => {
                       <span>{quantities[item.product_id] || item.quantity_added}</span>
                     <button onClick={() => handleIncrement(item.product_id)}>+</button>
                   </div>
-                </div>
                   <p>Price: {calculateSubtotal(item.product_id).toFixed(2)}</p>
+                </div>
               </div>
             </li>
           ))}
