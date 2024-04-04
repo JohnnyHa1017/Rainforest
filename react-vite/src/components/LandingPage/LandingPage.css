@@ -74,7 +74,6 @@ h3 {
   color:#454545b5;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.224);
-  transition: box-shadow 0.3s ease;
 }
 
 .quantity-button:hover {

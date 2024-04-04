@@ -106,40 +106,42 @@ const CartManagement = () => {
         )}
         <ul>
           {userCart && userCart.map((item) => (
-            <li key={item.product_id}>
-              <div className="flex items-center">
-                <img src={allProducts?.find((product) => product.id == item.product_id)?.image} alt="Product Image" className="thumbnail" />
-                <div>
-                  <p>{allProducts?.find((product) => product.id == item.product_id)?.name}</p>
-                  <div>
-                    <button onClick={() => handleDecrement(item.product_id)}>-</button>
-                      <span>{quantities[item.product_id] ?? item.quantity_added}</span>
-                    <button onClick={() => handleIncrement(item.product_id)}>+</button>
-                  </div>
-                  <p>Price: {((quantities[item.product_id] || item.quantity_added) * (allProducts?.find((product) => product.id == item.product_id)?.price || 0)).toFixed(2)}</p>
+            <li key={item.product_id} className="cart-item">
+              <NavLink to={`/products/${item.product_id}`}>
+                <img src={allProducts?.find((product) => product.id === item.product_id)?.image} alt="Product Image" className="thumbnail" />
+              </NavLink>
+              <div className="cart-item-details">
+                <p className="cart-item-name">{allProducts?.find((product) => product.id == item.product_id)?.name}</p>
+                <div className="cart-item-quantity">
+                  <button onClick={() => handleDecrement(item.product_id)}>-</button>
+                  <span>{quantities[item.product_id] ?? item.quantity_added}</span>
+                  <button onClick={() => handleIncrement(item.product_id)}>+</button>
                 </div>
+                <p className="cart-item-price">Price: {((quantities[item.product_id] || item.quantity_added) * (allProducts?.find((product) => product.id == item.product_id)?.price || 0)).toFixed(2)}</p>
               </div>
-                  <button onClick={() => handleDeleteItem(item.id)}>Delete</button>
+              <button onClick={() => handleDeleteItem(item.id)} className="cart-item-delete">Remove from Cart</button>
             </li>
           ))}
         </ul>
-        <div>
+        <div className="cart-total">
           <p>
             Total: {
-            userCart.reduce((total, item) =>
-            total + ((quantities[item.product_id] || item.quantity_added) *
-            (allProducts?.find((product) => product.id == item.product_id)?.price || 0)), 0)
-          .toFixed(2)}
-        </p>
-          <button onClick={() => {
-            handleUpdateCart();
-            window.location.href = '/';
-          }}>Save for Later</button>
-          <button onClick={handleCheckout}>Checkout</button>
+              userCart.reduce((total, item) =>
+                total + ((quantities[item.product_id] || item.quantity_added) *
+                  (allProducts?.find((product) => product.id == item.product_id)?.price || 0)), 0)
+                .toFixed(2)}
+          </p>
+          <div className="cart-action-buttons">
+            <button onClick={() => {
+              handleUpdateCart();
+              window.location.href = '/';
+            }}>Save for Later</button>
+            <button onClick={handleCheckout}>Checkout</button>
+          </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default CartManagement;

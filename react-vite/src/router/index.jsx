@@ -8,6 +8,7 @@ import AllProducts from '../components/LandingPage/LandingPage';
 import ProductReviews from '../components/ProductReviews/ProductReviews';
 import ProductDetailsPage from '../components/ProductDetails/ProductDetails';
 import CartManagement from '../components/CartManagement/CartManagements';
+import ShopByCategory from '../components/SearchAndCategories/SearchAndCategories';
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path: "carts",
         element: <CartManagement />
+      },
+      {
+        path: "products/categories/:category",
+        element: <ShopByCategory />
       },
       {
         path:'*',

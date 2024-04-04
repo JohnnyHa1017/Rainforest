@@ -2,6 +2,7 @@
 export const LOAD_ALL_PRODUCTS = 'products/LOAD_ALL'
 export const LOAD_ONE_PRODUCT = 'products/LOAD_ONE'
 export const LIST_NEW_PRODUCT = 'products/LIST_NEW'
+export const SHOP_BY_CATEGORY = 'products/SHOP_BY_CATEGORY'
 
 // Action Creators
 export const loadAllProducts = (data) => ({
@@ -16,6 +17,11 @@ export const loadOneProduct = (data) => ({
 
 export const listNewProduct = (data) => ({
   type: LIST_NEW_PRODUCT,
+  data
+});
+
+export const shopByCategory = (data) => ({
+  type: SHOP_BY_CATEGORY,
   data
 });
 
@@ -77,6 +83,25 @@ export const listNewThunk = (newProduct) => async (dispatch) => {
   }
 }
 
+// Shop by Category Thunk
+export const shopCategoriesThunk = (category) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/products/categories/${category}`, {
+			method: "GET",
+		});
+
+    if (!response.ok) {
+      throw new Error('Failed to load products list.');
+    }
+
+    const data = await response.json();
+    dispatch(shopByCategory(data))
+
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
 // Action Reducer
 const productReducer = (state = { }, action) => {
   switch (action.type) {
@@ -88,6 +113,9 @@ const productReducer = (state = { }, action) => {
     }
     case LIST_NEW_PRODUCT: {
       return { ...state, ...action.data }
+    }
+    case SHOP_BY_CATEGORY: {
+      return { ...state, categories: action.data }
     }
     default:
       return state;
