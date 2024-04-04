@@ -12,22 +12,10 @@ def seed_orders():
     order8 = Order(cart_id=8, user_id=8, status='SHIPPED')
     order9 = Order(cart_id=9, user_id=9, status='DELIVERED')
     order10 = Order(cart_id=10, user_id=10, status='PENDING')
-    order11 = Order(cart_id=11, user_id=1, status='SHIPPED')
-    order12 = Order(cart_id=12, user_id=2, status='DELIVERED')
-    order13 = Order(cart_id=13, user_id=3, status='PENDING')
-    order14 = Order(cart_id=14, user_id=4, status='SHIPPED')
-    order15 = Order(cart_id=15, user_id=5, status='DELIVERED')
-    order16 = Order(cart_id=16, user_id=6, status='PENDING')
-    order17 = Order(cart_id=17, user_id=7, status='SHIPPED')
-    order18 = Order(cart_id=18, user_id=8, status='DELIVERED')
-    order19 = Order(cart_id=19, user_id=9, status='PENDING')
-    order20 = Order(cart_id=20, user_id=10, status='SHIPPED')
 
     db.session.add_all([
         order1, order2, order3, order4, order5,
-        order6, order7, order8, order9, order10,
-        order11, order12, order13, order14, order15,
-        order16, order17, order18, order19, order20
+        order6, order7, order8, order9, order10
     ])
     db.session.commit()
 
