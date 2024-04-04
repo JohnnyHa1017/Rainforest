@@ -69,6 +69,7 @@ return (
               value={searchQuery}
               onChange={handleSearchChange}
             />
+            
             <button type="submit">
               <FaSearch />
             </button>
