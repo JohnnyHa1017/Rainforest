@@ -1,0 +1,99 @@
+/* Importing Font Style */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Spectral+SC:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.thumbnail {
+  width: 30%;
+  height: 30%;
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+  white-space: nowrap;
+}
+
+.cart-item {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  border-bottom: 1px solid #ddd;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.cart-item img {
+  width: 100px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-name {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.cart-item-price {
+  font-size: 16px;
+  color: #007185;
+}
+
+.cart-item-quantity {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+.cart-item-quantity button {
+  background-color: #f0c14b;
+  color: #111;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.cart-item-quantity button:hover {
+  background-color: #d2ac2a;
+}
+
+.cart-item-delete {
+  margin-left: auto;
+  cursor: pointer;
+  font-family: "Spectral SC", serif;
+  font-size: 10px;
+  background-color: #f0c14b;
+  color: #111;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 20px;
+}
+
+.cart-item-delete button:hover {
+  background-color: #d2ac2a;
+}
+
+.cart-total {
+  margin-top: 20px;
+}
+
+.cart-action-buttons button {
+  font-family: "Spectral SC", serif;
+  font-size: 10px;
+  background-color: #f0c14b;
+  color: #111;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 20px;
+}
+
+.cart-action-buttons button:hover {
+  background-color: #d2ac2a;
+}

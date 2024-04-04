@@ -3,26 +3,16 @@ from sqlalchemy.sql import text
 
 def seed_add_to_cart():
     add_to_cart_data = [
-        {"cart_id": 2, "product_id": 5, "quantity_added": 2},
-        {"cart_id": 2, "product_id": 8, "quantity_added": 3},
+        {"cart_id": 1, "product_id": 5, "quantity_added": 1},
+        {"cart_id": 2, "product_id": 8, "quantity_added": 1},
         {"cart_id": 3, "product_id": 10, "quantity_added": 1},
-        {"cart_id": 3, "product_id": 12, "quantity_added": 2},
-        {"cart_id": 4, "product_id": 15, "quantity_added": 1},
-        {"cart_id": 4, "product_id": 18, "quantity_added": 4},
-        {"cart_id": 5, "product_id": 20, "quantity_added": 2},
-        {"cart_id": 5, "product_id": 3, "quantity_added": 3},
-        {"cart_id": 6, "product_id": 6, "quantity_added": 1},
-        {"cart_id": 6, "product_id": 9, "quantity_added": 2},
-        {"cart_id": 7, "product_id": 11, "quantity_added": 3},
-        {"cart_id": 7, "product_id": 14, "quantity_added": 1},
-        {"cart_id": 8, "product_id": 16, "quantity_added": 2},
-        {"cart_id": 8, "product_id": 19, "quantity_added": 3},
-        {"cart_id": 9, "product_id": 1, "quantity_added": 1},
-        {"cart_id": 9, "product_id": 4, "quantity_added": 4},
-        {"cart_id": 10, "product_id": 7, "quantity_added": 2},
-        {"cart_id": 10, "product_id": 13, "quantity_added": 3},
-        {"cart_id": 2, "product_id": 17, "quantity_added": 1},
-        {"cart_id": 3, "product_id": 2, "quantity_added": 2}
+        {"cart_id": 4, "product_id": 12, "quantity_added": 1},
+        {"cart_id": 5, "product_id": 15, "quantity_added": 1},
+        {"cart_id": 6, "product_id": 18, "quantity_added": 1},
+        {"cart_id": 7, "product_id": 20, "quantity_added": 1},
+        {"cart_id": 8, "product_id": 3, "quantity_added": 1},
+        {"cart_id": 9, "product_id": 6, "quantity_added": 1},
+        {"cart_id": 10, "product_id": 9, "quantity_added": 1}
     ]
 
     for data in add_to_cart_data:

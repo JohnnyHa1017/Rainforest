@@ -1,3 +1,149 @@
+/* Importing Font Style */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Spectral+SC:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.navigation-container {
+  font-family: "Spectral SC", serif;
+  font-style: normal;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  color: #fff;
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.nav-bar-logo {
+  height: 50%;
+  align-self: center;
+  margin-top: auto;
+}
+
+.navigation-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  object-fit: contain;
+  white-space: nowrap;
+}
+
+.navigation-container ul li {
+  margin-right: 20px;
+}
+
+.navigation-container ul li:last-child {
+  margin-right: 0;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.search-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+.search-form button {
+  padding: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background-color: #fff;
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  border-radius: 20px;
+}
+
+.cart-sidebar.open {
+  transform: translateX(0);
+}
+
+.close-cart {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  border-radius: 20px;
+  background-color: #1bc2b1;
+}
+
+.view-cart {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  position: absolute;
+  top: 10px;
+  right: 80px;
+  color: #fff;
+  border-radius: 20px;
+  background-color: #1bc2b1;
+}
+
+.toggle-cart {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #009688;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.toggle-cart:hover {
+  background-color: #00796b;
+}
+
+.close-cart:hover {
+  background-color: #00796b;
+}
+
+.cart-content {
+  padding: 20px;
+}
+
 .profile-dropdown {
   position: absolute;
+  top: 40px;
+  background-color: gray;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
+
+.profile-dropdown li {
+  list-style: none;
+  margin: 5px 0;
+}
+
+.profile-dropdown button {
+  background: none;
+  border: none;
+  color: blue;
+  cursor: pointer;
+}
+

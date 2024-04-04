@@ -1,14 +1,15 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
-import AllReviews from '../components/AllReviews/AllReviews';
 import CreateReview from '../components/CreateReviews/CreateReviews';
 import UpdateReview from '../components/UpdateReviews/UpdateReviews';
 import DeleteReview from '../components/DeleteReviews/DeleteReviews';
 import AllProducts from '../components/LandingPage/LandingPage';
-import Layout from './Layout';
 import ProductReviews from '../components/ProductReviews/ProductReviews';
 import ProductDetailsPage from '../components/ProductDetails/ProductDetails';
+import CartManagement from '../components/CartManagement/CartManagements';
+import ShopByCategory from '../components/SearchAndCategories/SearchAndCategories';
+import Layout from './Layout';
 
 export const router = createBrowserRouter([
   {
@@ -43,16 +44,20 @@ export const router = createBrowserRouter([
         element: <CreateReview />
       },
       {
-        path: "reviews/all",
-        element: <AllReviews />
-      },
-      {
         path: "reviews/:reviewId/edit",
         element: <UpdateReview />
       },
       {
         path: "reviews/:reviewId/delete",
         element: <DeleteReview />
+      },
+      {
+        path: "carts",
+        element: <CartManagement />
+      },
+      {
+        path: "products/categories/:category",
+        element: <ShopByCategory />
       },
       {
         path:'*',

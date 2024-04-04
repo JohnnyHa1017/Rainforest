@@ -1,5 +1,4 @@
 // Action Types
-export const LOAD_ALL_REVIEWS = 'reviews/LOAD_ALL'
 export const CREATE_NEW_REVIEW = 'reviews/CREATE_NEW'
 export const UPDATE_REVIEW = 'reviews/UPDATE_REVIEW'
 export const DELETE_REVIEW = 'reviews/DELETE_REVIEW'
@@ -7,11 +6,6 @@ export const ALL_REVIEWS_FOR_ONE = 'reviews/ALL_REVIEWS_FOR_ONE'
 export const LOAD_ONE_FOR_UPDATE = 'reviews/LOAD_ONE_FOR_UPDATE'
 
 // Action Creators
-export const loadAllReviews = (data) => ({
-  type: LOAD_ALL_REVIEWS,
-  data
-});
-
 export const createNewReview = (data) => ({
   type: CREATE_NEW_REVIEW,
   data
@@ -54,25 +48,6 @@ export const loadReviewByIdThunk = (reviewId) => async (dispatch) => {
     return { error: error.message };
   }
 };
-
-
-// Load All Reviews Thunk
-export const loadAllReviewsThunk = () => async (dispatch) => {
-  try {
-    const response = await fetch('/api/reviews/all');
-
-    if (!response.ok) {
-      throw new Error('Failed to load reviews.');
-    }
-
-    const data = await response.json();
-    dispatch(loadAllReviews(data));
-    return data;
-
-  } catch (error) {
-    return { error: error.message };
-  }
-}
 
 // Create New Review Thunk
 export const createNewReviewThunk = (productId, newReview) => async (dispatch) => {
@@ -157,9 +132,6 @@ export const loadReviewsOnOneProductThunk = (productId) => async (dispatch) => {
 // Action Reducer
 const reviewReducer = (state = {}, action) => {
   switch (action.type) {
-    case LOAD_ALL_REVIEWS: {
-      return { ...state, ...action.data }
-    }
     case LOAD_ONE_FOR_UPDATE: {
       return { ...state, ...action.data }
     }
