@@ -29,7 +29,7 @@ function Navigation() {
 
   // const handleSearchSubmit = (e) => {
   //   e.preventDefault();
-  //   // Filter products by category matching the search query
+    // Filter products by category matching the search query
   //   const filteredProducts = allProducts.filter(
   //     (product) =>
   //       product.category.toLowerCase().includes(searchQuery.toLowerCase())

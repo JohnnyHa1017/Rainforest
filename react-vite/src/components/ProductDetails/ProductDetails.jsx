@@ -49,7 +49,7 @@ const ProductDetailsPage = () => {
   };
 
   // Check if user has already reviewed the product
-  const userReview = Object.values(allReviews).find(review => review.user_id === currentUser.id);
+  const userReview = Object.values(allReviews).find(review => review.user_id === currentUser?.id);
 
   return (
     <div className="product-details-container">
