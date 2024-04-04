@@ -63,6 +63,17 @@ def create_listing():
         errors = form.errors
         return jsonify({'errors': errors}), 400
 
+# Shop by Categories
+@product_routes.route('/categories/<string:category>')
+def shopCategories(category):
+    categorizedProducts = Product.query.filter(Product.category == category).all()
+
+    if not categorizedProducts:
+        return jsonify({'error': 'No products were found with your category.'}), 400
+
+    return jsonify({'products': [product.to_dict() for product in categorizedProducts]}), 200
+
+
 # Updating a Product - Not Part of CRUD
 # Deleting a Product - Not Part of CRUD
 
@@ -299,4 +310,3 @@ def remove_from_cart(cart_id):
     db.session.commit()
 
     return jsonify({'message': 'Cart item deleted successfully.'}), 200
-
