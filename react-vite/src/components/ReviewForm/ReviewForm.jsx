@@ -12,7 +12,7 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
   const review = useSelector((state) => state.reviews);
   const [body, setBody] = useState('');
   const [rating, setRating] = useState(null);
-  const [imageUrl, setImage] = useState(review?.image);
+  const [image, setImage] = useState(null);
   const [verified_purchase, setVerified] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const [validations, setValidations] = useState('');
@@ -20,14 +20,14 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
   const [hover, setHover] = useState(null);
 
   useEffect(() => {
-    dispatch(loadReviewsOnOneProductThunk(productId))
     if (updatingReview) {
       setBody(updatingReview?.body);
       setRating(updatingReview?.rating);
-      setImage(updatingReview?.imageUrl);
+      setImage(updatingReview?.image);
       setVerified(updatingReview?.verified_purchase);
     }
-  }, [updatingReview, dispatch, productId]);
+    dispatch(loadReviewsOnOneProductThunk(updatingReview.id))
+  }, [updatingReview, dispatch, updatingReview.id]);
 
   useEffect(() => {
     if(!user) nav('/')
@@ -36,7 +36,7 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('image', imageUrl)
+    formData.append('image', image)
     formData.append('rating', rating)
     formData.append('body', body)
     formData.append('verified_purchase', verified_purchase)
@@ -55,7 +55,6 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
     else{
         await dispatch(updateReviewThunk(reviewId, formData))
     }
-    window.location.href = `/products/${productId ? productId : review?.product_id}`;
 }
 
 return (
@@ -105,7 +104,6 @@ return (
             type='file'
             accept="image/*"
             onChange={(e) => setImage(e.target.files[0])}
-            placeholder='Post an image with your review!'
           />
         </label>
         {submitted && validations.image &&

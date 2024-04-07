@@ -18,9 +18,9 @@ const ProductDetailsPage = () => {
   const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
+    dispatch(getAllUsersThunk());
     dispatch(loadOneThunk(productId));
     dispatch(loadReviewsOnOneProductThunk(productId));
-    dispatch(getAllUsersThunk());
   }, [dispatch, productId]);
 
   useEffect(() => {
