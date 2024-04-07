@@ -30,12 +30,13 @@ def get_one_product(id):
 @product_routes.route('/new', methods=['POST'])
 @login_required
 def create_listing():
-    form = ProductForm(request.form)
+    form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        image = form.data['image']
+        image = form.data['image_url']
         url = None
+
         if image:
             image.filename = get_unique_filename(image.filename)
             upload = upload_file_to_s3(image)
@@ -110,6 +111,8 @@ def create_review(id):
         if image:
             image.filename = get_unique_filename(image.filename)
             upload = upload_file_to_s3(image)
+
+            print('UPLOAD HERE HELLO SHOW THYSELF @@@===>', upload)
 
             if 'url' not in upload:
                 return jsonify({'error': 'Image upload failed.'}), 500
