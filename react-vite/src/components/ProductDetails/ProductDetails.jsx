@@ -10,11 +10,11 @@ import './ProductDetails.css';
 const ProductDetailsPage = () => {
   const dispatch = useDispatch();
   const { productId } = useParams();
-  const product = useSelector(state => state.products);
-  const allReviews = useSelector(state => state.reviews);
-  const allUsers = useSelector(state => state.session.users);
-  const userCart = useSelector(state => state.carts.cart_items);
-  const currentUser = useSelector(state => state.session.user);
+  const product = useSelector(state => state?.products);
+  const allReviews = useSelector(state => state?.reviews);
+  const allUsers = useSelector(state => state?.session?.users);
+  const userCart = useSelector(state => state?.carts?.cart_items);
+  const currentUser = useSelector(state => state?.session?.user);
   const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
@@ -24,9 +24,9 @@ const ProductDetailsPage = () => {
   }, [dispatch, productId]);
 
   useEffect(() => {
-    if (Object.keys(allReviews).length > 0) {
+    if (Object.keys(allReviews)?.length > 0) {
       const totalRating = Object.values(allReviews)?.reduce((acc, curr) => acc + curr.rating, 0);
-      const avgRating = totalRating / Object.keys(allReviews).length;
+      const avgRating = totalRating / Object.keys(allReviews)?.length;
       setAverageRating(avgRating);
     }
   }, [allReviews]);
@@ -83,20 +83,22 @@ const ProductDetailsPage = () => {
           ) : (
             <button className='create-review' onClick={() => handleAddReview()}>Add a Review</button>
           )}
-          {Object.values(allReviews)?.map((review, index) => {
-            const user = allUsers ? allUsers?.find(user => user.id == review?.user_id) : null;
-            return (
-              <div key={index} className="review-container">
-                <p className="review-user">{user ? user.first_name : 'Unknown'} reviewed:</p>
-                <p className="review-rating">Rating: {review?.rating}</p>
-                <p className="review-body">{review?.body}</p>
-                { review?.image && <img src={review.image} alt='Review Image' className='review-image' />}
-                <p className="review-verified-purchase">
-                  Verified Purchase: {review?.verified_purchase ? 'Yes' : 'No'}
-                </p>
-              </div>
-            );
-          })}
+          {Object.values(allReviews)
+            .filter(review => review.product_id == productId)
+            .map((review, index) => {
+              const user = allUsers ? allUsers.find(user => user.id === review.user_id) : null;
+              return (
+                <div key={index} className="review-container">
+                  <p className="review-user">{user ? user.first_name : 'Unknown'} reviewed:</p>
+                  <p className="review-rating">Rating: {review.rating}</p>
+                  <p className="review-body">{review.body}</p>
+                  {review.image && <img src={review.image} alt='Review Image' className='review-image' />}
+                  <p className="review-verified-purchase">
+                    Verified Purchase: {review.verified_purchase ? 'Yes' : 'No'}
+                  </p>
+                </div>
+              );
+            })}
         </div>
       ) : (
         <p>Loading...</p>

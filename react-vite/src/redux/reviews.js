@@ -69,9 +69,9 @@ export const createNewReviewThunk = (productId, newReview) => async (dispatch) =
 }
 
 // Update a Review Thunk
-export const updateReviewThunk = ( reviewId, updatingReview) => async (dispatch) => {
+export const updateReviewThunk = (reviewId, updatingReview) => async (dispatch) => {
   try {
-    const response = await fetch (`/api/reviews/${reviewId}/edit`, {
+    const response = await fetch(`/api/reviews/${reviewId}/edit`, {
       method: 'PUT',
       body: updatingReview
     })
@@ -79,6 +79,8 @@ export const updateReviewThunk = ( reviewId, updatingReview) => async (dispatch)
   if(!response.ok){
       throw new Error('Failed to update review')
   }
+    console.log('WHAT IS UPDATING REVIEW? @@@===>', updatingReview)
+
     dispatch(updateReview(updatingReview))
     } catch (error) {
     return { error: error.message };

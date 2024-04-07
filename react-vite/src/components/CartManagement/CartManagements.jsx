@@ -4,7 +4,9 @@ import { NavLink } from "react-router-dom";
 import * as CartActions from '../../redux/carts';
 import * as ProductActions from '../../redux/products';
 import { updateCartThunk } from "../../redux/addtocart";
+import { useModal } from "../../context/Modal";
 import { addToCartThunk, removeFromCartThunk } from '../../redux/addtocart';
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import './CartManagements.css';
 
 // Loading Spinner component
@@ -16,6 +18,10 @@ const LoadingSpinner = () => {
   );
 };
 
+const CheckoutMessage = ({ message }) => {
+  return <div>{message}</div>;
+};
+
 const CartManagement = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
@@ -24,6 +30,7 @@ const CartManagement = () => {
   const [quantities, setQuantities] = useState({});
   const [shouldReload, setShouldReload] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const { closeModal } = useModal();
 
   useEffect(() => {
     // Fetch user's cart items and available products when component mounts
@@ -74,13 +81,16 @@ const CartManagement = () => {
       quantity: quantities[item.product_id] || item.quantity_added
     }));
     dispatch(updateCartThunk(updatedCart))
-    .then(() => setShouldReload(!shouldReload));
+      .then(() => setShouldReload(!shouldReload));
+      setTimeout(() => {
+        closeModal();
+      }, 3000);
   };
 
   // Function to handle deletion of one item from cart
   const handleDeleteItem = async (cartItemId) => {
     await dispatch(removeFromCartThunk(cartItemId))
-    .then(() => setShouldReload(!shouldReload));
+      .then(() => setShouldReload(!shouldReload));
   };
 
 
@@ -89,6 +99,9 @@ const CartManagement = () => {
     for (let item of userCart) {
       await dispatch(removeFromCartThunk(item.id));
     }
+    setTimeout(() => {
+      closeModal();
+    }, 3000);
     setShouldReload(!shouldReload);
   };
 
@@ -143,11 +156,16 @@ const CartManagement = () => {
                 .toFixed(2)}
           </p>
           <div className="cart-action-buttons">
-            <button onClick={() => {
-              handleUpdateCart();
-              window.location.href = '/';
-            }}>Save for Later</button>
-            <button onClick={handleCheckout}>Checkout</button>
+            <OpenModalButton
+              buttonText="Save for Later"
+              modalComponent={<CheckoutMessage message="Your items have been saved for later." />}
+              onButtonClick={handleUpdateCart}
+            />
+            <OpenModalButton
+              buttonText="Checkout"
+              modalComponent={<CheckoutMessage message={`Thank you ${currentUser.first_name} for shopping with Rainforest, One moment as we finalize your order...`} />}
+              onButtonClick={handleCheckout}
+            />
           </div>
         </div>
       </div>

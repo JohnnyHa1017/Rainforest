@@ -12,7 +12,7 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
   const review = useSelector((state) => state.reviews);
   const [body, setBody] = useState('');
   const [rating, setRating] = useState(null);
-  const [image, setImage] = useState(null);
+  const [image_url, setImage] = useState(null);
   const [verified_purchase, setVerified] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const [validations, setValidations] = useState('');
@@ -23,7 +23,7 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
     if (updatingReview) {
       setBody(updatingReview?.body);
       setRating(updatingReview?.rating);
-      setImage(updatingReview?.image);
+      setImage(updatingReview?.image_url);
       setVerified(updatingReview?.verified_purchase);
     }
     dispatch(loadReviewsOnOneProductThunk(updatingReview.id))
@@ -36,8 +36,8 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('image', image)
-    formData.append('rating', rating)
+    formData.append('image_url', image_url)
+    formData.append('rating', parseInt(rating))
     formData.append('body', body)
     formData.append('verified_purchase', verified_purchase)
 

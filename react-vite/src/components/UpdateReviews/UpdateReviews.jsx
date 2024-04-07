@@ -1,17 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { loadReviewByIdThunk, updateReviewThunk } from "../../redux/reviews";
+import { loadReviewByIdThunk } from "../../redux/reviews";
 import CreateNewReview from "../ReviewForm/ReviewForm";
 
 const UpdateReview = () => {
   const dispatch = useDispatch();
   const { reviewId } = useParams();
-  const review = useSelector(state => state.reviews);
+  const review = useSelector(state => state?.reviews);
 
   useEffect(() => {
-    dispatch(updateReviewThunk(reviewId))
-    dispatch(loadReviewByIdThunk(reviewId));
+    dispatch(loadReviewByIdThunk(reviewId))
   }, [reviewId, dispatch]);
 
   const buttonName = 'Update Review';

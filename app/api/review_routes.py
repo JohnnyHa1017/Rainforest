@@ -23,9 +23,10 @@ def get_one_review(id):
 @review_routes.route('/<int:id>/edit', methods=['PUT'])
 @login_required
 def update_one_review(id):
-    form = ReviewForm(request.form)
-    form["csrf_token"].data = request.cookies["csrf_token"]
     review = Review.query.get(id)
+
+    form = ReviewForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
 
     if not review:
         return jsonify({'error': 'Review was not found.'}), 404
@@ -36,14 +37,12 @@ def update_one_review(id):
     if form.validate_on_submit():
         if 'image_url' in request.files:
             upload_request = request.files['image_url']
+            upload_request.filename = get_unique_filename(upload_request.filename)
+            upload = upload_file_to_s3(upload_request)
 
-            if upload_request.filename:
-                upload_request.filename = get_unique_filename(upload_request.filename)
-                upload = upload_file_to_s3(upload_request)
-
-                if 'url' not in upload:
-                    return jsonify({'error': 'Image upload failed.'}), 500
-                review.image = upload['url']
+            if 'url' not in upload:
+                return jsonify({'error': 'Image upload failed.'}), 500
+            review.image = upload['url']
 
         review.rating = form.rating.data
         review.body = form.body.data
