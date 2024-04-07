@@ -112,8 +112,6 @@ def create_review(id):
             image.filename = get_unique_filename(image.filename)
             upload = upload_file_to_s3(image)
 
-            print('UPLOAD HERE HELLO SHOW THYSELF @@@===>', upload)
-
             if 'url' not in upload:
                 return jsonify({'error': 'Image upload failed.'}), 500
             url = upload['url']

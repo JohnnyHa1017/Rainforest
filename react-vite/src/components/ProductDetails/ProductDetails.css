@@ -46,6 +46,11 @@
   white-space: nowrap;
 }
 
+.review-image {
+  width: 100px;
+  height: auto;
+}
+
 .product-detail-quantity-container {
   margin-top: 10px;
   display: flex;

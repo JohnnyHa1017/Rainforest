@@ -90,6 +90,7 @@ const ProductDetailsPage = () => {
                 <p className="review-user">{user ? user.first_name : 'Unknown'} reviewed:</p>
                 <p className="review-rating">Rating: {review?.rating}</p>
                 <p className="review-body">{review?.body}</p>
+                { review?.image && <img src={review.image} alt='Review Image' className='review-image' />}
                 <p className="review-verified-purchase">
                   Verified Purchase: {review?.verified_purchase ? 'Yes' : 'No'}
                 </p>
