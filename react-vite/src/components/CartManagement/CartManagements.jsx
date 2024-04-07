@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import * as CartActions from '../../redux/carts';
 import * as ProductActions from '../../redux/products';
 import { updateCartThunk } from "../../redux/addtocart";
-import { removeFromCartThunk } from '../../redux/addtocart';
+import { addToCartThunk, removeFromCartThunk } from '../../redux/addtocart';
 import './CartManagements.css';
 
 // Loading Spinner component
@@ -58,6 +58,14 @@ const CartManagement = () => {
     }
   };
 
+  // Function to handle adding product to cart
+  const handleAddToCart = (productId) => {
+    const quantity = 1;
+    dispatch(addToCartThunk(userCart.id, productId, quantity))
+      .then(() => setShouldReload(!shouldReload));
+  };
+
+
   // Function to update quantity and subtotal in the cart
   const handleUpdateCart = () => {
     const updatedCart = userCart.map(item => ({
@@ -65,12 +73,14 @@ const CartManagement = () => {
       product_id: item.product_id,
       quantity: quantities[item.product_id] || item.quantity_added
     }));
-    dispatch(updateCartThunk(updatedCart));
+    dispatch(updateCartThunk(updatedCart))
+    .then(() => setShouldReload(!shouldReload));
   };
 
   // Function to handle deletion of one item from cart
   const handleDeleteItem = async (cartItemId) => {
-      await dispatch(removeFromCartThunk(cartItemId));
+    await dispatch(removeFromCartThunk(cartItemId))
+    .then(() => setShouldReload(!shouldReload));
   };
 
 
@@ -79,6 +89,7 @@ const CartManagement = () => {
     for (let item of userCart) {
       await dispatch(removeFromCartThunk(item.id));
     }
+    setShouldReload(!shouldReload);
   };
 
   if (isLoading) {

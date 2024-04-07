@@ -10,7 +10,10 @@ const DeleteReview = ()=>{
 
     const onDelete = (e) => {
         e.preventDefault()
-        return dispatch(deleteReviewThunk(reviewId)).then(closeModal)
+      dispatch(deleteReviewThunk(reviewId))
+      .then(() => {
+        window.location.href = '/';
+      })
     }
 
     const onKeep = () => {

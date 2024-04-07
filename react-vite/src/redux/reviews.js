@@ -52,40 +52,39 @@ export const loadReviewByIdThunk = (reviewId) => async (dispatch) => {
 // Create New Review Thunk
 export const createNewReviewThunk = (productId, newReview) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/products/${productId}/reviews`, {
+    const response = await fetch(`/api/products/${productId}/reviews/new`, {
       method: "POST",
       body: newReview
     });
+    // Image comes up Null
+    // console.log('NEWREVIEW IN CREATE REVIEW THUNK @@@===>', newReview)
 
     if (response.ok) {
-      const data = await response.json();
-
-      dispatch(createNewReview(data));
-      return data;
-
+      dispatch(createNewReview(newReview));
     } else {
+
       throw new Error('Failed to create new review.');
     }
-
   } catch (error) {
     return { error: error.message };
   }
 }
 
 // Update a Review Thunk
-export const updateReviewThunk = (reviewId, updatingReview) => async (dispatch) => {
+export const updateReviewThunk = (productId, reviewId, updatingReview) => async (dispatch) => {
   try {
     const response = await fetch (`/api/reviews/${reviewId}/edit`, {
       method: 'PUT',
       body: updatingReview
-  })
+    })
+    // Image comes up Null
+    // console.log('UPDATING REVIEW IN UPDATE REVIEW THUNK @@@===>', updatingReview)
+
+
   if(!response.ok){
       throw new Error('Failed to update review')
   }
-  const data = await response.json()
-    dispatch(updateReview(data))
-    return data
-
+    dispatch(updateReview(updatingReview))
     } catch (error) {
     return { error: error.message };
   }

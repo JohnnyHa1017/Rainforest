@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createNewReviewThunk, updateReviewThunk } from '../../redux/reviews';
+import { createNewReviewThunk, loadReviewsOnOneProductThunk, updateReviewThunk } from '../../redux/reviews';
 
 const CreateNewReview = ({ buttonName, updatingReview }) => {
 
@@ -9,9 +9,10 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
   const dispatch = useDispatch();
   const { productId, reviewId } = useParams();
   const user = useSelector((state) => state.session.user);
+  const review = useSelector((state) => state.reviews);
   const [body, setBody] = useState('');
   const [rating, setRating] = useState(null);
-  const [image, setImage] = useState(null);
+  const [imageUrl, setImage] = useState(review?.image);
   const [verified_purchase, setVerified] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const [validations, setValidations] = useState('');
@@ -19,13 +20,14 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
   const [hover, setHover] = useState(null);
 
   useEffect(() => {
+    dispatch(loadReviewsOnOneProductThunk(productId))
     if (updatingReview) {
-      setBody(updatingReview.body);
-      setRating(updatingReview.rating);
-      setImage(updatingReview.image);
-      setVerified(updatingReview.verified_purchase);
+      setBody(updatingReview?.body);
+      setRating(updatingReview?.rating);
+      setImage(updatingReview?.imageUrl);
+      setVerified(updatingReview?.verified_purchase);
     }
-  }, [updatingReview]);
+  }, [updatingReview, dispatch, productId]);
 
   useEffect(() => {
     if(!user) nav('/')
@@ -34,7 +36,7 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('image', image)
+    formData.append('image', imageUrl)
     formData.append('rating', rating)
     formData.append('body', body)
     formData.append('verified_purchase', verified_purchase)
@@ -53,7 +55,7 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
     else{
         await dispatch(updateReviewThunk(reviewId, formData))
     }
-    nav(`/products/${productId}`)
+    window.location.href = `/products/${productId ? productId : review?.product_id}`;
 }
 
 return (
@@ -110,8 +112,13 @@ return (
           <p style={{ color: 'red' }}>{validations.image}</p>}
       </div>
       <div className='Review-Btn-container'>
-        <button type='submit' className='Review-Submit-btn'>{buttonName}</button>
-        {imageLoading && <p>Loading...</p>}
+    <button
+      type='submit'
+      className='Review-Submit-btn'
+      onClick={() => window.location.href = `/products/${productId || review?.product_id}`}
+        >{buttonName}
+    </button>
+      {imageLoading && <p>Loading...</p>}
       </div>
     </form>
   </>

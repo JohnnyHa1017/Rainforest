@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { loadReviewByIdThunk } from "../../redux/reviews";
+import { loadReviewByIdThunk, updateReviewThunk } from "../../redux/reviews";
 import CreateNewReview from "../ReviewForm/ReviewForm";
 
 const UpdateReview = () => {
@@ -10,10 +10,11 @@ const UpdateReview = () => {
   const review = useSelector(state => state.reviews);
 
   useEffect(() => {
+    dispatch(updateReviewThunk(reviewId))
     dispatch(loadReviewByIdThunk(reviewId));
   }, [reviewId, dispatch]);
 
-  const buttonName = 'Update a Review';
+  const buttonName = 'Update Review';
 
   if (!review) {
     return <div>Loading...</div>;
@@ -23,7 +24,8 @@ const UpdateReview = () => {
     <>
       <h1>Update your Review</h1>
       <div className='update-review-container'>
-        <CreateNewReview updatingReview={review} buttonName={buttonName} />
+      <CreateNewReview updatingReview={review} buttonName={buttonName} />
+        <button onClick={() => window.location.href = `/products/${review?.product_id}`}>Back to Product</button>
       </div>
     </>
   );

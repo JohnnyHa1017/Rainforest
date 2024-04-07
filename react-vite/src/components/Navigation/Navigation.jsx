@@ -4,15 +4,11 @@ import ProfileButton from "./ProfileButton";
 import { useSelector, useDispatch } from "react-redux";
 import { loadAllThunk } from "../../redux/products";
 import CartManagement from "../CartManagement/CartManagements";
-// import { FaSearch } from "react-icons/fa";
 import "./Navigation.css";
 
 function Navigation() {
   const dispatch = useDispatch();
   const [showCart, setShowCart] = useState(false);
-  const userCart = useSelector((state) => state.cart);
-  // const [searchQuery, setSearchQuery] = useState("");
-  // const [filteredProducts, setFilteredProducts] = useState([]);
   const allProducts = useSelector((state) => state.products.products)
 
   useEffect(() => {
@@ -22,20 +18,6 @@ function Navigation() {
   const toggleCart = () => {
     setShowCart(!showCart);
   };
-
-  // const handleSearchChange = (e) => {
-  //   setSearchQuery(e.target.value);
-  // };
-
-  // const handleSearchSubmit = (e) => {
-  //   e.preventDefault();
-    // Filter products by category matching the search query
-  //   const filteredProducts = allProducts.filter(
-  //     (product) =>
-  //       product.category.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
-  //   setFilteredProducts(filteredProducts);
-  // };
 
   const categories = allProducts ? [...new Set(allProducts.map(product => product.category))] : [];
 
@@ -60,21 +42,6 @@ return (
             </li>
           </ul>
         </li>
-        {/* <li> */}
-          {/* Search bar */}
-          {/* <form onSubmit={handleSearchSubmit} className="search-form">
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            
-            <button type="submit">
-              <FaSearch />
-            </button>
-          </form>
-        </li> */}
         <li>
           <ProfileButton />
         </li>
@@ -84,30 +51,13 @@ return (
         <button className="close-cart" onClick={toggleCart}>Close</button>
         <button className="view-cart" onClick={() => window.location.href = '/carts'}>View Cart</button>
         <div className="cart-content">
-          {/* Cart items */}
-          <h2>Your Cart</h2>
-          <CartManagement />
-          <ul>
-            {userCart && userCart.length > 0 && userCart.map((item) => (
-              <li key={item.id}>
-                {item.productName} - Quantity: {item.quantity}
-              </li>
-            ))}
-            {(!userCart || userCart.length === 0) && <li>Your cart is empty</li>}
-          </ul>
+        {/* Cart items */}
+        <CartManagement />
         </div>
       </div>
       <button className="toggle-cart" onClick={toggleCart}>
         Cart
       </button>
-      {/* Render products based on search result */}
-      {/* <ul>
-        {filteredProducts.map(product => (
-          <li key={product.id}>
-            {product.name}
-          </li>
-        ))}
-      </ul> */}
     </div>
   );
 }

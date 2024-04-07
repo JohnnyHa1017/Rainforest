@@ -25,7 +25,7 @@ const ProductDetailsPage = () => {
 
   useEffect(() => {
     if (Object.keys(allReviews).length > 0) {
-      const totalRating = Object.values(allReviews).reduce((acc, curr) => acc + curr.rating, 0);
+      const totalRating = Object.values(allReviews)?.reduce((acc, curr) => acc + curr.rating, 0);
       const avgRating = totalRating / Object.keys(allReviews).length;
       setAverageRating(avgRating);
     }
@@ -41,7 +41,9 @@ const ProductDetailsPage = () => {
   };
 
   const handleUpdateReview = () => {
-    window.location.href = `/reviews/${userReview.id}/edit`;
+    if (userReview) {
+      window.location.href = `/reviews/${userReview.id}/edit`;
+    }
   };
 
   const handleDeleteReview = () => {
@@ -49,7 +51,7 @@ const ProductDetailsPage = () => {
   };
 
   // Check if user has already reviewed the product
-  const userReview = Object.values(allReviews).find(review => review.user_id === currentUser?.id);
+  const userReview = Object.values(allReviews).find(review => review?.user_id == currentUser?.id);
 
   return (
     <div className="product-details-container">
@@ -81,15 +83,15 @@ const ProductDetailsPage = () => {
           ) : (
             <button className='create-review' onClick={() => handleAddReview()}>Add a Review</button>
           )}
-          {Object.values(allReviews).map((review, index) => {
-            const user = allUsers ? allUsers.find(user => user.id === review.user_id) : null;
+          {Object.values(allReviews)?.map((review, index) => {
+            const user = allUsers ? allUsers?.find(user => user.id == review?.user_id) : null;
             return (
               <div key={index} className="review-container">
-                <p className="review-rating">Rating: {review.rating}</p>
-                <p className="review-body">Body: {review.body}</p>
-                <p className="review-user">User: {user ? user.first_name : 'Unknown'}</p>
+                <p className="review-user">{user ? user.first_name : 'Unknown'} reviewed:</p>
+                <p className="review-rating">Rating: {review?.rating}</p>
+                <p className="review-body">{review?.body}</p>
                 <p className="review-verified-purchase">
-                  Verified Purchase: {review.verified_purchase ? 'Yes' : 'No'}
+                  Verified Purchase: {review?.verified_purchase ? 'Yes' : 'No'}
                 </p>
               </div>
             );

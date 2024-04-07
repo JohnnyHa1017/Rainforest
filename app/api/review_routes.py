@@ -20,7 +20,7 @@ def get_one_review(id):
 
 
 # Update Review Owned by Current User
-@review_routes.route('/<int:id>/', methods=['PUT'])
+@review_routes.route('/<int:id>/edit', methods=['PUT'])
 @login_required
 def update_one_review(id):
     form = ReviewForm(request.form)

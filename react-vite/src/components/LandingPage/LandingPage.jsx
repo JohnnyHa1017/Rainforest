@@ -10,17 +10,20 @@ const AllProducts = () => {
   const allProducts = useSelector((state) => state.products.products);
   const userCart = useSelector((state) => state.carts.cart_items);
   const [isLoading, setIsLoading] = useState(true);
+  const [shouldReload, setShouldReload] = useState(false);
 
   useEffect(() => {
     dispatch(loadAllThunk())
       .then(() => setIsLoading(false))
       .catch(() => setIsLoading(false));
-  }, [dispatch]);
+  }, [dispatch, shouldReload]);
 
   // Function to handle adding product to cart
   const handleAddToCart = (productId) => {
     const quantity = 1;
-    dispatch(addToCartThunk(userCart.id, productId, quantity));
+    dispatch(addToCartThunk(userCart.id, productId, quantity))
+      .then(() => setShouldReload(!shouldReload));
+      window.location.href = '/carts'; 
   };
 
   return (
