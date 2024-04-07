@@ -6,16 +6,18 @@ import { loadReviewsOnOneProductThunk } from "../../redux/reviews";
 const ProductReviews = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
-  const reviews = useSelector((state) => state.Review);
-  const user = useSelector((state) => state.session.user);
-  const users = useSelector((state) => state.products.Users)
+  const reviews = useSelector((state) => state?.Review);
+  const user = useSelector((state) => state?.session?.user);
+  const users = useSelector((state) => state?.products?.Users)
+
+  console.log(state, 'PRODUCT REVIEWS STATE @HERE')
 
   useEffect(() => {
     dispatch(loadReviewsOnOneProductThunk(productId))
   }, [productId, dispatch])
 
   function ownReview(user_id) {
-    return user && user.id === user_id
+    return user && user.id == user_id
   }
 
   function dateFormatter(date) {

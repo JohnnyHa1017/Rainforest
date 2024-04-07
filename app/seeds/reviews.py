@@ -8,7 +8,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="Wow the DDR5 by Corsair has been phenomenal! I have been using these in my build for the last 5 months and I'm loving the render speed!"
+        body="Wow the DDR5 by Corsair has been phenomenal! I'm loving the render speed!"
     )
     GC_Review = Review(
         user_id=3,
@@ -16,7 +16,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The NVIDIA GeForce RTX 4090 is a beast of a graphic card! I've been playing all the latest games at ultra settings without any lag. Highly recommend it!"
+        body="The NVIDIA GeForce RTX 4090 is a beast of a graphic card!"
     )
     AQ_Review = Review(
         user_id=4,
@@ -24,7 +24,7 @@ def seed_reviews():
         rating=3,
         verified_purchase=True,
         image=None,
-        body="I've been using the Aquaphor Healing Ointment for a while now, and it's been great for my dry skin. Would have given it a higherrating= it wasn't for the greasy feeling."
+        body="I've been using the Aquaphor Healing Ointment for a while now, and it's been great for my dry skin."
     )
     AS_Review = Review(
         user_id=1,
@@ -32,7 +32,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="The Moondrop Aria Snow Edition Earbuds are simply amazing! The sound quality is crystal clear, and they fit perfectly in my ears. Definitely worth the investment!"
+        body="The sound quality is crystal clear, and they fit perfectly in my ears. Definitely worth the investment!"
     )
     AOW_Review = Review(
         user_id=6,
@@ -40,7 +40,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The Art of War is a timeless classic! Sun Tzu's teachings are still relevant today. This deluxe hardbound edition is beautifully presented."
+        body="The Art of War is a timeless classic! Sun Tzu's teachings are still relevant today."
     )
     BY_Review = Review(
         user_id=2,
@@ -48,7 +48,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="The Logitech for Creators Blue Yeti X USB Microphone has been a game-changer for my recordings! The audio quality is superb, and the advanced features are a plus."
+        body="The audio quality is superb, and the advanced features are a plus."
     )
     DA_Review = Review(
         user_id=9,
@@ -56,7 +56,7 @@ def seed_reviews():
         rating=3,
         verified_purchase=True,
         image=None,
-        body="The Digestive Advantage Prebiotic Fiber Gummies taste good, but I haven't noticed any significant improvement in my digestion after using them for a month."
+        body="The Digestive Advantage Prebiotic Fiber Gummies taste good."
     )
     CD_Review = Review(
         user_id=3,
@@ -64,7 +64,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The Christian Dior Saddlebag is absolutely stunning! The craftsmanship is top-notch, and it's so versatile to wear. Definitely a statement piece!"
+        body="The Christian Dior Saddlebag is absolutely stunning! Definitely a statement piece!"
     )
     HF_Review = Review(
         user_id=9,
@@ -72,7 +72,7 @@ def seed_reviews():
         rating=2,
         verified_purchase=True,
         image=None,
-        body="The Hydroflask Waterbottle is leaking after just a few uses. I'm disappointed with the quality, especially considering the price."
+        body="I'm disappointed with the quality, especially considering the price."
     )
     MB_Review = Review(
         user_id=10,
@@ -80,7 +80,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="The Macbook 2023 Pro 14-inch with M3 Max Chip is a beast! It handles all my tasks with ease, and the display is stunning. Couldn't be happier with my purchase!"
+        body="The Macbook 2023 Pro 14-inch with M3 Max Chip is a beast!!"
     )
     RV_Review = Review(
         user_id=1,
@@ -88,7 +88,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The Razer Viper V2 Ultimate Gaming Mouse is comfortable to use for long gaming sessions, and the responsiveness is great. The RGB lighting is a nice touch!"
+        body="The RGB lighting is a nice touch!"
     )
     RDB_Review = Review(
         user_id=2,
@@ -96,7 +96,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="The Ring V3 Doorbell Camera provides peace of mind knowing I can monitor my doorstep from anywhere. The video quality is excellent, and the setup was easy."
+        body="The Ring V3 Doorbell Camera provides peace of mind knowing. The video quality is excellent, and the setup was easy."
     )
     SP_Review = Review(
         user_id=3,
@@ -104,7 +104,7 @@ def seed_reviews():
         rating=3,
         verified_purchase=True,
         image=None,
-        body="The SmartyPants Multivitamins for Men taste good, but I'm not sure if they're making a difference in my overall health. I'll continue to take them and see."
+        body="The SmartyPants Multivitamins for Men taste good."
     )
     SM_Review = Review(
         user_id=4,
@@ -112,7 +112,7 @@ def seed_reviews():
         rating=3,
         verified_purchase=True,
         image=None,
-        body="The Spectre 24-inch Gaming Monitor has excellent color reproduction, but I noticed some backlight bleeding in dark scenes. Overall, a decent monitor for the price."
+        body="The Spectre 24-inch Gaming Monitor has excellent color reproduction."
     )
     WS_Review = Review(
         user_id=5,
@@ -120,7 +120,7 @@ def seed_reviews():
         rating=2,
         verified_purchase=True,
         image=None,
-        body="The Dumbbell Weight Set arrived damaged, and the weights are not properly balanced. Disappointed with the quality control."
+        body="Disappointed with the quality control."
     )
     WT_Review = Review(
         user_id=6,
@@ -128,7 +128,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="The Wooting 80HE - Founders Edition keyboard is a dream to type on! The tactile switches provide a satisfying typing experience, and the build quality is superb."
+        body="The Wooting 80HE - Founders Edition keyboard is a dream to type on!"
     )
     CUP_Review = Review(
         user_id=7,
@@ -136,7 +136,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The Captain Underpants Complete Box Set brings back nostalgic memories! It's a fun read for kids and adults alike. Highly recommend for a good laugh!"
+        body="The Captain Underpants Complete Box Set brings back nostalgic memories! Highly recommend for a good laugh!"
     )
     DT_Review = Review(
         user_id=8,
@@ -144,7 +144,7 @@ def seed_reviews():
         rating=3,
         verified_purchase=True,
         image=None,
-        body="The Dandelion Dragon Tee is cute, but the fabric feels a bit rough against the skin. Would have preferred a softer material."
+        body="The Dandelion Dragon Tee is cute, but the fabric feels a bit rough against the skin."
     )
     QT_Review = Review(
         user_id=9,
@@ -152,7 +152,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="The Quip Electric Toothbrush and Waterpik combo is a game-changer for my dental hygiene routine! My teeth feel cleaner, and the waterpik is gentle yet effective."
+        body="My teeth feel cleaner, and the waterpik is gentle yet effective."
     )
     WD_Review = Review(
         user_id=10,
@@ -160,7 +160,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The Floral Print Chiffon A-Line Mini Dress for Women is stunning! I wore it to a party, and I received so many compliments. The chiffon fabric is lightweight and flowy, perfect for summer. The elastic waist provides a flattering fit, and the floral print adds a touch of elegance to the dress. Overall, I'm very happy with my purchase!"
+        body="The Floral Print Chiffon A-Line Mini Dress for Women is stunning! The elastic waist provides a flattering fit, and the floral print adds a touch of elegance to the dress. Overall, I'm very happy with my purchase!"
     )
     WD_Review2 = Review(
         user_id=1,
@@ -168,7 +168,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The Floral Print Chiffon A-Line Mini Dress for Women is stunning! I wore it to a party, and I received so many compliments. The chiffon fabric is lightweight and flowy, perfect for summer. The elastic waist provides a flattering fit, and the floral print adds a touch of elegance to the dress. Overall, I'm very happy with my purchase!"
+        body="I wore it to a party, and I received so many compliments. The chiffon fabric is lightweight and flowy, perfect for summer. The elastic waist provides a flattering fit, and the floral print adds a touch of elegance to the dress. Overall, I'm very happy with my purchase!"
     )
     QT_Review2 = Review(
         user_id=2,
@@ -192,7 +192,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The Captain Underpants Complete Box Set brings back nostalgic memories! It's a fun read for kids and adults alike. Highly recommend for a good laugh!"
+        body=" It's a fun read for kids and adults alike. Highly recommend for a good laugh!"
     )
     WT_Review2 = Review(
         user_id=5,
@@ -200,7 +200,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="The Wooting 80HE - Founders Edition keyboard is a dream to type on! The tactile switches provide a satisfying typing experience, and the build quality is superb."
+        body="The tactile switches provide a satisfying typing experience, and the build quality is superb."
     )
     WS_Review2 = Review(
         user_id=6,
@@ -216,7 +216,7 @@ def seed_reviews():
         rating=3,
         verified_purchase=True,
         image=None,
-        body="The Spectre 24-inch Gaming Monitor has excellent color reproduction, but I noticed some backlight bleeding in dark scenes. Overall, a decent monitor for the price."
+        body="I noticed some backlight bleeding in dark scenes. Overall, a decent monitor for the price."
     )
     SP_Review2 = Review(
         user_id=8,
@@ -224,7 +224,7 @@ def seed_reviews():
         rating=3,
         verified_purchase=True,
         image=None,
-        body="The SmartyPants Multivitamins for Men taste good, but I'm not sure if they're making a difference in my overall health. I'll continue to take them and see."
+        body="I'm not sure if they're making a difference in my overall health. I'll continue to take them and see."
     )
     RDB_Review2 = Review(
         user_id=9,
@@ -232,7 +232,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="The Ring V3 Doorbell Camera provides peace of mind knowing I can monitor my doorstep from anywhere. The video quality is excellent, and the setup was easy."
+        body="The video quality is excellent, and the setup was easy."
     )
     RV_Review2 = Review(
         user_id=10,
@@ -240,7 +240,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The Razer Viper V2 Ultimate Gaming Mouse is comfortable to use for long gaming sessions, and the responsiveness is great. The RGB lighting is a nice touch!"
+        body="The Razer Viper V2 Ultimate Gaming Mouse is comfortable to use for long gaming sessions, and the responsiveness is great."
     )
     MB_Review2 = Review(
         user_id=1,
@@ -248,7 +248,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="The Macbook 2023 Pro 14-inch with M3 Max Chip is a beast! It handles all my tasks with ease, and the display is stunning. Couldn't be happier with my purchase!"
+        body="Couldn't be happier with my purchase!"
     )
     HF_Review2 = Review(
         user_id=1,
@@ -256,7 +256,7 @@ def seed_reviews():
         rating=2,
         verified_purchase=True,
         image=None,
-        body="The Hydroflask Waterbottle is leaking after just a few uses. I'm disappointed with the quality, especially considering the price."
+        body="The Hydroflask Waterbottle is leaking after just a few uses."
     )
     CD_Review2 = Review(
         user_id=3,
@@ -264,7 +264,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The Christian Dior Saddlebag is absolutely stunning! The craftsmanship is top-notch, and it's so versatile to wear. Definitely a statement piece!"
+        body="The craftsmanship is top-notch, and it's so versatile to wear. Definitely a statement piece!"
     )
     DA_Review2 = Review(
         user_id=4,
@@ -272,7 +272,7 @@ def seed_reviews():
         rating=3,
         verified_purchase=True,
         image=None,
-        body="The Digestive Advantage Prebiotic Fiber Gummies taste good, but I haven't noticed any significant improvement in my digestion after using them for a month."
+        body="I haven't noticed any significant improvement in my digestion after using them for a month."
     )
     BY_Review2 = Review(
         user_id=2,
@@ -280,7 +280,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="The Logitech for Creators Blue Yeti X USB Microphone has been a game-changer for my recordings! The audio quality is superb, and the advanced features are a plus."
+        body="The Logitech for Creators Blue Yeti X USB Microphone has been a game-changer for my recordings!"
     )
     AOW_Review2 = Review(
         user_id=6,
@@ -288,7 +288,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The Art of War is a timeless classic! Sun Tzu's teachings are still relevant today. This deluxe hardbound edition is beautifully presented."
+        body="This deluxe hardbound edition is beautifully presented."
     )
     AS_Review2 = Review(
         user_id=7,
@@ -296,7 +296,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="The Moondrop Aria Snow Edition Earbuds are simply amazing! The sound quality is crystal clear, and they fit perfectly in my ears. Definitely worth the investment!"
+        body="The Moondrop Aria Snow Edition Earbuds are simply amazing! Definitely worth the investment!"
     )
     AQ_Review2 = Review(
         user_id=8,
@@ -304,7 +304,7 @@ def seed_reviews():
         rating=3,
         verified_purchase=True,
         image=None,
-        body="I've been using the Aquaphor Healing Ointment for a while now, and it's been great for my dry skin. Would have given it a higher rating if it wasn't for the greasy feeling."
+        body="Would have given it a higher rating if it wasn't for the greasy feeling."
     )
     GC_Review2 = Review(
         user_id=9,
@@ -312,7 +312,7 @@ def seed_reviews():
         rating=4,
         verified_purchase=True,
         image=None,
-        body="The NVIDIA GeForce RTX 4090 is a beast of a graphic card! I've been playing all the latest games at ultra settings without any lag. Highly recommend it!"
+        body="The NVIDIA GeForce RTX 4090 is simly amazing!"
     )
     DDR_Review2 = Review(
         user_id=2,
@@ -320,7 +320,7 @@ def seed_reviews():
         rating=5,
         verified_purchase=True,
         image=None,
-        body="Wow the DDR5 by Corsair has been phenomenal! I have been using these in my build for the last 5 months and I'm loving the render speed!"
+        body="Wow the DDR5 by Corsair is sweet! I'm loving the render speed!"
     )
 
     db.session.add_all([DDR_Review, GC_Review, AQ_Review, AS_Review, AOW_Review, BY_Review, DA_Review, CD_Review, HF_Review, MB_Review, RV_Review, RDB_Review, SP_Review, SM_Review, WS_Review, WT_Review, CUP_Review, DT_Review, QT_Review, WD_Review,

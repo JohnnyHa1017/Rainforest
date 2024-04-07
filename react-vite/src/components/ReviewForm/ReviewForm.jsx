@@ -113,7 +113,7 @@ return (
     <button
       type='submit'
       className='Review-Submit-btn'
-      onClick={() => window.location.href = `/products/${productId || review?.product_id}`}
+      onClick={() => window.location.href=`/products/${productId || review.product_id}`}
         >{buttonName}
     </button>
       {imageLoading && <p>Loading...</p>}

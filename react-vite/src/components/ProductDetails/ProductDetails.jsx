@@ -7,6 +7,15 @@ import { loadReviewsOnOneProductThunk } from '../../redux/reviews';
 import { addToCartThunk } from '../../redux/addtocart';
 import './ProductDetails.css';
 
+// Loading Spinner component
+const LoadingSpinner = () => {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-gray-900"></div>
+    </div>
+  );
+};
+
 const ProductDetailsPage = () => {
   const dispatch = useDispatch();
   const { productId } = useParams();
@@ -16,12 +25,22 @@ const ProductDetailsPage = () => {
   const userCart = useSelector(state => state?.carts?.cart_items);
   const currentUser = useSelector(state => state?.session?.user);
   const [averageRating, setAverageRating] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     dispatch(getAllUsersThunk());
     dispatch(loadOneThunk(productId));
-    dispatch(loadReviewsOnOneProductThunk(productId));
-  }, [dispatch, productId]);
+    dispatch(loadReviewsOnOneProductThunk(productId))
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      });
+  }, [dispatch, productId, reload]);
+
 
   useEffect(() => {
     if (Object.keys(allReviews)?.length > 0) {
@@ -29,7 +48,11 @@ const ProductDetailsPage = () => {
       const avgRating = totalRating / Object.keys(allReviews)?.length;
       setAverageRating(avgRating);
     }
-  }, [allReviews]);
+  }, [allReviews, reload]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   const handleAddToCart = productId => {
     const quantity = 1;
@@ -37,21 +60,30 @@ const ProductDetailsPage = () => {
   };
 
   const handleAddReview = () => {
+    setReload(true);
     window.location.href = `/products/${productId}/reviews/new`;
   };
 
   const handleUpdateReview = () => {
     if (userReview) {
+      setReload(true);
       window.location.href = `/reviews/${userReview.id}/edit`;
     }
   };
 
   const handleDeleteReview = () => {
+    setReload(true);
     window.location.href = `/reviews/${userReview.id}/delete`;
   };
 
   // Check if user has already reviewed the product
-  const userReview = Object.values(allReviews).find(review => review?.user_id == currentUser?.id);
+  const userReview = Object.values(allReviews)?.find(review => review?.user_id == currentUser?.id);
+  const relatedReviews = Object.values(allReviews)?.filter(review => review?.product_id == productId)
+
+
+  if (!product || !allReviews || !allUsers) {
+    return <h2>Loading...</h2>;
+  }
 
   return (
     <div className="product-details-container">
@@ -83,19 +115,18 @@ const ProductDetailsPage = () => {
           ) : (
             <button className='create-review' onClick={() => handleAddReview()}>Add a Review</button>
           )}
-          {Object.values(allReviews)
-            .filter(review => review.product_id == productId)
-            .map((review, index) => {
-              const user = allUsers ? allUsers.find(user => user.id === review.user_id) : null;
+          {relatedReviews?.map((review, index) => {
+              const user = allUsers ? allUsers.find(user => user.id == review?.user_id) : null;
               return (
                 <div key={index} className="review-container">
                   <p className="review-user">{user ? user.first_name : 'Unknown'} reviewed:</p>
-                  <p className="review-rating">Rating: {review.rating}</p>
-                  <p className="review-body">{review.body}</p>
-                  {review.image && <img src={review.image} alt='Review Image' className='review-image' />}
+                  <p className="review-rating">Rating: {review?.rating}</p>
+                  <p className="review-body">{review?.body}</p>
+                  {review?.image && <img src={review?.image} alt='Review Image' className='review-image' />}
                   <p className="review-verified-purchase">
-                    Verified Purchase: {review.verified_purchase ? 'Yes' : 'No'}
+                    Verified Purchase: {review?.verified_purchase ? 'Yes' : 'No'}
                   </p>
+                  <p className='review-post-date'>{review?.created_at}</p>
                 </div>
               );
             })}

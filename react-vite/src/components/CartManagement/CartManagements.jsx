@@ -19,7 +19,7 @@ const LoadingSpinner = () => {
 };
 
 const CheckoutMessage = ({ message }) => {
-  return <div>{message}</div>;
+  return <h4>{message}</h4>;
 };
 
 const CartManagement = () => {
@@ -31,6 +31,7 @@ const CartManagement = () => {
   const [shouldReload, setShouldReload] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { closeModal } = useModal();
+
 
   useEffect(() => {
     // Fetch user's cart items and available products when component mounts
@@ -47,6 +48,7 @@ const CartManagement = () => {
       .catch(() => setIsLoading(false))
   }, [dispatch, shouldReload]);
 
+
   // Function to handle incrementing quantity for a specific product
   const handleIncrement = (productId) => {
     setQuantities(prevQuantities => ({
@@ -54,6 +56,7 @@ const CartManagement = () => {
       [productId]: (prevQuantities[productId] || userCart.find(item => item.product_id == productId)?.quantity_added) + 1
     }));
   };
+
 
   // Function to handle decrementing quantity for a specific product
   const handleDecrement = (productId) => {
@@ -81,18 +84,16 @@ const CartManagement = () => {
       quantity: quantities[item.product_id] || item.quantity_added
     }));
     dispatch(updateCartThunk(updatedCart))
-      .then(() => setShouldReload(!shouldReload));
-      setTimeout(() => {
-        closeModal();
-      }, 3000);
+    .then(() => setShouldReload(!shouldReload));
   };
+
 
   // Function to handle deletion of one item from cart
   const handleDeleteItem = async (cartItemId) => {
     await dispatch(removeFromCartThunk(cartItemId))
       .then(() => setShouldReload(!shouldReload));
   };
-
+  
 
   // Function to checkout current cart of items
   const handleCheckout = async () => {
@@ -156,11 +157,10 @@ const CartManagement = () => {
                 .toFixed(2)}
           </p>
           <div className="cart-action-buttons">
-            <OpenModalButton
-              buttonText="Save for Later"
-              modalComponent={<CheckoutMessage message="Your items have been saved for later." />}
-              onButtonClick={handleUpdateCart}
-            />
+          <button onClick={() => {
+              handleUpdateCart();
+              window.location.href = '/';
+            }}>Save for Later</button>
             <OpenModalButton
               buttonText="Checkout"
               modalComponent={<CheckoutMessage message={`Thank you ${currentUser.first_name} for shopping with Rainforest, One moment as we finalize your order...`} />}
