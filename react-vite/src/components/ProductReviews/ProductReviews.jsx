@@ -51,7 +51,7 @@ const ProductReviews = () => {
               )}
             </div>
             <div className="PR-Rating_Date">
-              <p>{renderStars(review.star)}</p> <p>{dateFormatter(review.createdAt)}</p>
+              <p>{renderStars(review.star)}</p> <p>{dateFormatter(review.created_at)}</p>
             </div>
             <p className="PR-Review_desc">{review.review}</p>
           </div>

@@ -26,8 +26,8 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
       setImage(updatingReview?.image_url);
       setVerified(updatingReview?.verified_purchase);
     }
-    dispatch(loadReviewsOnOneProductThunk(updatingReview.id))
-  }, [updatingReview, dispatch, updatingReview.id]);
+    dispatch(loadReviewsOnOneProductThunk(updatingReview))
+  }, [updatingReview, dispatch]);
 
   useEffect(() => {
     if(!user) nav('/')
@@ -55,71 +55,73 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
     else{
         await dispatch(updateReviewThunk(reviewId, formData))
     }
-}
 
-return (
-  <>
-  <form onSubmit={handleSubmit} encType='multipart/form-data' className='create-update-review-form'>
-      {submitted && validations && validations.message &&
-        <p>
-          {validations.message}
-        </p>
-      }
-      <div className='star-rating-field'>
-        {[1, 2, 3, 4, 5].map((star, i) => {
-          const starRating = i + 1;
-          return (
-            <label key={i}>
-              <span
-                className='star-rating'
-                onClick={() => setRating(starRating)}
-                onMouseEnter={() => setHover(starRating)}
-                onMouseLeave={() => setHover(starRating)}
-              >
-                {starRating <= (hover || star) ? '★' : '☆'}
-              </span>
-            </label>
-          );
-        })}
-      </div>
-      <textarea
-        className='body-textarea'
-        type='text'
-        name='body'
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-        placeholder='Leave a review message here...'
-        rows={7}
-        cols={70}
-      />
-      {(submitted && body.length <= 10) && (
-        <p style={{ color: 'red' }}>Your review must be greater than 10 characters.</p>
-      )}
-      {(submitted && rating < 1) && (
-        <p style={{ color: 'red' }}>Please select a star rating along with your review.</p>
-      )}
-      <div className='image-file-field'>
-        <label htmlFor='image'>
-          <input
-            type='file'
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
-        </label>
-        {submitted && validations.image &&
-          <p style={{ color: 'red' }}>{validations.image}</p>}
-      </div>
-      <div className='Review-Btn-container'>
-    <button
-      type='submit'
-      className='Review-Submit-btn'
-      onClick={() => window.location.href=`/products/${productId || review.product_id}`}
-        >{buttonName}
-    </button>
-      {imageLoading && <p>Loading...</p>}
-      </div>
-    </form>
-  </>
+    nav(`/products/${productId || review?.product_id}`);
+  }
+
+  return (
+    <>
+      <form onSubmit={handleSubmit} encType='multipart/form-data' className='create-update-review-form'>
+        {submitted && validations && validations.message &&
+          <p>
+            {validations.message}
+          </p>
+        }
+        <div className='star-rating-field'>
+          {[1, 2, 3, 4, 5].map((star, i) => {
+            const starRating = i + 1;
+            return (
+              <label key={i}>
+                <span
+                  className='star-rating'
+                  onClick={() => setRating(starRating)}
+                  onMouseEnter={() => setHover(starRating)}
+                  // onMouseLeave={() => setHover(starRating)}
+                >
+                  {starRating <= (hover || star) ? '★' : '☆'}
+                </span>
+              </label>
+            );
+          })}
+        </div>
+        <textarea
+          className='body-textarea'
+          type='text'
+          name='body'
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          placeholder='Leave a review message here...'
+          rows={7}
+          cols={70}
+        />
+        {(submitted && body.length <= 10) && (
+          <p style={{ color: 'red' }}>Your review must be greater than 10 characters.</p>
+        )}
+        {(submitted && rating < 1) && (
+          <p style={{ color: 'red' }}>Please select a star rating along with your review.</p>
+        )}
+        <div className='image-file-field'>
+          <label htmlFor='image'>
+            <input
+              type='file'
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
+          </label>
+          {submitted && validations.image &&
+            <p style={{ color: 'red' }}>{validations.image}</p>}
+        </div>
+        <div className='Review-Btn-container'>
+          <button
+            type='submit'
+            className='Review-Submit-btn'
+          >
+            {buttonName}
+          </button>
+          {imageLoading && <p>Loading...</p>}
+        </div>
+      </form>
+    </>
   )
 }
 
