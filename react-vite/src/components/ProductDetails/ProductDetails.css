@@ -1,122 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Product title */
+h1 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Product price */
 .product-detail-price {
-  font-weight: bold;
-  color: #B12704;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
 }
 
-.product-detail-description {
-  margin-top: 10px;
-}
-
-.review-container {
-  border-top: 1px solid #ddd;
-  padding-top: 10px;
-  margin-top: 10px;
-}
-
-.review-rating {
-  font-weight: bold;
-}
-
-.review-body {
-  margin-top: 5px;
-}
-
-.review-user {
-  font-style: italic;
-}
-
-.review-verified-purchase {
-  color: #0066c0;
-}
-
+/* Product details container */
 .product-details-container {
-  margin: 20px;
+  margin: 20px auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #fff;
+  max-width: 500px;
 }
 
+/* Product detail image */
 .product-detail-image {
-  width: 30%;
-  height: 30%;
-  max-width: 300px;
+  width: 300px;
   max-height: 300px;
   object-fit: contain;
-  white-space: nowrap;
+  margin-top: 20px;
 }
 
-.review-image {
-  width: 100px;
-  height: auto;
+/* Product description */
+.product-detail-description {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.5;
+  font-size: 14px;
 }
 
-.product-detail-quantity-container {
+/* Review container */
+.review-container {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+/* Review user name */
+.review-user {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Review rating */
+.review-rating {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #f0c14b;
+}
+
+/* Review body */
+.review-body {
+  font-family: 'Roboto', sans-serif;
   margin-top: 10px;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+/* Review image */
+.review-image {
+  display: block;
+  margin-top: 10px;
+  max-width: 100px;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Add Review button */
+.create-review {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  background-color: #f0c14b;
+  color: #111;
+  border: 1px solid #a88734;
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.create-review:hover {
+  background-color: #f7e99b;
+}
+
+/* Review verified purchase */
+.review-verified-purchase {
+  background-color: #c0e1f7;
+  color: #0073e6;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 3px 12px 12px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* Edit and Delete Review buttons */
+.edit-review, .delete-review {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  margin: 5px;
+}
+
+.edit-review:hover, .delete-review:hover {
+  background-color: #ccc;
+}
+
+/* Add to Cart button */
+.product-detail-add-to-cart-button {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+/* Average rating stars */
+.average-rating-container {
+  margin-top: 20px;
   display: flex;
   align-items: center;
-  text-align: center;
+  font-size: 16px;
 }
 
-.product-detail-quantity-inline {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  justify-content: space-between;
-  text-align: center;
-  align-items: center;
-  border: 1px rgba(0, 0, 0, 0.301) solid;
-  border-radius: 15px;
-  padding: 4px 8px;
+.star-filled {
+  color: #f0c14b;
 }
 
-.product-detail-quantity-button {
-  background-color: #84b8f0a0;
-  border-radius: 20px;
-  border: 1px solid rgba(234, 237, 219, 0.633);
-  transition: box-shadow 0.3s ease;
-  color:#454545b5;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.224);
-  transition: box-shadow 0.3s ease;
-}
-
-.product-detail-quantity {
-  margin: 2px;
-  padding: 4px;
-  font-size: 12px;
-}
-
-.product-detail-add-to-cart-button {
-  font-family: "Spectral SC", serif;
-  font-weight: 400;
-  font-style: normal;
-  margin-top: 10px;
-  background-color: #dfdbc3;
-  color: #454545b5;
-  border: 1px solid #ccc;
-  padding: 8px;
-  border-radius: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.224);
-  transition: box-shadow 0.3s ease;
-}
-
-.product-detail-add-to-cart-button:hover {
-  background-color: #f7e99b;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Media Query for Mobile Devices */
-@media screen and (max-width: 915px) {
-  .products-container {
-    justify-content: center;
-  }
-
-  .product-container {
-    flex-basis: calc(50% - 20px);
-  }
-
-  .product-image {
-    max-width: 100%;
-    max-height: 200px;
-  }
+.star-empty {
+  color: #ddd;
 }

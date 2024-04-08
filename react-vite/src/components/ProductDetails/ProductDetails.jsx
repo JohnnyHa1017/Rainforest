@@ -93,6 +93,17 @@ const ProductDetailsPage = () => {
     return newDate.toLocaleDateString(undefined, options)
   }
 
+  const renderStarIcons = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<span key={i} className="star-filled">★</span>);
+      } else {
+        stars.push(<span key={i} className="star-empty">☆</span>);
+      }
+    }
+    return stars;
+  };
 
   // Check if user has already reviewed the product
   const userReview = Object.values(allReviews)?.find(review => review?.user_id == currentUser?.id);
@@ -138,7 +149,7 @@ const ProductDetailsPage = () => {
               return (
                 <div key={index} className="review-container">
                   <p className="review-user">{user ? user.first_name : 'Unknown'} reviewed:</p>
-                  <p className="review-rating">Rating: {review.rating}</p>
+                  <p className="review-rating">{renderStarIcons(review.rating)}</p>
                   <p className="review-body">{review.body}</p>
                   {review.image && <img src={review.image} alt='Review Image' className='review-image' />}
                   <p className="review-verified-purchase">

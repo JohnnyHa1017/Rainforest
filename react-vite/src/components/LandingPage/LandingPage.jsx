@@ -23,7 +23,7 @@ const AllProducts = () => {
     const quantity = 1;
     dispatch(addToCartThunk(userCart.id, productId, quantity))
       .then(() => setShouldReload(!shouldReload));
-      window.location.href = '/carts'; 
+      window.location.href = '/carts';
   };
 
   return (
@@ -44,9 +44,7 @@ const AllProducts = () => {
               <NavLink to={`/products/${product.id}`}>
                 <img className='product-image' src={product.image} alt={product.name} />
               </NavLink>
-              <div className="quantity-container">
-                <button className="add-to-cart-button" onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
-              </div>
+              <button className="add-to-cart-button" onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
             </div>
           ))
         ) : (

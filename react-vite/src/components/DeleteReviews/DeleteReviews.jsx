@@ -2,6 +2,7 @@ import { useModal } from '../../context/Modal'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { deleteReviewThunk } from '../../redux/reviews'
+import './DeleteReviews.css'
 
 const DeleteReview = ()=>{
   const dispatch = useDispatch();

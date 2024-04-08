@@ -21,7 +21,7 @@ function Navigation() {
 
   const categories = allProducts ? [...new Set(allProducts.map(product => product.category))] : [];
 
-return (
+  return (
     <div className="navigation-container">
       <ul>
         <li>
@@ -29,21 +29,25 @@ return (
             <img src='https://i.postimg.cc/SxyKQ0Qj/cropped-logo.png' alt='rainforest-logo' className='nav-bar-logo'></img>
           </NavLink>
         </li>
+        {/* Category links */}
+        {categories.map(category => (
+          <li key={category}>
+            <NavLink to={`/products/categories/${category}`}>{category}</NavLink>
+          </li>
+        ))}
+        {/* Recommended for You */}
         <li>
-          {/* Shop By Category */}
-          <ul>
-            {categories.map(category => (
-              <li key={category}>
-                <NavLink to={`/products/categories/${category}`}>{category}</NavLink>
-              </li>
-            ))}
-            <li>
-              <a href="https://i.postimg.cc/v81NSXnK/rainforest-videos-render.gif" target="_blank" rel="noreferrer" onClick="window.open(this.href, 'popup', 'width=600,height=600'); return false;">Recommended for You</a>
-            </li>
-          </ul>
+          <a href="https://i.postimg.cc/v81NSXnK/rainforest-videos-render.gif" target="_blank" rel="noreferrer" onClick="window.open(this.href, 'popup', 'width=600,height=600'); return false;">Recommended for You</a>
         </li>
-        <li>
+        {/* Profile button */}
+        <li className="profile-button">
           <ProfileButton />
+        </li>
+        {/* Cart button */}
+        <li>
+          <button className="toggle-cart" onClick={toggleCart}>
+            Cart
+          </button>
         </li>
       </ul>
       {/* Cart sidebar */}
@@ -51,13 +55,10 @@ return (
         <button className="close-cart" onClick={toggleCart}>Close</button>
         <button className="view-cart" onClick={() => window.location.href = '/carts'}>View Cart</button>
         <div className="cart-content">
-        {/* Cart items */}
-        <CartManagement />
+          {/* Cart items */}
+          <CartManagement />
         </div>
       </div>
-      <button className="toggle-cart" onClick={toggleCart}>
-        Cart
-      </button>
     </div>
   );
 }

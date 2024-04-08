@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUserCircle } from 'react-icons/fa';
-import { thunkLogout, thunkLogin } from "../../redux/session";
+import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
@@ -39,19 +39,8 @@ function ProfileButton() {
     closeMenu();
   };
 
-  const loginDemoUser = () => {
-    const demoUser = {
-      "email": "demo@aa.io",
-      "password": "password"
-    };
-    dispatch(thunkLogin(demoUser));
-    closeMenu();
-  };
-
   return (
     <>
-      <button onClick={loginDemoUser}>Demo Login</button>
-      <br></br>
       <button onClick={toggleMenu}>
         <FaUserCircle />
       </button>
@@ -62,7 +51,7 @@ function ProfileButton() {
               <li>{user.username}</li>
               <li>{user.email}</li>
               <li>
-                <button onClick={logout}>Log Out</button>
+              <button onClick={logout}>Log Out</button>
               </li>
             </>
           ) : (
@@ -76,7 +65,7 @@ function ProfileButton() {
                 itemText="Sign Up"
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
-                />
+              />
             </>
           )}
         </ul>

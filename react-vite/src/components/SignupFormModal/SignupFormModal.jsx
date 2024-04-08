@@ -43,12 +43,12 @@ function SignupFormModal() {
   };
 
   return (
-    <>
+    <div className="signup-form-container">
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
         <label>
-          First Name
+          First Name:
           <input
             type="text"
             value={first_name}
@@ -58,7 +58,7 @@ function SignupFormModal() {
         </label>
         {errors.first_name && <p>{errors.first_name}</p>}
         <label>
-          Last Name
+          Last Name:
           <input
             type="text"
             value={last_name}
@@ -68,7 +68,7 @@ function SignupFormModal() {
         </label>
         {errors.last_name && <p>{errors.last_name}</p>}
         <label>
-          Email
+          Email:
           <input
             type="text"
             value={email}
@@ -78,7 +78,7 @@ function SignupFormModal() {
         </label>
         {errors.email && <p>{errors.email}</p>}
         <label>
-          Username
+          Username:
           <input
             type="text"
             value={username}
@@ -88,7 +88,7 @@ function SignupFormModal() {
         </label>
         {errors.username && <p>{errors.username}</p>}
         <label>
-          Password
+          Password:
           <input
             type="password"
             value={password}
@@ -98,7 +98,7 @@ function SignupFormModal() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <label>
-          Confirm Password
+          Confirm Password:
           <input
             type="password"
             value={confirmPassword}
@@ -109,7 +109,7 @@ function SignupFormModal() {
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

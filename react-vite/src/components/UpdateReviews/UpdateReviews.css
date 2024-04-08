@@ -1,0 +1,19 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.update-review-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.back-to-product {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  background-color: #f0c14b;
+  color: #111;
+  border: 1px solid #a88734;
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+} */

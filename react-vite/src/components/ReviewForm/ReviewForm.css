@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+h1 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Container for the CreateNewReview component */
+.create-new-review-container {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.create-update-review-form {
+  max-width: 1000px;
+  width: fit-content;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+/* Star rating field */
+.star-rating-field {
+  margin-bottom: 20px;
+}
+
+.star-rating {
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star-rating:hover {
+  color: #f0c14b;
+}
+
+/* Body textarea */
+.body-textarea {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+/* Image file field */
+.image-file-field {
+  margin-bottom: 20px;
+}
+
+.image-file-field label {
+  cursor: pointer;
+  padding: 10px 15px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Review button container */
+.Review-Btn-container {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Review-Submit-btn {
+  margin-right: 10px;
+}
+
+/* Submit button */
+.Review-Submit-btn,
+.back-to-product {
+  padding: 10px 20px;
+  background-color: #f0c14b;
+  color: #111;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Hover effect for both buttons */
+.Review-Submit-btn:hover,
+.back-to-product:hover {
+  background-color: #f7e99b;
+}
+
+/* Apply Roboto font to body */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Apply font to specific elements */
+.star-rating,
+.body-textarea,
+.Review-Submit-btn,
+.image-loading-message {
+  font-family: 'Roboto', sans-serif;
+}

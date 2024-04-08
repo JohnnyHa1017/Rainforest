@@ -193,31 +193,6 @@
   height: 10rem;
 }
 
-/* Styles for profile dropdown */
-.profile-dropdown {
-  position: absolute;
-  top: 40px;
-  background-color: gray;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-}
-
-.profile-dropdown li {
-  list-style: none;
-  margin: 5px 0;
-}
-
-.profile-dropdown button {
-  background: none;
-  border: none;
-  color: blue;
-  cursor: pointer;
-}
-
 /* Styles for cart item */
 .cart-item {
   font-family: "Spectral SC", serif;
@@ -228,4 +203,56 @@
   align-items: center;
   padding: 20px 0;
   width: 100%;
+}
+
+/* Profile Button Styling */
+.profile-button button {
+  background-color: transparent;
+  border: none;
+  color: #00b1ba;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Profile Dropdown Styles */
+.profile-dropdown {
+  background-color: #ffffff;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  font-size: small;
+  right: 0;
+  z-index: 999;
+}
+
+/* Styles for dropdown list items */
+.profile-dropdown li {
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Profile Dropdown List Item Hover Effect */
+.profile-dropdown li:hover {
+  background-color: #f5f5f5;
+}
+
+/* Log Out Button Styles */
+.profile-dropdown button{
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.079);
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Log Out Button Hover Effect */
+.profile-dropdown button:hover {
+  color: #ff0000;
 }

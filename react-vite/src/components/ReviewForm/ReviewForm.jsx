@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createNewReviewThunk, loadReviewsOnOneProductThunk, updateReviewThunk } from '../../redux/reviews';
+import './ReviewForm.css'
 
 const CreateNewReview = ({ buttonName, updatingReview }) => {
 
@@ -76,7 +77,6 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
                   className='star-rating'
                   onClick={() => setRating(starRating)}
                   onMouseEnter={() => setHover(starRating)}
-                  // onMouseLeave={() => setHover(starRating)}
                 >
                   {starRating <= (hover || star) ? '★' : '☆'}
                 </span>
@@ -118,6 +118,7 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
           >
             {buttonName}
           </button>
+          <button className='back-to-product' onClick={() => window.location.href = `/products/${productId || review?.product_id}`}>Back to Product</button>
           {imageLoading && <p>Loading...</p>}
         </div>
       </form>
