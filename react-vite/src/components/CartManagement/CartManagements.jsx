@@ -161,16 +161,19 @@ const CartManagement = () => {
               handleUpdateCart();
               window.location.href = '/';
             }}>Save for Later</button>
+          {/* Conditionally render checkout button */}
+          {userCart.length > 0 && (
             <OpenModalButton
               buttonText="Checkout"
               modalComponent={<CheckoutMessage message={`Thank you ${currentUser.first_name} for shopping with Rainforest, One moment as we finalize your order...`} />}
               onButtonClick={handleCheckout}
             />
-          </div>
+          )}
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default CartManagement;
