@@ -10,8 +10,6 @@ const ProductReviews = () => {
   const user = useSelector((state) => state?.session?.user);
   const users = useSelector((state) => state?.products?.Users)
 
-  console.log(state, 'PRODUCT REVIEWS STATE @HERE')
-
   useEffect(() => {
     dispatch(loadReviewsOnOneProductThunk(productId))
   }, [productId, dispatch])

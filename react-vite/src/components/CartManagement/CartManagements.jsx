@@ -93,7 +93,7 @@ const CartManagement = () => {
     await dispatch(removeFromCartThunk(cartItemId))
       .then(() => setShouldReload(!shouldReload));
   };
-  
+
 
   // Function to checkout current cart of items
   const handleCheckout = async () => {

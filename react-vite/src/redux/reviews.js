@@ -76,11 +76,9 @@ export const updateReviewThunk = (reviewId, updatingReview) => async (dispatch) 
       body: updatingReview
     })
 
-  if(!response.ok){
+    if (!response.ok) {
       throw new Error('Failed to update review')
-  }
-    console.log('WHAT IS UPDATING REVIEW? @@@===>', updatingReview)
-
+    }
     dispatch(updateReview(updatingReview))
     } catch (error) {
     return { error: error.message };

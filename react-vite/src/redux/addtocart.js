@@ -73,7 +73,6 @@ export const removeFromCartThunk = (cartItemId) => async (dispatch) => {
       throw new Error('Failed to remove product from your cart');
     }
     const data = await response.json()
-    console.log(data)
     dispatch(removeFromCart(data));
   } catch (error) {
     return { error: error.message };

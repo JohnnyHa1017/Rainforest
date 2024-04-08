@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import User, db
+from app.models import User, Cart, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -46,7 +46,7 @@ def logout():
 @auth_routes.route('/signup', methods=['POST'])
 def sign_up():
     """
-    Creates a new user and logs them in
+    Creates a new user, logs them in, and creates a new cart for the user
     """
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -60,9 +60,16 @@ def sign_up():
         )
         db.session.add(user)
         db.session.commit()
+
+        # Create a new cart for the user
+        new_cart = Cart(user_id=user.id)
+        db.session.add(new_cart)
+        db.session.commit()
+
         login_user(user)
         return user.to_dict()
     return form.errors, 401
+
 
 
 @auth_routes.route('/unauthorized')
