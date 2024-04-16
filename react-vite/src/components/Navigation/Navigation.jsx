@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import { useSelector, useDispatch } from "react-redux";
 import { loadAllThunk } from "../../redux/products";
+// import { getAllUsersCartsThunk } from "../../redux/carts";
 import CartManagement from "../CartManagement/CartManagements";
 import "./Navigation.css";
 
@@ -13,6 +14,7 @@ function Navigation() {
 
   useEffect(() => {
     dispatch(loadAllThunk())
+    // dispatch(getAllUsersCartsThunk())
   }, [dispatch])
 
   const toggleCart = () => {

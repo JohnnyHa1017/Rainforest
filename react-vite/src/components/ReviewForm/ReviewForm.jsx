@@ -112,12 +112,13 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
             <p style={{ color: 'red' }}>{validations.image}</p>}
         </div>
         <div className='Review-Btn-container'>
-          <button
-            type='submit'
-            className='Review-Submit-btn'
-          >
-            {buttonName}
-          </button>
+        <button
+          type='submit'
+          className='Review-Submit-btn'
+          disabled={submitted && (body.length <= 10 || rating < 1 || !image_url || validations)}
+        >
+          {buttonName}
+        </button>
           <button className='back-to-product' onClick={() => window.location.href = `/products/${productId || review?.product_id}`}>Back to Product</button>
           {imageLoading && <p>Loading...</p>}
         </div>

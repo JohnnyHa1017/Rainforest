@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { thunkLogin } from "../../redux/session";
+import { getAllUsersCartsThunk } from "../../redux/carts";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 
@@ -24,6 +25,7 @@ function LoginFormModal() {
     if (serverResponse) {
       setErrors(serverResponse);
     } else {
+      await dispatch(getAllUsersCartsThunk());
       closeModal();
     }
   };
@@ -34,6 +36,7 @@ function LoginFormModal() {
       password: "password"
     };
     await dispatch(thunkLogin(demoUser));
+    await dispatch(getAllUsersCartsThunk());
     closeModal();
   };
 
