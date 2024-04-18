@@ -74,6 +74,12 @@
   align-items: center;
   justify-content: center;
   margin-top: 10px;
+  width: max-content;
+}
+
+button.google-button {
+  width: 100%;
+  align-items: center;
 }
 
 .google-button img {
@@ -84,6 +90,7 @@
 
 .google-button span {
   color: black;
+  width: 100%;
 }
 
 .signup-form-container button:hover {
