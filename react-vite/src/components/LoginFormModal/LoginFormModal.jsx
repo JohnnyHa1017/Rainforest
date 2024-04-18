@@ -68,6 +68,10 @@ function LoginFormModal() {
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
         <button type="button" onClick={loginDemoUser}>Demo Login</button>
+        <button className="google-button" onClick={() => window.location.href = `${window.origin}/api/auth/oauth_login`}>
+          <img src="https://i.postimg.cc/kBCBGRS6/Google-removebg-preview.png" alt="Google Logo" />
+          <span>Sign In with Google</span>
+        </button>
       </form>
     </div>
   );

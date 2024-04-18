@@ -1,20 +1,18 @@
-/* Container styles */
 .signup-form-container {
-  max-width: 400px;
+  width: 300px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #fff;
+  font-family: 'Spectral SC', serif;
 }
 
-/* Heading styles */
 .signup-form-container h1 {
   text-align: center;
   margin-bottom: 20px;
+  font-family: 'Spectral SC', serif;
 }
 
-/* Form styles */
 .signup-form-container form {
   display: flex;
   flex-direction: column;
@@ -24,39 +22,36 @@
   margin-bottom: 10px;
 }
 
-/* Input styles */
-.signup-form-container input[type="text"],
-.signup-form-container input[type="password"] {
-  width: calc(100% - 22px);
-  padding: 10px;
-  margin-bottom: 15px;
+.signup-form-container input {
+  padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 3px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
-.signup-form-container input:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
-/* Button styles */
 .signup-form-container button {
-  padding: 10px 15px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
+  border: 1px rgba(0, 0, 0, 0.209) solid;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  background-color: #ffffff;
   color: #fff;
   cursor: pointer;
 }
 
-.signup-form-container button:hover {
-  background-color: #0056b3;
+.signup-form-container button[type="submit"] {
+  font-family: 'Spectral SC', serif;
+  background-color: #007bffd3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Error message styles */
+.signup-form-container button[type="submit"]:hover {
+  background-color: #3aa943;
+}
+
 .signup-form-container p {
-  color: #dc3545;
-  margin-top: -10px;
-  margin-bottom: 10px;
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
 }

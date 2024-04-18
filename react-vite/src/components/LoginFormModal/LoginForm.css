@@ -1,0 +1,97 @@
+/* Importing Font Style */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Spectral+SC:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.login-form-container {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  font-family: 'Spectral SC', serif;
+}
+
+.login-form-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Spectral SC', serif;
+}
+
+.login-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form-container label {
+  margin-bottom: 10px;
+}
+
+.login-form-container input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.login-form-container button {
+  border: 1px rgba(0, 0, 0, 0.209) solid;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  background-color: #ffffff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.login-form-container button[type="submit"] {
+  font-family: 'Spectral SC', serif;
+  background-color: #007bffd3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-form-container button[type="button"] {
+  font-family: 'Spectral SC', serif;
+  background-color: #f0c14b;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-form-container button[type="button"]:hover,
+.login-form-container button[type="submit"]:hover {
+  background-color: #3aa943;
+}
+
+.login-form-container p {
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.login-form-container a {
+  text-decoration: none;
+  text-align: center;
+  margin-top: 10px;
+  display: block;
+}
+
+.login-form-container button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.login-form-container button img {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.google-button {
+  font-family: 'Spectral SC', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.google-button span {
+  color: black;
+}
+

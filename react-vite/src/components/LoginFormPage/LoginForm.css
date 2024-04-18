@@ -1,3 +1,6 @@
+/* Importing Font Style */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Spectral+SC:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
 /* Container styles */
 .login-form-container {
   max-width: 400px;
@@ -27,7 +30,9 @@
 /* Set a fixed width for both email and password input fields */
 .login-form-container input[type="text"],
 .login-form-container input[type="password"] {
-  width: calc(100% - 22px); /* Adjust this value as needed */
+  font-family: "Spectral SC", serif;
+  font-style: normal;
+  width: calc(100% - 22px);
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
@@ -50,7 +55,7 @@
 }
 
 .login-form-container button:hover {
-  background-color: #0056b3;
+  background-color: #3884d6;
 }
 
 /* Error message styles */

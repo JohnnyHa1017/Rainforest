@@ -60,13 +60,14 @@ const CartManagement = () => {
 
   // Function to handle decrementing quantity for a specific product
   const handleDecrement = (productId) => {
-    if (quantities[productId]) {
+    if (quantities[productId] > 1) {
       setQuantities(prevQuantities => ({
         ...prevQuantities,
         [productId]: prevQuantities[productId] - 1
       }));
     }
   };
+
 
   // Function to handle adding product to cart
   const handleAddToCart = (productId) => {
