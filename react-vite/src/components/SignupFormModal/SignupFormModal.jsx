@@ -108,6 +108,10 @@ function SignupFormModal() {
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit">Sign Up</button>
+        <button className="google-button" onClick={() => window.location.href = `${window.origin}/api/auth/oauth_login`}>
+            <img src="https://i.postimg.cc/kBCBGRS6/Google-removebg-preview.png" alt="Google Logo" />
+            <span>Sign Up with Google</span>
+        </button>
       </form>
     </div>
   );

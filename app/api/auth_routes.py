@@ -32,7 +32,8 @@ Some of these values will come from our .env file.
 # Import our credentials from the .env file
 CLIENT_SECRET = os.getenv('GOOGLE_OAUTH_CLIENT_SECRET')
 CLIENT_ID = os.getenv('GOOGLE_OAUTH_CLIENT_ID')
-
+environment = os.getenv("FLASK_ENV")
+redirect_uri = "https://rainforest-r7d3.onrender.com/api/auth/callback" if environment == "production" else "http://localhost:8000/api/auth/callback"
 # The dictionary to be written out as JSON
 client_secrets = {
   "web": {
@@ -42,7 +43,7 @@ client_secrets = {
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
     "client_secret": CLIENT_SECRET,
     "redirect_uris": [
-      "http://localhost:8000/api/auth/callback"
+      redirect_uri
     ]
   }
 }

@@ -45,12 +45,14 @@
 
 .login-form-container button[type="submit"] {
   font-family: 'Spectral SC', serif;
+  justify-content: center;
   background-color: #007bffd3;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .login-form-container button[type="button"] {
   font-family: 'Spectral SC', serif;
+  justify-content: center;
   background-color: #f0c14b;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

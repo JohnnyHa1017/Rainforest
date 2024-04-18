@@ -55,3 +55,25 @@
   margin-top: 5px;
   font-size: 14px;
 }
+
+.login-form-container button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.login-form-container button img {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.google-button {
+  font-family: 'Spectral SC', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.google-button span {
+  color: black;
+}
