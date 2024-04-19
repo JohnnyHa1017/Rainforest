@@ -37,6 +37,7 @@ function ProfileButton() {
     e.preventDefault();
     dispatch(thunkLogout());
     closeMenu();
+    window.location.href = '/';
   };
 
   return (

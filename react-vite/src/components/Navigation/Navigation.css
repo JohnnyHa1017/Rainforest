@@ -32,7 +32,7 @@ nav {
 /* Profile Button */
 .profile-button,
 .cart-button {
-  margin-left: 20px;
+  margin-left: 40px;
 }
 
 .profile-button button,
@@ -41,7 +41,7 @@ nav {
   background-color: transparent;
   color: #ffffff;
   cursor: pointer;
-  padding: 8px 16px;
+  padding: 16px;
   border-radius: 20px;
   outline: none;
   font-size: 16px;
@@ -51,18 +51,22 @@ nav {
   background-color: rgba(0, 177, 186, 0.2);
 }
 
-/* Profile Dropdown */
 ul.profile-dropdown {
-  position: fixed;
+  position: absolute;
   background-color: #fff;
   color: black;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
   display: block;
-  z-index: 1000;
-  width: fit-content;
+  z-index: 2;
+  max-width: 300px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+  right: 80px;
 }
+
 
 ul.profile-dropdown li:hover {
   text-decoration: underline;
@@ -79,6 +83,7 @@ ul.profile-dropdown .logout button {
   font-size: 8px;
   color: #ffffff;
   background-color: #ff000093;
+  padding: 8px;
 }
 
 ul.profile-dropdown .logout button:hover{
@@ -165,10 +170,10 @@ ul.profile-dropdown .logout button:hover{
   justify-content: flex-start;
   align-items: flex-start;
   margin-top: 50px;
-  flex-direction: row;
+  flex-direction: column;
   padding: 10px;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   max-height: calc(100vh - 100px);
   color: black;
 }
@@ -177,8 +182,6 @@ ul.profile-dropdown .logout button:hover{
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-wrap: nowrap;
 }
 
 .cart-content h2 {
@@ -194,20 +197,25 @@ ul.profile-dropdown .logout button:hover{
   border-bottom: 1px solid #ddd;
   padding: 5px;
   min-width: 150px;
-  white-space: nowrap;
+}
+
+.cart-item button {
+  margin: 1px;
+}
+
+.cart-item-delete {
+  padding: 5px;
 }
 
 p.cart-item-name {
   font-size: 8px;
 }
 
-.cart-item-delete {
+.cart-item-quantity button {
+  padding: 1px 10px;
   font-size: 8px;
 }
 
-.cart-item-quantity button {
-  font-size: 8px;
-}
 
 /* Categories */
 .category-section ul {
