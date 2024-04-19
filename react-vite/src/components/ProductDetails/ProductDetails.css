@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Spectral+SC:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
 
 /* Product title */
 h1 {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: 20px;
   margin-bottom: 10px;
 }
@@ -78,8 +82,10 @@ h1 {
 
 /* Add Review button */
 .create-review {
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 10px;
   background-color: #f0c14b;
   color: #111;
   border: 1px solid #a88734;
@@ -108,9 +114,11 @@ h1 {
 
 /* Edit and Delete Review buttons */
 .edit-review, .delete-review {
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  background-color: #ddd;
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 10px;
+  background-color: #a7a7a7;
   color: #333;
   border: none;
   padding: 8px 16px;
@@ -121,8 +129,12 @@ h1 {
   margin: 5px;
 }
 
-.edit-review:hover, .delete-review:hover {
-  background-color: #ccc;
+.edit-review:hover{
+  background-color: #5ec36b;
+}
+
+.delete-review:hover {
+  background-color: rgb(215, 113, 113);
 }
 
 /* Add to Cart button */

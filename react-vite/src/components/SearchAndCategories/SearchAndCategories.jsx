@@ -8,7 +8,7 @@ import { NavLink, useParams } from 'react-router-dom';
 const LoadingSpinner = () => {
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-gray-900"></div>
+      <div className="spinner"></div>
     </div>
   );
 };
@@ -28,7 +28,9 @@ const ShopByCategory = () => {
 
   const handleAddToCart = (productId) => {
     const quantity = 1;
-    dispatch(addToCartThunk(userCart.id, productId, quantity));
+    dispatch(addToCartThunk(userCart.id, productId, quantity))
+    .then(() => setShouldReload(!shouldReload));
+    window.location.href = '/carts';
   };
 
   if (isLoading) {

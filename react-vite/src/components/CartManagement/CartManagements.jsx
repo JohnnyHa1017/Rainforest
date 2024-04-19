@@ -13,13 +13,22 @@ import './CartManagements.css';
 const LoadingSpinner = () => {
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-gray-900"></div>
+      <div className="spinner"></div>
     </div>
   );
 };
 
-const CheckoutMessage = ({ message }) => {
-  return <h4>{message}</h4>;
+
+const CheckoutMessage = ({ message, isLoading }) => {
+  return (
+    <div>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <h4>{message}</h4>
+      )}
+    </div>
+  );
 };
 
 const CartManagement = () => {
