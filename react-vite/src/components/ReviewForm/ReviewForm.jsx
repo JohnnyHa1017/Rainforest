@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createNewReviewThunk, loadReviewsOnOneProductThunk, updateReviewThunk } from '../../redux/reviews';
-import './ReviewForm.css'
+import './ReviewForm.css';
 
 const CreateNewReview = ({ buttonName, updatingReview }) => {
 
@@ -27,20 +27,20 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
       setImage(updatingReview?.image_url);
       setVerified(updatingReview?.verified_purchase);
     }
-    dispatch(loadReviewsOnOneProductThunk(updatingReview))
+    dispatch(loadReviewsOnOneProductThunk(updatingReview));
   }, [updatingReview, dispatch]);
 
   useEffect(() => {
-    if(!user) nav('/')
-  }, [user, submitted])
+    if(!user) nav('/');
+  }, [user, submitted]);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('image_url', image_url)
-    formData.append('rating', parseInt(rating))
-    formData.append('body', body)
-    formData.append('verified_purchase', verified_purchase)
+    formData.append('image_url', image_url);
+    formData.append('rating', parseInt(rating));
+    formData.append('body', body);
+    formData.append('verified_purchase', verified_purchase);
 
     setImageLoading(true);
     setSubmitted(true);
@@ -51,14 +51,14 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
     }
 
     if(!reviewId){
-        await dispatch(createNewReviewThunk(productId, formData))
+        await dispatch(createNewReviewThunk(productId, formData));
     }
     else{
-        await dispatch(updateReviewThunk(reviewId, formData))
+        await dispatch(updateReviewThunk(reviewId, formData));
     }
 
     nav(`/products/${productId || review?.product_id}`);
-  }
+  };
 
   return (
     <>
@@ -77,8 +77,9 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
                   className='star-rating'
                   onClick={() => setRating(starRating)}
                   onMouseEnter={() => setHover(starRating)}
+                  onMouseLeave={() => setHover(null)}
                 >
-                  {starRating <= (hover || star) ? '★' : '☆'}
+                  {starRating <= (hover || rating) ? '★' : '☆'}
                 </span>
               </label>
             );
@@ -112,19 +113,19 @@ const CreateNewReview = ({ buttonName, updatingReview }) => {
             <p style={{ color: 'red' }}>{validations.image}</p>}
         </div>
         <div className='Review-Btn-container'>
-        <button
-          type='submit'
-          className='Review-Submit-btn'
-          disabled={submitted && (body.length <= 10 || rating < 1 || !image_url || validations)}
-        >
-          {buttonName}
-        </button>
+          <button
+            type='submit'
+            className='Review-Submit-btn'
+            disabled={submitted && (body.length <= 10 || rating < 1 || !image_url || validations)}
+          >
+            {buttonName}
+          </button>
           <button className='back-to-product' onClick={() => window.location.href = `/products/${productId || review?.product_id}`}>Back to Product</button>
           {imageLoading && <p>Loading...</p>}
         </div>
       </form>
     </>
-  )
-}
+  );
+};
 
 export default CreateNewReview;

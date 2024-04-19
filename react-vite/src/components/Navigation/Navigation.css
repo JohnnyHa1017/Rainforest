@@ -1,95 +1,119 @@
 /* Importing Font Style */
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Spectral+SC:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
-/* General styles for navigation container */
-.navigation-container {
-  font-family: "Spectral SC", serif;
-  font-style: normal;
-  position: relative;
+/* Navigation Container */
+nav {
+  background-color: #436186;
+  color: white;
+  padding: 10px 20px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 10px;
-  color: #0000006a;
-  max-height: 100px;
-  overflow: hidden;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-/* Styles for navigation logo */
-.nav-bar-logo {
-  height: 50%;
-  align-self: center;
-  margin-top: auto;
-}
-
-/* Styles for navigation menu */
-.navigation-container ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  object-fit: contain;
-  white-space: nowrap;
-}
-
-.navigation-container ul li {
-  margin-right: 20px;
-}
-
-.navigation-container ul li:last-child {
-  margin-right: 0;
-}
-
-/* Styles for search form */
-.search-form {
+/* Logo */
+.navigation-logo-container {
   display: flex;
   align-items: center;
 }
 
-.search-form input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 5px;
+.nav-bar-logo {
+  width: 100px;
+  height: auto;
+}
+
+/* Additional Links */
+.additional-links {
+  display: flex;
+  align-items: center;
+}
+
+/* Profile Button */
+.profile-button,
+.cart-button {
+  margin-left: 20px;
+}
+
+.profile-button button,
+.cart-button button {
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 20px;
+  outline: none;
   font-size: 16px;
 }
 
-.search-form button {
-  padding: 8px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  outline: none;
+.cart-button button:hover {
+  background-color: rgba(0, 177, 186, 0.2);
 }
 
-/* Styles for cart sidebar */
+/* Profile Dropdown */
+ul.profile-dropdown {
+  position: fixed;
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  display: block;
+  z-index: 1000;
+  width: fit-content;
+}
+
+ul.profile-dropdown li:hover {
+  text-decoration: underline;
+}
+
+ul.profile-dropdown {
+  list-style-type: none;
+}
+
+ul.profile-dropdown .logout button {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 8px;
+  color: #ffffff;
+  background-color: #ff000093;
+}
+
+ul.profile-dropdown .logout button:hover{
+  background-color: red;
+}
+
+/* Cart Sidebar */
 .cart-sidebar {
   position: fixed;
   top: 0;
   right: 0;
-  width: 300px;
+  width: 400px;
   height: 100%;
   background-color: #fff;
   z-index: 1000;
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
   border-radius: 20px;
+  border: .3px solid black;
   align-items: center;
   display: block;
 }
 
-.cart-sidebar.open {
-  transform: translateX(0);
-}
-
-.close-cart,
-.view-cart {
+.cart-sidebar button {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: .3px black solid;
   font-family: "Spectral SC", serif;
   font-weight: 400;
   font-style: normal;
-  border-radius: 20px;
-  position: absolute;
-  top: 10px;
+  font-size: 10px;
+  display: inline-flex;
+}
+
+.cart-sidebar.open {
+  transform: translateX(0);
 }
 
 .toggle-cart {
@@ -106,28 +130,23 @@
 }
 
 .close-cart {
-  right: 10px;
-  color: #fff;
-  background-color: #1bc2b1;
-}
-
-.view-cart {
-  right: 80px;
-  color: #ffffff;
-  background-color: #1bc2b1;
-}
-
-.toggle-cart {
-  background-color: #009688;
-  color: #fff;
+  background-color: #1bc2b1be;
+  color: white;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
+  border-radius: 20px;
+  margin: 10px;
 }
 
-.toggle-cart:hover,
-.close-cart:hover {
-  background-color: #00796b;
+.view-cart {
+  background-color: #1bc2b1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 20px;
+  margin-bottom: 10px;
 }
 
 .cart-content .cart-action-buttons {
@@ -143,13 +162,15 @@
 .cart-content {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   margin-top: 50px;
-  flex-direction: column;
-  padding: 20px;
-  overflow-y: auto;
+  flex-direction: row;
+  padding: 10px;
   overflow-x: auto;
+  overflow-y: hidden;
+  max-height: calc(100vh - 100px);
+  color: black;
 }
 
 .cart-content ul {
@@ -157,11 +178,27 @@
   padding: 0;
   margin: 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .cart-content h2 {
-  font-size: 12px;
+  font-size: 10px;
+  margin-bottom: 5px;
+}
+
+.cart-item {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-size: 16px;
+  font-style: normal;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  min-width: 150px;
+  white-space: nowrap;
+}
+
+p.cart-item-name {
+  font-size: 8px;
 }
 
 .cart-item-delete {
@@ -172,87 +209,21 @@
   font-size: 8px;
 }
 
-.cart-item {
-  font-family: "Spectral SC", serif;
-  font-weight: 400;
-  font-size: 14px;
-  font-style: normal;
-  border-bottom: 1px solid #ddd;
-  padding: 20px;
-  width: calc(50% - 20px);
-  box-sizing: border-box;
-}
-
-.cart-item-name {
-  font-size: 10px;
-  margin-bottom: 5px;
-}
-
-.cart-content ul li {
-  width: 10rem;
-  height: 10rem;
-}
-
-/* Styles for cart item */
-.cart-item {
-  font-family: "Spectral SC", serif;
-  font-weight: 400;
-  font-style: normal;
-  border-bottom: 1px solid #ddd;
+/* Categories */
+.category-section ul {
   display: flex;
-  align-items: center;
-  padding: 20px 0;
-  width: 100%;
+  list-style: none;
 }
 
-/* Profile Button Styling */
-.profile-button button {
-  background-color: transparent;
-  border: none;
-  color: #00b1ba;
-  cursor: pointer;
-  position: relative;
+.category-section ul li {
+  margin-right: 20px;
 }
 
-/* Profile Dropdown Styles */
-.profile-dropdown {
-  background-color: #ffffff;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  font-size: small;
-  right: 0;
-  z-index: 999;
-}
-
-/* Styles for dropdown list items */
-.profile-dropdown li {
-  padding: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-/* Profile Dropdown List Item Hover Effect */
-.profile-dropdown li:hover {
-  background-color: #f5f5f5;
-}
-
-/* Log Out Button Styles */
-.profile-dropdown button{
-  background-color: transparent;
-  color: rgba(0, 0, 0, 0.079);
-  padding: 8px;
-  border-radius: 4px;
-  border: none;
-  width: 100%;
-  text-align: center;
-  cursor: pointer;
+.category-section ul li a {
+  color: white;
   text-decoration: none;
-  font-family: "Spectral SC", serif;
-  font-weight: 400;
-  font-style: normal;
 }
 
-/* Log Out Button Hover Effect */
-.profile-dropdown button:hover {
-  color: #ff0000;
+.category-section ul li a:hover {
+  text-decoration: underline;
 }

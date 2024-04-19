@@ -21,35 +21,44 @@ function Navigation() {
 
   const categories = allProducts ? [...new Set(allProducts.map(product => product.category))] : [];
 
-  return (
-    <div className="navigation-container">
-      <ul>
-        <li>
+return (
+  <nav>
+    <div className="navigation-logo-container">
+      {/* Logo */}
           <NavLink to="/">
             <img src='https://i.postimg.cc/SxyKQ0Qj/cropped-logo.png' alt='rainforest-logo' className='nav-bar-logo'></img>
           </NavLink>
-        </li>
-        {/* Category links */}
-        {categories.map(category => (
-          <li key={category}>
-            <NavLink to={`/products/categories/${category}`}>{category}</NavLink>
+        </div>
+
+      {/* Categories */}
+      <div className="category-section">
+        <ul>
+          {categories.map(category => (
+            <li key={category}>
+              <NavLink to={`/products/categories/${category}`}>{category}</NavLink>
+            </li>
+          ))}
+          {/* Recommended for You */}
+          <li>
+            <a href="https://i.postimg.cc/v81NSXnK/rainforest-videos-render.gif" target="_blank" rel="noreferrer" onClick="window.open(this.href, 'popup', 'width=600,height=600'); return false;">Recommended for You</a>
           </li>
-        ))}
-        {/* Recommended for You */}
-        <li>
-          <a href="https://i.postimg.cc/v81NSXnK/rainforest-videos-render.gif" target="_blank" rel="noreferrer" onClick="window.open(this.href, 'popup', 'width=600,height=600'); return false;">Recommended for You</a>
-        </li>
+        </ul>
+    </div>
+
+      {/* Additional Links */}
+      <div className="additional-links">
         {/* Profile button */}
-        <li className="profile-button">
+        <div className="profile-button">
           <ProfileButton />
-        </li>
+        </div>
         {/* Cart button */}
-        <li>
+        <div className="cart-button">
           <button className="toggle-cart" onClick={toggleCart}>
             Cart
           </button>
-        </li>
-      </ul>
+        </div>
+      </div>
+
       {/* Cart sidebar */}
       <div className={`cart-sidebar ${showCart ? "open" : ""}`}>
         <button className="close-cart" onClick={toggleCart}>Close</button>
@@ -59,7 +68,8 @@ function Navigation() {
           <CartManagement />
         </div>
       </div>
-    </div>
+
+  </nav>
   );
 }
 
