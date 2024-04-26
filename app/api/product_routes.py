@@ -64,6 +64,7 @@ def create_listing():
         errors = form.errors
         return jsonify({'errors': errors}), 400
 
+
 # Update a Product Listing
 @product_routes.route('/<int:id>/edit', methods=['PUT'])
 @login_required
@@ -99,6 +100,7 @@ def edit_listing(id):
         return jsonify({"message": "Product has been updated successfully."}), 200
     else:
         return jsonify({'errors': form.errors}), 400
+
 
 # Delete a Product Listing
 @product_routes.route('/<int:id>', methods=['DELETE'])

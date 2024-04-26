@@ -2,6 +2,8 @@
 export const LOAD_ALL_PRODUCTS = 'products/LOAD_ALL'
 export const LOAD_ONE_PRODUCT = 'products/LOAD_ONE'
 export const LIST_NEW_PRODUCT = 'products/LIST_NEW'
+export const EDIT_A_PRODUCT = 'products/EDIT'
+export const DELETE_A_PRODUCT = 'products/DELETE'
 export const SHOP_BY_CATEGORY = 'products/SHOP_BY_CATEGORY'
 
 // Action Creators
@@ -17,6 +19,16 @@ export const loadOneProduct = (data) => ({
 
 export const listNewProduct = (data) => ({
   type: LIST_NEW_PRODUCT,
+  data
+});
+
+export const editAProduct = (data) => ({
+  type: EDIT_A_PRODUCT,
+  data
+});
+
+export const deleteAProduct = (data) => ({
+  type: DELETE_A_PRODUCT,
   data
 });
 
@@ -83,6 +95,43 @@ export const listNewThunk = (newProduct) => async (dispatch) => {
   }
 }
 
+// Edit a Product Thunk
+export const editAProductThunk = (productId, productToEdit) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/products/${productId}/edit`, {
+      methods: 'PUT',
+      body: productToEdit
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update product')
+    }
+    dispatch(editAProduct(productToEdit))
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
+// Delete a Product Thunk
+export const deleteAProductThunk = (productId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/products/${productId}`, {
+      method: "DELETE"
+    });
+
+    if (response.ok) {
+      dispatch(deleteAProduct(productId));
+      return { success: true };
+
+    } else {
+      throw new Error('Failed to delete product.');
+    }
+
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
 // Shop by Category Thunk
 export const shopCategoriesThunk = (category) => async (dispatch) => {
   try {
@@ -113,6 +162,14 @@ const productReducer = (state = { }, action) => {
     }
     case LIST_NEW_PRODUCT: {
       return { ...state, ...action.data }
+    }
+    case EDIT_A_PRODUCT: {
+      return action.data
+    }
+    case DELETE_A_PRODUCT: {
+      const newState = { ...state }
+      delete newState[action.data]
+      return newState
     }
     case SHOP_BY_CATEGORY: {
       return { ...state, categories: action.data }
