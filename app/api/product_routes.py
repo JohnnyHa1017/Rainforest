@@ -26,6 +26,17 @@ def get_one_product(id):
     return product.to_dict(), 200
 
 
+# Get Products Listed by Current User
+@product_routes.route('/manage')
+@login_required
+def client_owned_products():
+    # Query products belonging to the current user
+    products = Product.query.filter_by(user_id=current_user.id).all()
+    products_data = [product.to_dict() for product in products]
+
+    return jsonify({'products': products_data}), 200
+
+
 # Create Product Listing
 @product_routes.route('/new', methods=['POST'])
 @login_required
