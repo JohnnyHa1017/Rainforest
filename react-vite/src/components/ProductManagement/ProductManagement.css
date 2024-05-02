@@ -1,0 +1,81 @@
+.product-management-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.product-management-container .page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.product-management-container .product-item {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.product-management-container .product-image {
+  width: auto;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.product-management-container .product-body,
+.product-management-container .product-quantity {
+  font-size: 8px;
+}
+
+.product-management-container .product-details {
+  flex: 1;
+  margin: 8px;
+}
+
+.product-management-container .product-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.product-management-container .product-description {
+  margin-bottom: 10px;
+}
+
+.product-management-container .product-category {
+  font-style: italic;
+  color: #666;
+}
+
+.product-management-container .product-actions {
+  margin-top: 10px;
+}
+
+.product-management-container .edit-button {
+  background-color: #007bffc0;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.product-management-container .delete-button {
+  background-color: #ff0000d2;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.product-management-container .edit-button:hover{
+  background-color: #0056b3;
+}
+
+.product-management-container .delete-button:hover {
+  background-color: red;
+}

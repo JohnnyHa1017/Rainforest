@@ -1,6 +1,7 @@
 // Action Types
 export const LOAD_ALL_PRODUCTS = 'products/LOAD_ALL'
 export const LOAD_ONE_PRODUCT = 'products/LOAD_ONE'
+export const CLIENT_OWNED = 'products/CLIENT_OWNED'
 export const LIST_NEW_PRODUCT = 'products/LIST_NEW'
 export const EDIT_A_PRODUCT = 'products/EDIT'
 export const DELETE_A_PRODUCT = 'products/DELETE'
@@ -14,6 +15,11 @@ export const loadAllProducts = (data) => ({
 
 export const loadOneProduct = (data) => ({
   type: LOAD_ONE_PRODUCT,
+  data
+});
+
+export const loadClientOwned = (data) => ({
+  type: CLIENT_OWNED,
   data
 });
 
@@ -57,17 +63,32 @@ export const loadAllThunk = () => async (dispatch) => {
 }
 
 // Load One Product Thunk
-export const loadOneThunk = (productId) => async (dispatch) => {
+export const loadOneThunk = (productId, endpoint = `/api/products/${productId}`) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/products/${productId}`);
+    const response = await fetch(endpoint);
 
     if (!response.ok) {
       throw new Error('Failed to fetch product.');
     }
 
     const data = await response.json();
-
     dispatch(loadOneProduct(data));
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
+// Load Products Listed by Client Thunk
+export const loadClientOwnedThunk = () => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/products/manage`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch products.');
+    }
+
+    const data = await response.json();
+    dispatch(loadClientOwned(data));
   } catch (error) {
     return { error: error.message };
   }
@@ -76,10 +97,10 @@ export const loadOneThunk = (productId) => async (dispatch) => {
 // List New Product Thunk
 export const listNewThunk = (newProduct) => async (dispatch) => {
   try {
-    const response = await fetch('/api/products/', {
+    const response = await fetch('/api/products/new', {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newProduct)
+      body: newProduct
     });
 
     if (response.ok) {
@@ -99,18 +120,20 @@ export const listNewThunk = (newProduct) => async (dispatch) => {
 export const editAProductThunk = (productId, productToEdit) => async (dispatch) => {
   try {
     const response = await fetch(`/api/products/${productId}/edit`, {
-      methods: 'PUT',
+      method: 'PUT',
       body: productToEdit
     });
 
     if (!response.ok) {
-      throw new Error('Failed to update product')
+      throw new Error('Failed to update product');
     }
-    dispatch(editAProduct(productToEdit))
+
+    const data = await response.json();
+    dispatch(editAProduct(data));
   } catch (error) {
     return { error: error.message };
   }
-}
+};
 
 // Delete a Product Thunk
 export const deleteAProductThunk = (productId) => async (dispatch) => {
@@ -158,6 +181,9 @@ const productReducer = (state = { }, action) => {
       return { ...state, ...action.data }
     }
     case LOAD_ONE_PRODUCT: {
+      return { ...state, ...action.data }
+    }
+    case CLIENT_OWNED: {
       return { ...state, ...action.data }
     }
     case LIST_NEW_PRODUCT: {

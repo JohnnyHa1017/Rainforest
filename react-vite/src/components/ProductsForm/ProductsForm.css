@@ -1,0 +1,77 @@
+.create-update-product-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.create-update-product-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.create-update-product-form input[type="text"],
+.create-update-product-form input[type="number"],
+.create-update-product-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.body-textarea {
+  resize: vertical;
+}
+
+.image-file-field label {
+  display: inline-block;
+  background-color: #f0f0f0;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.Product-Btn-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Product-Submit-btn,
+.back-to-product {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.Product-Submit-btn {
+  background-color: #FF9900;
+  color: #fff;
+}
+
+.back-to-product {
+  background-color: #0066c0;
+  color: #fff;
+}
+
+.back-to-product:hover,
+.Product-Submit-btn:hover {
+  opacity: 0.8;
+}
+
+.loading {
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .create-update-product-form {
+    padding: 10px;
+  }
+}
