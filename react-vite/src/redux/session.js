@@ -65,9 +65,14 @@ export const thunkSignup = (user) => async (dispatch) => {
 };
 
 export const thunkLogout = () => async (dispatch) => {
-  await fetch("/api/auth/logout");
-  dispatch(removeUser());
+  try {
+    await fetch("/api/auth/logout");
+    dispatch(removeUser());
+  } catch (error) {
+    console.error('Logout failed:', error);
+  }
 };
+
 
 export const getAllUsersThunk = () => async (dispatch) => {
   const response = await fetch(`/api/users`)
