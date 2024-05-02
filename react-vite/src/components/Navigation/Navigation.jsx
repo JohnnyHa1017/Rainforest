@@ -9,7 +9,7 @@ import "./Navigation.css";
 function Navigation() {
   const dispatch = useDispatch();
   const [showCart, setShowCart] = useState(false);
-  const allProducts = useSelector((state) => state.products.products)
+  const allProducts = useSelector((state) => state?.products?.products)
 
   useEffect(() => {
     dispatch(loadAllThunk())
@@ -19,7 +19,7 @@ function Navigation() {
     setShowCart(!showCart);
   };
 
-  const categories = allProducts ? [...new Set(allProducts.map(product => product.category))] : [];
+  const categories = allProducts ? [...new Set(allProducts?.map(product => product.category))] : [];
 
 return (
   <nav>

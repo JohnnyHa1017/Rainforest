@@ -99,7 +99,6 @@ export const listNewThunk = (newProduct) => async (dispatch) => {
   try {
     const response = await fetch('/api/products/new', {
       method: "POST",
-      headers: { 'Content-Type': 'application/json' },
       body: newProduct
     });
 

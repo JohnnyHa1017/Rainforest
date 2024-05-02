@@ -13,7 +13,7 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
   const [price, setPrice] = useState(updatingProduct?.price || '');
   const [category, setCategory] = useState(updatingProduct?.category || '');
   const [quantity_available, setQuantity] = useState(updatingProduct?.quantity_available || '');
-  const [image, setImage] = useState(null);
+  const [image_url, setImage] = useState(null);
   const [body, setBody] = useState(updatingProduct?.body || '');
   const [validations, setValidations] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -22,11 +22,12 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
 
   useEffect(() => {
     if (updatingProduct) {
-      setName(updatingProduct.name || '');
-      setPrice(updatingProduct.price || '');
-      setCategory(updatingProduct.category || '');
-      setQuantity(updatingProduct.quantity_available || '');
-      setBody(updatingProduct.body || '');
+      setName(updatingProduct.name);
+      setPrice(updatingProduct.price);
+      setCategory(updatingProduct.category);
+      setQuantity(updatingProduct.quantity_available);
+      setImage(updatingProduct.image_url);
+      setBody(updatingProduct.body);
     }
   }, [updatingProduct]);
 
@@ -39,8 +40,9 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
     formData.append('category', category);
     formData.append('quantity_available', parseInt(quantity_available));
     formData.append('body', body);
-    if (image) {
-      formData.append('image', image);
+
+    if (image_url !== null) {
+      formData.append('image_url', image_url);
     }
 
     setImageLoading(true);
@@ -53,11 +55,13 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
 
     if (!productId) {
       await dispatch(listNewThunk(formData));
+      nav('/manage');
     } else {
       await dispatch(editAProductThunk(productId, formData));
+      nav(`/products/${productId}`);
     }
-    nav(`/products/${productId}`);
   };
+
 
   return (
     <>
@@ -93,8 +97,8 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
           rows={7}
           cols={70}
         />
-        {submitted && validations.image &&
-          <p style={{ color: 'red' }}>{validations.image}</p>}
+        {submitted &&
+          <p style={{ color: 'red' }}>{validations.image_url}</p>}
         <div className='image-file-field'>
           <label htmlFor='image'>
             <input

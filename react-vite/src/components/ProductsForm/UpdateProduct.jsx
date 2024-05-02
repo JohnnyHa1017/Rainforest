@@ -9,8 +9,6 @@ const UpdateProduct = () => {
   const { productId } = useParams();
   const product = useSelector(state => state?.products);
 
-  console.log('What is product? @@@===>', product)
-
   useEffect(() => {
     if (productId) {
       dispatch(loadOneThunk(productId));
