@@ -90,7 +90,7 @@ const ProductManagement = () => {
         )
       ))}
       <h5 className="adding-title">Want to add a new product?</h5>
-      <button className="add-product" onClick={() => handleAddProduct()}>List New Product</button>
+      <button className="add-product-button" onClick={() => handleAddProduct()}>List New Product</button>
     </div>
   );
 };

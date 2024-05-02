@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&family=Spectral+SC:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
 .product-management-container {
   max-width: 800px;
   margin: 0 auto;
@@ -78,4 +80,24 @@
 
 .product-management-container .delete-button:hover {
   background-color: red;
+}
+
+.add-product-button {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  margin-top: 10px;
+  background-color: #f0c14b;
+  color: #111;
+  border: 1px solid #a88734;
+  padding: 8px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  position: relative;
+}
+
+.add-product-button:hover {
+  background-color: #ffd700;
 }
