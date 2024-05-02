@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import * as ProductActions from '../../redux/products';
 import { useModal } from '../../context/Modal';
-import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import { loadClientOwnedThunk } from "../../redux/products";
+import { loadClientOwnedThunk, deleteAProductThunk } from "../../redux/products";
 import './ProductManagement.css'
 
 // Loading Spinner Component
@@ -20,7 +18,6 @@ const ProductManagement = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state?.session?.user);
   const products = useSelector((state) => state?.products?.products);
-  const [selectedProductForDeletion, setSelectedProductForDeletion] = useState(null);
   const { setModalContent, closeModal } = useModal();
 
   useEffect(() => {
@@ -39,7 +36,6 @@ const ProductManagement = () => {
 
   // Function to open deletion modal
   const openDeleteModal = (productId) => {
-    setSelectedProductForDeletion(productId);
     setModalContent(
       <div className="modal-content">
         <h2>Confirm Deletion</h2>
@@ -52,19 +48,18 @@ const ProductManagement = () => {
     );
   };
 
-// Function to handle deleting a product
-const handleDeleteProduct = () => {
-  if (selectedProductForDeletion) {
-    dispatch(ProductActions.deleteAProductThunk(selectedProductForDeletion)).then((result) => {
-      if (result.success) {
-        setModalContent(<LoadingSpinner />);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      }
-    });
-  }
-};
+  // Function to handle deleting a product
+  const handleDeleteProduct = async (productId) => {
+    if (productId) {
+      setModalContent(<LoadingSpinner />);
+      await dispatch(deleteAProductThunk(productId));
+
+      closeModal();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  };
 
   if (!products || !currentUser) {
     return <LoadingSpinner />
