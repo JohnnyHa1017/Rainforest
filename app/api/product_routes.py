@@ -93,14 +93,16 @@ def edit_listing(id):
 
     if form.validate_on_submit():
         if 'image_url' in request.files:
+            # Handle image upload and update product image URL
             upload_request = request.files['image_url']
             upload_request.filename = get_unique_filename(upload_request.filename)
             upload = upload_file_to_s3(upload_request)
 
-        if 'url' not in upload:
-            return jsonify({'error': 'Image upload failed.'}), 500
-        product.image = upload['url']
+            if 'url' not in upload:
+                return jsonify({'error': 'Image upload failed.'}), 500
+            product.image = upload['url']
 
+        # Update product details
         product.name = form.name.data
         product.price = form.price.data
         product.category = form.category.data
@@ -108,6 +110,7 @@ def edit_listing(id):
         product.body = form.body.data
 
         db.session.commit()
+
         return jsonify({"message": "Product has been updated successfully."}), 200
     else:
         return jsonify({'errors': form.errors}), 400

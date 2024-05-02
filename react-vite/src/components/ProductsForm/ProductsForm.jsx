@@ -45,6 +45,10 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
       formData.append('image_url', image_url);
     }
 
+    else {
+      formData.image_url = updatingProduct.image
+    }
+
     setImageLoading(true);
     setSubmitted(true);
 
