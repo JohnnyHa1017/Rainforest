@@ -10,10 +10,9 @@ import ProductDetailsPage from '../components/ProductDetails/ProductDetails';
 import CartManagement from '../components/CartManagement/CartManagements';
 import ShopByCategory from '../components/SearchAndCategories/SearchAndCategories';
 import ProductManagements from '../components/ProductManagement/ProductManagement';
-import Layout from './Layout';
-import CreateProductForm from '../components/ProductsForm/ProductsForm';
 import ListProduct from '../components/ProductsForm/ListProduct';
 import UpdateProduct from '../components/ProductsForm/UpdateProduct';
+import Layout from './Layout';
 
 export const router = createBrowserRouter([
   {
