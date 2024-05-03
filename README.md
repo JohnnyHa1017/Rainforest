@@ -1,15 +1,12 @@
-# Rainforest Database Schema
-[![Rainforest-Schema.png](https://i.postimg.cc/Wz6X68Hg/Rainforest-Schema.png)](https://postimg.cc/Zvn8J8Z5)
 
-### User Stories
-> Final Capstone Clone Project by Johnny Ha
+# [ Rainforest, an Amazon Clone ]
 [My GitHub Profile](https://github.com/JohnnyHa1017)
-
-### Follow Rainforest Live
-[Live Link to Rainforest](https://rainforest-r7d3.onrender.com)
 
 **Introducing Rainforest:**
 > “Enter Rainforest's shopping cart— a sleek and intuitive space, inspired by the convenience of Amazon's design. Nestled neatly within the interface, 'Your Shopping Cart' offers a user-friendly side panel for effortless browsing, item selection, and checkout. Rainforest is supported by Amazon S3 for storage and Google OAuth for security, it enhances your online shopping experience.”
+
+##### Follow Rainforest Live
+[Live Link to Rainforest](https://rainforest-r7d3.onrender.com)
 
 ### Technologies at Play:
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![GithubPages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white) ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![Google Cloud Platform](https://img.shields.io/badge/Google_Cloud_Platform-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
@@ -46,6 +43,7 @@ Request Body:
 
 **Signing Up and In with Google:**
 > Sign Up or Sign In seamlessly with Google OAuth
+
 [![signing-up-with-google.gif](https://i.postimg.cc/rppM6Bh6/signing-up-with-google.gif)](https://postimg.cc/21gPhKRT)
 
 #### Sign Up
@@ -60,12 +58,14 @@ Request Body:
 Log in to an existing account.
 
 Request Body:
+
 ```json
 {
   "username": "example_user",
   "password": "examplePassword"
 }
 ```
+
 #### Log In
 **Users**:
 - As a registered user, I want to log in to the website via a log-in form.
@@ -75,7 +75,9 @@ Request Body:
 #### Demo User
 **Signing In with Demo User:**
 > Demo Rainforest with our Preset Demo Account
+
 [![signing-in-with-demo.gif](https://i.postimg.cc/WzZsW05h/signing-in-with-demo.gif)](https://postimg.cc/sGVF1Gdr)
+
 - As an unregistered user, I would like a button on the login page that allows me to visit the site as a guest without signing up or logging in.
 - The Demo User button should log me in and grant access to the site's features and functionality for testing purposes.
 
@@ -87,6 +89,7 @@ Request Body:
 ## Reviews
 **Review Management:**
 > Create, Update, or Delete Reviews
+
 [![review-management.gif](https://i.postimg.cc/3x1Yc8FC/review-management.gif)](https://postimg.cc/qNNPtdYz)
 
 #### `POST /products/:productId/reviews/new`
@@ -132,6 +135,7 @@ Request Body:
 ## Cart
 **Cart Management:**
 > Add to Cart, Update Quantity, Save for Later, Checkout Cart, or Delete from Cart
+
 [![cart-management.gif](https://i.postimg.cc/TYrRnqys/cart-management.gif)](https://postimg.cc/6ypJXZfV)
 
 ##### Create Cart
@@ -153,6 +157,7 @@ Request Body:
 ## Products
 **Product Management:**
 > Create a New Listing, Update a Product Listing, or Delete a Product Listing
+
 [![product-management.gif](https://i.postimg.cc/y6368z7s/product-management.gif)](https://postimg.cc/7bDrKdCW)
 
 ### Endpoints
