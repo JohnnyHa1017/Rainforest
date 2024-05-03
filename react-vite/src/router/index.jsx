@@ -9,6 +9,9 @@ import ProductReviews from '../components/ProductReviews/ProductReviews';
 import ProductDetailsPage from '../components/ProductDetails/ProductDetails';
 import CartManagement from '../components/CartManagement/CartManagements';
 import ShopByCategory from '../components/SearchAndCategories/SearchAndCategories';
+import ProductManagements from '../components/ProductManagement/ProductManagement';
+import ListProduct from '../components/ProductsForm/ListProduct';
+import UpdateProduct from '../components/ProductsForm/UpdateProduct';
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -31,10 +34,18 @@ export const router = createBrowserRouter([
         path: "/products/:productId",
         element: <ProductDetailsPage />
       },
-      // {
-      //   path: "/products",
-      //   element: <ListNewProduct />
-      // },
+      {
+        path: "/manage",
+        element: <ProductManagements />
+      },
+      {
+        path: "/products/manage/new",
+        element: <ListProduct />
+      },
+      {
+        path: "/products/manage/:productId/edit",
+        element: <UpdateProduct />
+      },
       {
         path: "products/:productId/reviews",
         element: <ProductReviews />

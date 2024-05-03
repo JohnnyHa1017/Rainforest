@@ -26,6 +26,17 @@ def get_one_product(id):
     return product.to_dict(), 200
 
 
+# Get Products Listed by Current User
+@product_routes.route('/manage')
+@login_required
+def client_owned_products():
+    # Query products belonging to the current user
+    products = Product.query.filter_by(user_id=current_user.id).all()
+    products_data = [product.to_dict() for product in products]
+
+    return jsonify({'products': products_data}), 200
+
+
 # Create Product Listing
 @product_routes.route('/new', methods=['POST'])
 @login_required
@@ -64,6 +75,65 @@ def create_listing():
         errors = form.errors
         return jsonify({'errors': errors}), 400
 
+
+# Update a Product Listing
+@product_routes.route('/<int:id>/edit', methods=['PUT'])
+@login_required
+def edit_listing(id):
+    product = Product.query.get(id)
+
+    form = ProductForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if not product:
+        return jsonify({'error': 'Unable to locate product'}), 404
+
+    if product.user_id != current_user.id:
+        return jsonify({'error:' 'You are not authorized to make changes to this product.'}), 403
+
+    if form.validate_on_submit():
+        if 'image_url' in request.files:
+            # Handle image upload and update product image URL
+            upload_request = request.files['image_url']
+            upload_request.filename = get_unique_filename(upload_request.filename)
+            upload = upload_file_to_s3(upload_request)
+
+            if 'url' not in upload:
+                return jsonify({'error': 'Image upload failed.'}), 500
+            product.image = upload['url']
+
+        # Update product details
+        product.name = form.name.data
+        product.price = form.price.data
+        product.category = form.category.data
+        product.quantity_available = form.quantity_available.data
+        product.body = form.body.data
+
+        db.session.commit()
+
+        return jsonify({"message": "Product has been updated successfully."}), 200
+    else:
+        return jsonify({'errors': form.errors}), 400
+
+
+# Delete a Product Listing
+@product_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_listing(id):
+    product = Product.query.get(id)
+
+    if not product:
+        return jsonify({'error': 'Unable to locate product'}), 404
+
+    if product.user_id != current_user.id:
+        return jsonify({'error': 'You are not authorized to delete this product.'}), 403
+
+    db.session.delete(product)
+    db.session.commit()
+
+    return jsonify({'message': 'Product listing successfully deleted.'}), 200
+
+
 # Shop by Categories
 @product_routes.route('/categories/<string:category>')
 def shopCategories(category):
@@ -74,9 +144,6 @@ def shopCategories(category):
 
     return jsonify({'products': [product.to_dict() for product in categorizedProducts]}), 200
 
-
-# Updating a Product - Not Part of CRUD
-# Deleting a Product - Not Part of CRUD
 
 ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##
 ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ## ## BREAK ##

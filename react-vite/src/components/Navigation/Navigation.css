@@ -58,7 +58,8 @@ ul.profile-dropdown {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  display: block;
+  display: flex;
+  flex-direction: column;
   z-index: 2;
   max-width: 300px;
   overflow-x: auto;
@@ -67,6 +68,23 @@ ul.profile-dropdown {
   right: 80px;
 }
 
+ul.profile-dropdown li.manage-account button {
+  color: rgb(255, 255, 255);
+  background-color: #009687b9;
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 8px;
+  padding: 8px;
+}
+
+ul.profile-dropdown .manage-account button:hover{
+  background-color: #1a9d48;
+}
+
+ul.profile-dropdown li {
+  margin-bottom: 10px;
+}
 
 ul.profile-dropdown li:hover {
   text-decoration: underline;

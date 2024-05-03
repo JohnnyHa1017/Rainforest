@@ -1,7 +1,10 @@
 // Action Types
 export const LOAD_ALL_PRODUCTS = 'products/LOAD_ALL'
 export const LOAD_ONE_PRODUCT = 'products/LOAD_ONE'
+export const CLIENT_OWNED = 'products/CLIENT_OWNED'
 export const LIST_NEW_PRODUCT = 'products/LIST_NEW'
+export const EDIT_A_PRODUCT = 'products/EDIT'
+export const DELETE_A_PRODUCT = 'products/DELETE'
 export const SHOP_BY_CATEGORY = 'products/SHOP_BY_CATEGORY'
 
 // Action Creators
@@ -15,8 +18,23 @@ export const loadOneProduct = (data) => ({
   data
 });
 
+export const loadClientOwned = (data) => ({
+  type: CLIENT_OWNED,
+  data
+});
+
 export const listNewProduct = (data) => ({
   type: LIST_NEW_PRODUCT,
+  data
+});
+
+export const editAProduct = (data) => ({
+  type: EDIT_A_PRODUCT,
+  data
+});
+
+export const deleteAProduct = (data) => ({
+  type: DELETE_A_PRODUCT,
   data
 });
 
@@ -45,17 +63,32 @@ export const loadAllThunk = () => async (dispatch) => {
 }
 
 // Load One Product Thunk
-export const loadOneThunk = (productId) => async (dispatch) => {
+export const loadOneThunk = (productId, endpoint = `/api/products/${productId}`) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/products/${productId}`);
+    const response = await fetch(endpoint);
 
     if (!response.ok) {
       throw new Error('Failed to fetch product.');
     }
 
     const data = await response.json();
-
     dispatch(loadOneProduct(data));
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
+// Load Products Listed by Client Thunk
+export const loadClientOwnedThunk = () => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/products/manage`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch products.');
+    }
+
+    const data = await response.json();
+    dispatch(loadClientOwned(data));
   } catch (error) {
     return { error: error.message };
   }
@@ -64,10 +97,9 @@ export const loadOneThunk = (productId) => async (dispatch) => {
 // List New Product Thunk
 export const listNewThunk = (newProduct) => async (dispatch) => {
   try {
-    const response = await fetch('/api/products/', {
+    const response = await fetch('/api/products/new', {
       method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newProduct)
+      body: newProduct
     });
 
     if (response.ok) {
@@ -76,6 +108,45 @@ export const listNewThunk = (newProduct) => async (dispatch) => {
       dispatch(listNewProduct(data));
     } else {
       throw new Error('Failed to list new product.');
+    }
+
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
+// Edit a Product Thunk
+export const editAProductThunk = (productId, productToEdit) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/products/${productId}/edit`, {
+      method: 'PUT',
+      body: productToEdit
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update product');
+    }
+
+    const data = await response.json();
+    dispatch(editAProduct(data));
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
+// Delete a Product Thunk
+export const deleteAProductThunk = (productId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/products/${productId}`, {
+      method: "DELETE"
+    });
+
+    if (response.ok) {
+      dispatch(deleteAProduct(productId));
+      return { success: true };
+
+    } else {
+      throw new Error('Failed to delete product.');
     }
 
   } catch (error) {
@@ -111,8 +182,19 @@ const productReducer = (state = { }, action) => {
     case LOAD_ONE_PRODUCT: {
       return { ...state, ...action.data }
     }
+    case CLIENT_OWNED: {
+      return { ...state, ...action.data }
+    }
     case LIST_NEW_PRODUCT: {
       return { ...state, ...action.data }
+    }
+    case EDIT_A_PRODUCT: {
+      return action.data
+    }
+    case DELETE_A_PRODUCT: {
+      const newState = { ...state }
+      delete newState[action.data]
+      return newState
     }
     case SHOP_BY_CATEGORY: {
       return { ...state, categories: action.data }

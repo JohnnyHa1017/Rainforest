@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as CartActions from '../../redux/carts';
 import * as ProductActions from '../../redux/products';
-import { updateCartThunk } from "../../redux/addtocart";
+import { addToCartThunk, updateCartThunk, removeFromCartThunk } from '../../redux/addtocart';
 import { useModal } from "../../context/Modal";
-import { addToCartThunk, removeFromCartThunk } from '../../redux/addtocart';
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import './CartManagements.css';
 
@@ -17,7 +16,6 @@ const LoadingSpinner = () => {
     </div>
   );
 };
-
 
 const CheckoutMessage = ({ message, isLoading }) => {
   return (
@@ -121,7 +119,7 @@ const CartManagement = () => {
   }
 
   if (!currentUser || !userCart || !allProducts) {
-    return <p>Loading, one moment please...</p>;
+    return <p>Please Login or Sign Up to begin shopping...</p>
   }
 
   return (
