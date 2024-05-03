@@ -24,6 +24,11 @@ All endpoints are relative to the base URL above.
 
 Authentication is required for certain endpoints. You can obtain an API token by signing up or logging in through the website.
 
+**Signing Up and In with Google:**
+> Sign Up or Sign In seamlessly with Google OAuth
+
+[![signing-up-with-google.gif](https://i.postimg.cc/rppM6Bh6/signing-up-with-google.gif)](https://postimg.cc/21gPhKRT)
+
 ## Endpoints
 #### `POST /signup`
 
@@ -40,12 +45,6 @@ Request Body:
   "password": "examplePassword"
 }
 ```
-
-**Signing Up and In with Google:**
-> Sign Up or Sign In seamlessly with Google OAuth
-
-
-[![signing-up-with-google.gif](https://i.postimg.cc/rppM6Bh6/signing-up-with-google.gif)](https://postimg.cc/21gPhKRT)
 
 #### Sign Up
 **Users**:
