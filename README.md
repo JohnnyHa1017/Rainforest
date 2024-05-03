@@ -44,6 +44,7 @@ Request Body:
 **Signing Up and In with Google:**
 > Sign Up or Sign In seamlessly with Google OAuth
 
+
 [![signing-up-with-google.gif](https://i.postimg.cc/rppM6Bh6/signing-up-with-google.gif)](https://postimg.cc/21gPhKRT)
 
 #### Sign Up
