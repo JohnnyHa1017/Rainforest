@@ -136,13 +136,19 @@ const ProductDetailsPage = () => {
               </span>
             ))}
           </div>
-          {userReview ? (
-            <>
-              <button className='edit-review' onClick={() => handleUpdateReview()}>Edit your Review</button>
-              <button className='delete-review' onClick={() => handleDeleteReview()}>Delete your Review</button>
-            </>
+          {currentUser ? (
+            userReview ? (
+              <>
+                <button className='edit-review' onClick={handleUpdateReview}>Edit your Review</button>
+                <button className='delete-review' onClick={handleDeleteReview}>Delete your Review</button>
+              </>
+            ) : (
+              <button className='create-review' onClick={handleAddReview}>Add a Review</button>
+            )
           ) : (
-            <button className='create-review' onClick={() => handleAddReview()}>Add a Review</button>
+            <div className='login-notice'>
+              <p>Please log in to add or edit reviews.</p>
+            </div>
           )}
           {relatedReviews.reverse().map((review, index) => {
               const user = allUsers ? allUsers.find(user => user.id == review.user_id) : null;

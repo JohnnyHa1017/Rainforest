@@ -10,6 +10,7 @@ function Navigation() {
   const dispatch = useDispatch();
   const [showCart, setShowCart] = useState(false);
   const allProducts = useSelector((state) => state?.products?.products)
+  const currentUser = useSelector((state) => state?.session?.user)
 
   useEffect(() => {
     dispatch(loadAllThunk())
@@ -46,11 +47,20 @@ return (
     </div>
 
       {/* Additional Links */}
-      <div className="additional-links">
+    <div className="additional-links">
+        {/* Welcome message */}
+        {currentUser? (
+          <div className="welcome-message">
+            <h6>Welcome, {currentUser?.first_name}</h6>
+          </div>
+      ) : <></>
+        }
+
         {/* Profile button */}
         <div className="profile-button">
           <ProfileButton />
-        </div>
+      </div>
+
         {/* Cart button */}
         <div className="cart-button">
           <button className="toggle-cart" onClick={toggleCart}>
@@ -63,12 +73,11 @@ return (
       <div className={`cart-sidebar ${showCart ? "open" : ""}`}>
         <button className="close-cart" onClick={toggleCart}>Close</button>
         <button className="view-cart" onClick={() => window.location.href = '/carts'}>View Cart</button>
-        <div className="cart-content">
-          {/* Cart items */}
-          <CartManagement />
-        </div>
+      <div className="cart-content">
+        {/* Cart items */}
+        <CartManagement />
       </div>
-
+    </div>
   </nav>
   );
 }
