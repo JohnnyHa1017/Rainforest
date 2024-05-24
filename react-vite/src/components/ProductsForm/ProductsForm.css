@@ -16,7 +16,7 @@
 .create-update-product-form input[type="text"],
 .create-update-product-form input[type="number"],
 .create-update-product-form textarea {
-  width: 100%;
+  width: 97%;
   padding: 8px;
   margin-bottom: 20px;
   border: 1px solid #ccc;

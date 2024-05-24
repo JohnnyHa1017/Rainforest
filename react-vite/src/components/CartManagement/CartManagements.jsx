@@ -17,11 +17,15 @@ const LoadingSpinner = () => {
   );
 };
 
+// Checkout Message Modal
 const CheckoutMessage = ({ message, isLoading }) => {
   return (
-    <div>
+    <div className="checkout-message-container">
       {isLoading ? (
-        <LoadingSpinner />
+        <>
+          <div className="checkout-overlay" />
+          <LoadingSpinner />
+        </>
       ) : (
         <h4>{message}</h4>
       )}
