@@ -58,6 +58,9 @@ const ShopByCategory = () => {
               <img className="product-image" src={product.image} alt={product.name} />
             </NavLink>
             <div className="quantity-container">
+              {!userCart && (
+                  <h6>Please Login or Sign Up to begin shopping!</h6>
+                )}
               <button className="add-to-cart-button" onClick={() => handleAddToCart(product.id)}>
                 Add to Cart
               </button>
