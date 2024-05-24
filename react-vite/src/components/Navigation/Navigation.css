@@ -35,6 +35,11 @@ nav {
   margin-left: 40px;
 }
 
+/* Welcome Message */
+.welcome-message{
+  color: #ffffff;
+}
+
 .profile-button button,
 .cart-button button {
   border: none;

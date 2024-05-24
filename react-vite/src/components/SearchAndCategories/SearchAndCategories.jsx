@@ -18,6 +18,7 @@ const ShopByCategory = () => {
   const { category } = useParams();
   const userCart = useSelector((state) => state.carts?.cart_items);
   const categorizedProducts = useSelector((state) => state.products.categories?.products);
+  const [shouldReload, setShouldReload] = useState(false);
   const isLoading = useSelector((state) => state.products.loading);
 
   useEffect(() => {
@@ -29,8 +30,13 @@ const ShopByCategory = () => {
   const handleAddToCart = (productId) => {
     const quantity = 1;
     dispatch(addToCartThunk(userCart.id, productId, quantity))
-    .then(() => setShouldReload(!shouldReload));
-    window.location.href = '/carts';
+      .then(() => {
+        setShouldReload(!shouldReload);
+        window.location.href = '/carts';
+      })
+      .catch((error) => {
+        console.error('Error adding to cart:', error);
+      });
   };
 
   if (isLoading) {
@@ -52,6 +58,10 @@ const ShopByCategory = () => {
               <img className="product-image" src={product.image} alt={product.name} />
             </NavLink>
             <div className="quantity-container">
+              <h5>Price: ${product.price}</h5>
+              {!userCart && (
+                  <h6>Please Login or Sign Up to begin shopping!</h6>
+                )}
               <button className="add-to-cart-button" onClick={() => handleAddToCart(product.id)}>
                 Add to Cart
               </button>
