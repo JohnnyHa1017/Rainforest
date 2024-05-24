@@ -51,7 +51,6 @@ const ProductManagement = () => {
     );
   };
 
-
   // Function to handle deleting a product
   const handleDeleteProduct = async (productId) => {
     if (productId) {
@@ -76,20 +75,25 @@ const ProductManagement = () => {
       {products.map((product) => (
         product.user_id === currentUser.id && (
           <div key={product.id} className="product-item">
+            <div className="management-image">
             <NavLink to={`/products/${product.id}`}>
               <img src={product.image} alt={product.title} className="product-image" />
             </NavLink>
+            </div>
+
             <div className="product-details">
-              <h3 className="product-title">{product.title}</h3>
-              <p className="product-description">{product.description}</p>
-              <p className="product-category">Marketed In: {product.category}</p>
-              <p className="product-body">{product.body}</p>
-              <p className="product-quantity">Quantity Available: {product.quantity_available}</p>
+              <h3 className="product-title">{product.name}</h3>
+                <p className="product-description">{product.description}</p>
+                <p className="product-quantity">Quantity Available: {product.quantity_available}</p>
+                <p className="product-category">Marketed In: {product.category}</p>
+                <p className="product-body">{product.body}</p>
+            </div>
+
               <div className="product-actions">
                 <button className="edit-button" onClick={() => handleEditProduct(product.id)}>Edit</button>
                 <button className="delete-button" onClick={() => openDeleteModal(product.id)}>Delete</button>
               </div>
-            </div>
+
           </div>
         )
       ))}

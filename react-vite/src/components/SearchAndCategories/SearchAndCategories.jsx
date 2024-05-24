@@ -58,6 +58,7 @@ const ShopByCategory = () => {
               <img className="product-image" src={product.image} alt={product.name} />
             </NavLink>
             <div className="quantity-container">
+              <h5>Price: ${product.price}</h5>
               {!userCart && (
                   <h6>Please Login or Sign Up to begin shopping!</h6>
                 )}
