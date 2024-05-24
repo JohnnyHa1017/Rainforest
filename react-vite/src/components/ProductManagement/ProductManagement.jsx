@@ -37,16 +37,20 @@ const ProductManagement = () => {
   // Function to open deletion modal
   const openDeleteModal = (productId) => {
     setModalContent(
-      <div className="modal-content">
-        <h2>Confirm Deletion</h2>
-        <p>Are you sure you want to delete this product?</p>
-        <div className="modal-buttons">
-          <button className="modal-button-cancel" onClick={closeModal}>Cancel</button>
-          <button className="modal-button-confirm" onClick={() => handleDeleteProduct(productId)}>Confirm</button>
+      <>
+        <div className="modal-overlay" onClick={closeModal}></div>
+        <div className="modal-content">
+          <h2>Confirm Deletion</h2>
+          <p>Are you sure you want to delete this product?</p>
+          <div className="modal-buttons">
+            <button className="modal-button-cancel" onClick={closeModal}>Cancel</button>
+            <button className="modal-button-confirm" onClick={() => handleDeleteProduct(productId)}>Confirm</button>
+          </div>
         </div>
-      </div>
+      </>
     );
   };
+
 
   // Function to handle deleting a product
   const handleDeleteProduct = async (productId) => {
