@@ -19,7 +19,6 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
   const [submitted, setSubmitted] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
 
-
   useEffect(() => {
     if (updatingProduct) {
       setName(updatingProduct.name);
@@ -31,8 +30,26 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
     }
   }, [updatingProduct]);
 
+  const validateForm = () => {
+    const errors = {};
+    if (!name.trim()) errors.name = 'Name is required.';
+    if (!price || price <= 0) errors.price = 'Price must be a positive number.';
+    if (!category.trim()) errors.category = 'Category is required.';
+    if (!quantity_available || quantity_available <= 0) errors.quantity = 'Quantity must be a positive number.';
+    if (body.length <= 10) errors.body = 'Description must be greater than 10 characters.';
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationErrors = validateForm();
+    setValidations(validationErrors);
+    setSubmitted(true);
+
+    if (Object.keys(validationErrors).length > 0) {
+      return;
+    }
 
     const formData = new FormData();
     formData.append('name', name);
@@ -43,19 +60,11 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
 
     if (image_url !== null) {
       formData.append('image_url', image_url);
-    }
-
-    else {
-      formData.image_url = updatingProduct.image
+    } else {
+      formData.image_url = updatingProduct.image;
     }
 
     setImageLoading(true);
-    setSubmitted(true);
-
-    if (body.length <= 10) {
-      setValidations({ ...validations, body: 'Your description must be greater than 10 characters.' });
-      return;
-    }
 
     if (!productId) {
       await dispatch(listNewThunk(formData));
@@ -66,30 +75,28 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
     }
   };
 
-
   return (
     <>
       <form onSubmit={handleSubmit} encType='multipart/form-data' className='create-update-product-form'>
-        {submitted && validations.body &&
-          <p style={{ color: 'red' }}>
-            {validations.body}
-          </p>
-        }
         <label>
           Name:
           <input type='text' value={name} onChange={(e) => setName(e.target.value)} />
+          {submitted && validations.name && <p style={{ color: 'red' }}>{validations.name}</p>}
         </label>
         <label>
           Price:
           <input type='number' value={price} onChange={(e) => setPrice(e.target.value)} />
+          {submitted && validations.price && <p style={{ color: 'red' }}>{validations.price}</p>}
         </label>
         <label>
           Category:
           <input type='text' value={category} onChange={(e) => setCategory(e.target.value)} />
+          {submitted && validations.category && <p style={{ color: 'red' }}>{validations.category}</p>}
         </label>
         <label>
           Quantity Available:
           <input type='number' value={quantity_available} onChange={(e) => setQuantity(e.target.value)} />
+          {submitted && validations.quantity && <p style={{ color: 'red' }}>{validations.quantity}</p>}
         </label>
         <textarea
           className='body-textarea'
@@ -101,8 +108,7 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
           rows={7}
           cols={70}
         />
-        {submitted &&
-          <p style={{ color: 'red' }}>{validations.image_url}</p>}
+        {submitted && validations.body && <p style={{ color: 'red' }}>{validations.body}</p>}
         <div className='image-file-field'>
           <label htmlFor='image'>
             <input
@@ -116,7 +122,6 @@ const CreateProductForm = ({ buttonName, updatingProduct }) => {
           <button
             type='submit'
             className='Product-Submit-btn'
-            disabled={submitted && (body.length <= 10 || !name || !price || !category || !quantity_available || validations)}
           >
             {buttonName}
           </button>
