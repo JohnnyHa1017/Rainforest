@@ -73,13 +73,13 @@ const ProductManagement = () => {
       <h1 className="welcome-title">Welcome, {currentUser.first_name}!</h1>
       <h4 className="page-title">Manage your Products</h4>
       {products.map((product) => (
-        product.user_id === currentUser.id && (
+        product?.user_id === currentUser?.id && (
           <div key={product.id} className="product-item">
-            <div className="management-image">
+
             <NavLink to={`/products/${product.id}`}>
               <img src={product.image} alt={product.title} className="product-image" />
             </NavLink>
-            </div>
+
 
             <div className="product-details">
               <h3 className="product-title">{product.name}</h3>
@@ -87,12 +87,12 @@ const ProductManagement = () => {
                 <p className="product-quantity">Quantity Available: {product.quantity_available}</p>
                 <p className="product-category">Marketed In: {product.category}</p>
                 <p className="product-body">{product.body}</p>
-            </div>
 
               <div className="product-actions">
                 <button className="edit-button" onClick={() => handleEditProduct(product.id)}>Edit</button>
                 <button className="delete-button" onClick={() => openDeleteModal(product.id)}>Delete</button>
               </div>
+            </div>
 
           </div>
         )
