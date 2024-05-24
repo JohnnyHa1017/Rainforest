@@ -44,7 +44,12 @@ const AllProducts = () => {
               <NavLink to={`/products/${product.id}`}>
                 <img className='product-image' src={product.image} alt={product.name} />
               </NavLink>
+              <div>
+              {!userCart && (
+                <h6>Please Login or Sign Up to begin shopping!</h6>
+              )}
               <button className="add-to-cart-button" onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
+              </div>
             </div>
           ))
         ) : (

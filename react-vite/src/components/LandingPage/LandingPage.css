@@ -16,8 +16,10 @@ h3 {
   gap: 20px;
 }
 
-
 .product-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   flex: 0 0 calc(20% - 20px);
   margin-bottom: 20px;
   border: 1px solid #ddd;
@@ -30,6 +32,14 @@ h3 {
   color: #333;
   transition: all 0.3s ease;
   position: relative;
+}
+
+.product-container h6 {
+  font-family: "Spectral SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: none;
+  margin-top: 10px;
 }
 
 .product-container:hover {
@@ -47,28 +57,28 @@ h3 {
   display: inline-block;
   border: none;
   padding: 8px 8px;
-  background-color: #f6dea3ab;
+  background-color: #b4dfe4ab;
   border-radius: 3px 12px 12px;
   font-family: "Spectral SC", serif;
   font-weight: 400;
   font-style: normal;
   font-size: 10px;
+  width: 33%;
 }
 
 .add-to-cart-button {
   font-family: "Spectral SC", serif;
   font-weight: 400;
   font-style: normal;
-  margin-top: 10px;
+  margin-top: auto;
   background-color: #f0c14b;
   color: #111;
   border: 1px solid #a88734;
-  padding: 8px 12px;
+  padding: 8px;
   border-radius: 3px;
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
-  position: relative;
 }
 
 .add-to-cart-button:hover {
