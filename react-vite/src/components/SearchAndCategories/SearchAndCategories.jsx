@@ -18,6 +18,7 @@ const ShopByCategory = () => {
   const { category } = useParams();
   const userCart = useSelector((state) => state.carts?.cart_items);
   const categorizedProducts = useSelector((state) => state.products.categories?.products);
+  const [shouldReload, setShouldReload] = useState(false);
   const isLoading = useSelector((state) => state.products.loading);
 
   useEffect(() => {
@@ -29,8 +30,13 @@ const ShopByCategory = () => {
   const handleAddToCart = (productId) => {
     const quantity = 1;
     dispatch(addToCartThunk(userCart.id, productId, quantity))
-    .then(() => setShouldReload(!shouldReload));
-    window.location.href = '/carts';
+      .then(() => {
+        setShouldReload(!shouldReload);
+        window.location.href = '/carts';
+      })
+      .catch((error) => {
+        console.error('Error adding to cart:', error);
+      });
   };
 
   if (isLoading) {
