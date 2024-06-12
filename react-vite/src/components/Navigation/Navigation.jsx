@@ -53,7 +53,7 @@ return (
           <div className="welcome-message">
             <h6>Welcome, {currentUser?.first_name}</h6>
           </div>
-      ) : <h6>Welcome, Log In</h6>
+      ) : <h6>Please Log In</h6>
         }
 
         {/* Profile button */}
